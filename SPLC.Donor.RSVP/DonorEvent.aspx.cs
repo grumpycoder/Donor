@@ -155,7 +155,7 @@ namespace SPLC.Donor.RSVP
                 Session["SPLC.Donor.RSVP.DEL"] = donorEventList;
 
 
-                var donorEmail = new DonorEmail(ConnectionString, User.Identity.ToString(), ConfigurationManager.AppSettings["EmailTemplatesURL"], donorList, donorEventList);
+                var donorEmail = new DonorEmail(User.Identity.ToString(), ConfigurationManager.AppSettings["EmailTemplatesURL"], donorList, donorEventList);
                 donorEmail.SendEmail();
 
                 Response.Redirect("Confirmation.aspx");

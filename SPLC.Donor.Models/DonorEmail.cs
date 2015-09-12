@@ -1,88 +1,78 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Configuration;
+using System.IO;
 using System.Net;
 using System.Net.Mail;
 using System.Text;
-using System.IO;
 
 namespace SPLC.Donor.Models
 {
     public class DonorEmail
     {
-        #region Private Variables
-            private static string _ConnStr = "";
-            private static string _User = "";
-        #endregion
+        private const string BaseDate = "1/1/2000";
+        private static string _user = "";
 
         #region Accessors
-            public DonorList _DL { get; set; }
-            public DonorEventList _DEL { get; set; }
-            public string _URL { get; set; }
 
-            public bool IsValid { get; set; }
+        public DonorList _DL { get; set; }
+        public DonorEventList _DEL { get; set; }
+        public string _URL { get; set; }
+        public bool IsValid { get; set; }
+
+        private string ConnectionString { get; set; }
+
         #endregion
 
         #region Constructors
 
         public DonorEmail()
         {
+            ConnectionString = ConfigurationManager.ConnectionStrings["Donor_ConnStr"].ToString();
             IsValid = false;
         }
 
-        public DonorEmail(string pConnString, string pUser, string pURL, DonorList pDL)
+        public DonorEmail(string user, string url) : this()
         {
-            IsValid = false;
-            _ConnStr = pConnString;
-            _User = pUser;
-            _URL = pURL;
-            _DL = pDL;
+            _user = user;
+            _URL = url;
         }
 
-        public DonorEmail(string pConnString, string pUser, string pURL, DonorEventList pDEL)
+        public DonorEmail(string user, string url, DonorList donorList) : this(user, url)
         {
-            IsValid = false;
-            _ConnStr = pConnString;
-            _User = pUser;
-            _URL = pURL;
-            _DEL = pDEL;
+            _DL = donorList;
         }
 
-        public DonorEmail(string pConnString, string pUser, string pURL, DonorList pDL, DonorEventList pDEL)
+        public DonorEmail(string user, string url, DonorEventList donorEventList) : this(user, url)
         {
-            IsValid = false;
-            _ConnStr = pConnString;
-            _User = pUser;
-            _URL = pURL;
-            _DL = pDL;
-            _DEL = pDEL;
+            _DEL = donorEventList;
+        }
+
+        public DonorEmail(string user, string url, DonorList donorList, DonorEventList donorEventList) : this(user, url, donorList)
+        {
+            _DEL = donorEventList;
         }
 
         #endregion
 
         #region Standard Methods      
-
-
+        
         public void SendEmail()
         {
-            
 
             try
             {
-                StringBuilder sbMsg = new StringBuilder();
-                string strGetURL = "";
+                var msg = new StringBuilder();
+                var getUrl = "";
 
-                if (_DEL.WaitingList_Date > DateTime.Parse("1/1/2000"))
+                if (_DEL.WaitingList_Date > DateTime.Parse(BaseDate))
                 {
                     switch (_DEL.Attending)
                     {
                         case true:
-                            strGetURL = _URL + @"/templates/wait_yes.html";
+                            getUrl = _URL + @"/templates/wait_yes.html";
                             break;
                         case false:
-                            strGetURL = _URL + @"/templates/rsvp_no.html";
+                            getUrl = _URL + @"/templates/rsvp_no.html";
                             break;
                     }
                 }
@@ -91,34 +81,34 @@ namespace SPLC.Donor.Models
                     switch (_DEL.Attending)
                     {
                         case true:
-                            strGetURL = _URL + @"/templates/rsvp_yes.html";
+                            getUrl = _URL + @"/templates/rsvp_yes.html";
                             break;
                         case false:
-                            strGetURL = _URL + @"/templates/rsvp_yes.html";
+                            getUrl = _URL + @"/templates/rsvp_yes.html";
                             break;
                     }
                 }
 
-                HttpWebRequest mRequest = (HttpWebRequest)WebRequest.Create(strGetURL);
-                mRequest.Method = "GET";
-                WebResponse mResponse = mRequest.GetResponse();
-                StreamReader sr = new StreamReader(mResponse.GetResponseStream(), System.Text.Encoding.UTF8);
-                sbMsg.Append(sr.ReadToEnd());
-                sr.Close();
-                mResponse.Close();
-
-                EventList EL = new EventList(_User, _DEL.fk_Event);
-
+                var request = (HttpWebRequest)WebRequest.Create(getUrl);
+                request.Method = "GET";
+                var response = request.GetResponse();
                 
-                if (_DEL.WaitingList_Date > DateTime.Parse("1/1/2000"))
+                var reader = new StreamReader(response.GetResponseStream(), Encoding.UTF8);
+                msg.Append(reader.ReadToEnd());
+                reader.Close();
+                response.Close();
+
+                var eventList = new EventList(_user, _DEL.fk_Event);
+                
+                if (_DEL.WaitingList_Date > DateTime.Parse(BaseDate))
                 {
                     switch (_DEL.Attending)
                     {
                         case true:
-                            sbMsg = sbMsg.Replace("@{TEXT}", EL.HTML_Wait);
+                            msg = msg.Replace("@{TEXT}", eventList.HTML_Wait);
                             break;
                         case false:
-                            sbMsg = sbMsg.Replace("@{TEXT}", EL.HTML_No);
+                            msg = msg.Replace("@{TEXT}", eventList.HTML_No);
                             break;
                     }
                 }
@@ -127,72 +117,64 @@ namespace SPLC.Donor.Models
                     switch (_DEL.Attending)
                     {
                         case true:
-                            sbMsg = sbMsg.Replace("@{TEXT}", EL.HTML_Yes);
+                            msg = msg.Replace("@{TEXT}", eventList.HTML_Yes);
                             break;
                         case false:
-                            sbMsg = sbMsg.Replace("@{TEXT}", EL.HTML_No);
+                            msg = msg.Replace("@{TEXT}", eventList.HTML_No);
                             break;
                     }
                 }
 
-                sbMsg = ParseText(sbMsg, EL, _DL);
+                msg = ParseText(msg, eventList, _DL);
 
-                SmtpClient smtpClient = new SmtpClient();
-                smtpClient.EnableSsl = false;
+                var smtpClient = new SmtpClient {EnableSsl = false};
+                
+                var mail = new MailMessage
+                {
+                    BodyEncoding = Encoding.GetEncoding("utf-8"),
+                    IsBodyHtml = true,
+                    Subject = "SPLC Event Confirmation",
+                    Body = msg.ToString()
+                };
 
-                string strHost = smtpClient.Host;
-                int intPort = smtpClient.Port;
-
-                MailMessage mail = new MailMessage();
-                mail.BodyEncoding = System.Text.Encoding.GetEncoding("utf-8");
-
-                mail.IsBodyHtml = true;
-                mail.Subject = "SPLC Event Confirmation";
-
-                mail.Body = sbMsg.ToString();
-                mail.To.Add(new MailAddress(_DL.EmailAddress.ToString()));
+                mail.To.Add(new MailAddress(_DL.EmailAddress));
                 smtpClient.Send(mail);
 
             }
-            catch (Exception EX)
+            catch (Exception ex)
             {
-                DonorMessages DMError = new DonorMessages(_ConnStr);
-                DMError.MessageId = 2200;
-                DMError.MessageText = "ERROR: DonorEmail.SendEmail()";
-                DMError.MessageDescription = EX.Message;
-                DMError.User_Added = _User;
-                DMError.AddNew();
-             }
+                var donorMessages = new DonorMessages(ConnectionString)
+                {
+                    MessageId = 2200,
+                    MessageText = "ERROR: DonorEmail.SendEmail()",
+                    MessageDescription = ex.Message,
+                    User_Added = _user
+                };
+                donorMessages.AddNew();
+            }
         }
 
-        public StringBuilder ParseText(StringBuilder pStringB,EventList pEL, DonorList pDL)
+        public StringBuilder ParseText(StringBuilder message, EventList eventList, DonorList donorList)
         {
-            //pStringB = pStringB.Replace("@{DATE}", DateTime.Today.ToString("MMMM dd, yyyy"));
-            //pStringB = pStringB.Replace("@{SALUTATION}", pDL.AccountName);
-
-            //pStringB = pStringB.Replace("@{DisplayName}", pEL.DisplayName);
-            //pStringB = pStringB.Replace("@{City}", pEL.VenueCity);
-            //pStringB = pStringB.Replace("@{StartDate}", pEL.StartDate.ToLongDateString());
-            //pStringB = pStringB.Replace("@{StartTime}", pEL.StartDate.ToShortTimeString());
-            pStringB = ParseTextSubDL(pStringB, pDL);
-            pStringB = ParseTextSubEL(pStringB, pEL);
-            return pStringB;
+            message = ParseTextSubDL(message, donorList);
+            message = ParseTextSubEL(message, eventList);
+            return message;
         }
 
-        public StringBuilder ParseTextSubDL(StringBuilder pStringB, DonorList pDL)
+        private StringBuilder ParseTextSubDL(StringBuilder message, DonorList donorList)
         {
-            pStringB = pStringB.Replace("@{SALUTATION}", pDL.AccountName);
-            return pStringB;
+            message = message.Replace("@{SALUTATION}", donorList.AccountName);
+            return message;
         }
 
-        public StringBuilder ParseTextSubEL(StringBuilder pStringB, EventList pEL)
+        public StringBuilder ParseTextSubEL(StringBuilder message, EventList eventList)
         {
-            pStringB = pStringB.Replace("@{DATE}", DateTime.Today.ToString("MMMM dd, yyyy"));
-            pStringB = pStringB.Replace("@{DisplayName}", pEL.DisplayName);
-            pStringB = pStringB.Replace("@{City}", pEL.VenueCity);
-            pStringB = pStringB.Replace("@{StartDate}", pEL.StartDate.ToLongDateString());
-            pStringB = pStringB.Replace("@{StartTime}", pEL.StartDate.ToShortTimeString());
-            return pStringB;
+            message = message.Replace("@{DATE}", DateTime.Today.ToString("MMMM dd, yyyy"));
+            message = message.Replace("@{DisplayName}", eventList.DisplayName);
+            message = message.Replace("@{City}", eventList.VenueCity);
+            message = message.Replace("@{StartDate}", eventList.StartDate.ToLongDateString());
+            message = message.Replace("@{StartTime}", eventList.StartDate.ToShortTimeString());
+            return message;
         }
 
         #endregion

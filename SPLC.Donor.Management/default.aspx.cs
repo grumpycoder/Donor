@@ -185,7 +185,7 @@ namespace SPLC.Donor.Management
 
                     if (!DL.EmailAddress.Equals(""))
                     {
-                        DonorEmail DMail = new DonorEmail(_ConnStr, User.Identity.ToString(), ConfigurationManager.AppSettings["EmailTemplatesURL"].ToString(), DL, DonorEL);
+                        DonorEmail DMail = new DonorEmail(User.Identity.ToString(), ConfigurationManager.AppSettings["EmailTemplatesURL"].ToString(), DL, DonorEL);
                         DMail.SendEmail();
                     }
                 }
