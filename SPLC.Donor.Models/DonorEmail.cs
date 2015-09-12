@@ -143,7 +143,7 @@ namespace SPLC.Donor.Models
             }
             catch (Exception ex)
             {
-                var donorMessages = new DonorMessages(ConnectionString)
+                var donorMessages = new DonorMessages()
                 {
                     MessageId = 2200,
                     MessageText = "ERROR: DonorEmail.SendEmail()",

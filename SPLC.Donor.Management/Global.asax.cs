@@ -22,7 +22,7 @@ namespace SPLC.Donor.Management
         protected void Session_Start(object sender, EventArgs e)
         {
             // Write entry when user starts application
-            var DM = new Models.DonorMessages(_ConnStr)
+            var DM = new Models.DonorMessages()
             {
                 MessageId = 100,
                 MessageText = "Session Started",
