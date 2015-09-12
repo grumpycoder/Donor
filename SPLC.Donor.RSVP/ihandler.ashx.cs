@@ -1,28 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Data;
+﻿using System.Configuration;
 using System.Data.SqlClient;
-using System.Configuration;
-using SPLC.Donor.Models;
+using System.Web;
 
 namespace SPLC.Donor.RSVP
 {
-    /// <summary>
-    /// Summary description for ihandler
-    /// </summary>
     public class ihandler : IHttpHandler
     {
-        private static string _ConnStr = ConfigurationManager.ConnectionStrings["Donor_ConnStr"].ToString();
+        private static readonly string ConnStr = ConfigurationManager.ConnectionStrings["Donor_ConnStr"].ToString();
 
         public void ProcessRequest(HttpContext context)
         {
-            SqlConnection Conn = new SqlConnection(_ConnStr);
-            SqlCommand cmd = new SqlCommand(@"SELECT Header_Image FROM EventList WHERE pk_Event=" + context.Request.QueryString["eid"].ToString(), Conn);
-            Conn.Open();
+            var conn = new SqlConnection(ConnStr);
+            var cmd = new SqlCommand(@"SELECT Header_Image FROM EventList WHERE pk_Event=" + context.Request.QueryString["eid"], conn);
+            conn.Open();
 
-            SqlDataReader dr = cmd.ExecuteReader();
+            var dr = cmd.ExecuteReader();
 
             while (dr.Read())
             {
@@ -31,7 +23,7 @@ namespace SPLC.Donor.RSVP
                 catch { }
             }
 
-            Conn.Close();
+            conn.Close();
         }
 
         public bool IsReusable
