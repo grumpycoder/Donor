@@ -26,8 +26,6 @@ namespace SPLC.Donor.RSVP
             lblEvent.Text = eventList.DisplayName;
             imgHeader.ImageUrl = "ihandler.ashx?eid=" + eventList.pk_Event;
 
-            var strInfo = "<i>" + eventList.DisplayName + "</i>, in " + eventList.VenueCity + " at " + eventList.StartDate.ToShortTimeString() + ".";
-
             var sbDis = new StringBuilder();
             
 
