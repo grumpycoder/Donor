@@ -7,7 +7,7 @@ namespace SPLC.Donor.RSVP
     {
         public string ConnectionString { get; set; }
 
-        public BasePage()
+        protected BasePage()
         {
             ConnectionString = ConfigurationManager.ConnectionStrings["Donor_ConnStr"].ToString();
         }
