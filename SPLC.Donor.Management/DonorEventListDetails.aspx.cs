@@ -25,7 +25,7 @@ namespace SPLC.Donor.Management
                     {
                         DonorEventList DEL = new DonorEventList(_ConnStr, User.Identity.Name, int.Parse(Request["delid"].ToString()));
                         EventList EL = new EventList(_ConnStr, User.Identity.Name, DEL.fk_Event);
-                        DonorList DL = new DonorList(_ConnStr, User.Identity.Name, DEL.fk_DonorList);
+                        DonorList DL = new DonorList(DEL.fk_DonorList);
 
                         hfPK.Value = DEL.pk_DonorEventList.ToString();
                         hfDPK.Value = DL.pk_DonorList.ToString();

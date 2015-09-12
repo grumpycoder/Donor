@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 
@@ -6,14 +7,15 @@ namespace SPLC.Donor.Models
 {
     public class DonorList
     {
+        private string ConnectionString { get; set; }
+
         #region Private Variables
-        private static string _ConnStr = "";
-        private static string _User = "";
+
         #endregion
 
         #region Accessors
 
-        public String pk_DonorList { get; set; }
+        public string pk_DonorList { get; set; }
         public string KeyName { get; set; }
         public string AccountName { get; set; }
         public string AddressLine1 { get; set; }
@@ -25,24 +27,6 @@ namespace SPLC.Donor.Models
         public string PhoneNumber { get; set; }
         public bool IsValid { get; set; }
 
-        //public string AccountType { get; set; }
-        //public string AccountID { get; set; }
-        //public string InsideSal { get; set; }
-        //public string OutSideSal { get; set; }
-        //public string HHOutsideSal { get; set; }
-        //public string AddressLine3 { get; set; }
-        //public string AddressLine4 { get; set; }
-        //public string AddressLine5 { get; set; }
-        //public string CountryIDTrans { get; set; }
-        //public string StateDescription { get; set; }
-        //public bool SPLCLeadCouncil { get; set; }
-        //public int MembershipYear { get; set; }
-        //public int YearsSince { get; set; }
-        //public float HPC { get; set; }
-        //public DateTime LastPaymentDate { get; set; }
-        //public float LastPaymentAmount { get; set; }
-        //public string SourceCode { get; set; }
-
         #endregion
 
 
@@ -50,22 +34,14 @@ namespace SPLC.Donor.Models
 
         public DonorList()
         {
+            ConnectionString = ConfigurationManager.ConnectionStrings["Donor_ConnStr"].ToString();
             IsValid = false;
         }
 
-        public DonorList(string pConnString, string pUser)
+        public DonorList(string donorListId) : this()
         {
             IsValid = false;
-            _ConnStr = pConnString;
-            _User = pUser;
-        }
-
-        public DonorList(string pConnString, string pUser, string pID)
-        {
-            IsValid = false;
-            _ConnStr = pConnString;
-            _User = pUser;
-            pk_DonorList = pID;
+            pk_DonorList = donorListId;
             Load();
         }
 
@@ -75,7 +51,7 @@ namespace SPLC.Donor.Models
 
         private void Load()
         {
-            var conn = new SqlConnection(_ConnStr);
+            var conn = new SqlConnection(ConnectionString);
             conn.Open();
             const string sql = "SELECT TOP 1 * FROM DonorList WHERE pk_DonorList=@pk_DonorList";
             var cmd = new SqlCommand(sql, conn);
@@ -105,11 +81,11 @@ namespace SPLC.Donor.Models
 
         public void Update()
         {
-            var conn = new SqlConnection(_ConnStr);
+            var conn = new SqlConnection(ConnectionString);
             var da = new SqlDataAdapter("SELECT TOP 1 * FROM DonorList WHERE pk_DonorList=@pk_DonorList", conn);
-            var param = new SqlParameter("@pk_DonorList", SqlDbType.NVarChar, 15) {Value = pk_DonorList};
+            var param = new SqlParameter("@pk_DonorList", SqlDbType.NVarChar, 15) { Value = pk_DonorList };
             da.SelectCommand.Parameters.Add(param);
-            
+
             var ds = new DataSet();
             da.Fill(ds);
 
@@ -130,26 +106,26 @@ namespace SPLC.Donor.Models
 
         public void Create()
         {
-            using (var cn = new SqlConnection(_ConnStr))
+            using (var cn = new SqlConnection(ConnectionString))
             {
                 cn.Open();
                 var cmd = new SqlCommand()
                 {
                     CommandText = "INSERT INTO DonorList " +
-                                  "(pk_DonorList, AddressLine1, AddressLine2, City, State, PostCode, PhoneNumber)" +
-                                  "VALUES(@pk_DonorList, @AddressLine1, @AddressLine2, @City, @State, @PostCode, @PhoneNumber)",
+                                  "(pk_DonorList, KeyName, AccountType, AddressLine1, AddressLine2, City, State, PostCode, PhoneNumber)" +
+                                  "VALUES(@pk_DonorList, @KeyName, @AccountType, @AddressLine1, @AddressLine2, @City, @State, @PostCode, @PhoneNumber)",
                     Connection = cn,
                     CommandType = CommandType.Text
                 };
-                cmd.Parameters.AddWithValue("pk_DonorList", this.pk_DonorList);
-                //                cmd.Parameters.AddWithValue("KeyName", this.KeyName);
-                //                cmd.Parameters.AddWithValue("AccountType", this.KeyName);
-                cmd.Parameters.AddWithValue("AddressLine1", this.AddressLine1 ?? "");
-                cmd.Parameters.AddWithValue("AddressLine2", this.AddressLine2 ?? "");
-                cmd.Parameters.AddWithValue("City", this.City ?? "");
-                cmd.Parameters.AddWithValue("State", this.State ?? "");
-                cmd.Parameters.AddWithValue("PostCode", this.PostCode ?? "");
-                cmd.Parameters.AddWithValue("PhoneNumber", this.PhoneNumber ?? "");
+                cmd.Parameters.AddWithValue("pk_DonorList", pk_DonorList);
+                cmd.Parameters.AddWithValue("KeyName", KeyName);
+                cmd.Parameters.AddWithValue("AccountType", KeyName);
+                cmd.Parameters.AddWithValue("AddressLine1", AddressLine1 ?? "");
+                cmd.Parameters.AddWithValue("AddressLine2", AddressLine2 ?? "");
+                cmd.Parameters.AddWithValue("City", City ?? "");
+                cmd.Parameters.AddWithValue("State", State ?? "");
+                cmd.Parameters.AddWithValue("PostCode", PostCode ?? "");
+                cmd.Parameters.AddWithValue("PhoneNumber", PhoneNumber ?? "");
 
                 cmd.ExecuteNonQuery();
             }
@@ -157,13 +133,13 @@ namespace SPLC.Donor.Models
 
         public void Save()
         {
-            using (var cn = new SqlConnection(_ConnStr))
+            using (var cn = new SqlConnection(ConnectionString))
             {
                 cn.Open();
                 var cmd = new SqlCommand()
                 {
                     CommandText = "UPDATE DonorList SET " +
-                                  "AccountType = @AccountType, KeyName = @KeyName, " + 
+                                  "AccountType = @AccountType, KeyName = @KeyName, " +
                                   "InsideSal = @InsideSal, OutsideSal = @OutsideSal, " +
                                   "AccountName = @AccountName, AddressLine1 = @AddressLine1, AddressLine2 = @AddressLine2, City = @City, " +
                                   "State = @State, PostCode = @PostCode, EmailAddress = @EmailAddress, PhoneNumber = @PhoneNumber " +
@@ -186,7 +162,7 @@ namespace SPLC.Donor.Models
                 cmd.Parameters.AddWithValue("EmailAddress", EmailAddress);
                 cmd.Parameters.AddWithValue("PhoneNumber", PhoneNumber);
 
-                if (AddressLine2 == null) cmd.Parameters["AddressLine2"].Value = DBNull.Value; 
+                if (AddressLine2 == null) cmd.Parameters["AddressLine2"].Value = DBNull.Value;
 
                 cmd.ExecuteNonQuery();
             }
@@ -199,7 +175,7 @@ namespace SPLC.Donor.Models
         public DataTable GetDonorTypes()
         {
 
-            var conn = new SqlConnection(_ConnStr);
+            var conn = new SqlConnection(ConnectionString);
             conn.Open();
             var da = new SqlDataAdapter(@"SELECT DISTINCT DonorType FROM DonorList ORDER BY DonorType", conn);
 
@@ -215,7 +191,7 @@ namespace SPLC.Donor.Models
         public DataTable GetDonorDemoUpdates(string pSort = "")
         {
 
-            var conn = new SqlConnection(_ConnStr);
+            var conn = new SqlConnection(ConnectionString);
             conn.Open();
             var sql = @"SELECT *
                                 FROM DonorEventList DE
@@ -239,7 +215,7 @@ namespace SPLC.Donor.Models
 
         public void AddNewGuestToEvent(int eventId)
         {
-            var conn = new SqlConnection(_ConnStr);
+            var conn = new SqlConnection(ConnectionString);
             conn.Open();
             var cmd = new SqlCommand("p_NewGuest", conn);
             //TODO: Why is this commented?

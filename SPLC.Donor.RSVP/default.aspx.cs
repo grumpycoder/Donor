@@ -73,7 +73,7 @@ namespace SPLC.Donor.RSVP
                 var guid = Guid.NewGuid();
 
                 var key = finderNumber.Substring(0, 4) + guid.ToString().Replace("-", "").Substring(0, 6).ToUpper();
-                var donor = new DonorList(ConnectionString, "") { pk_DonorList = key, IsValid = true };
+                var donor = new DonorList() { pk_DonorList = key, IsValid = true };
                 donor.Create();
 
                 var donorEventList = new DonorEventList(ConnectionString, "") { fk_Event = pkEvent, fk_DonorList = key };
@@ -91,7 +91,7 @@ namespace SPLC.Donor.RSVP
                 if (txtFinderNumber.Text.Equals(""))
                     throw new Exception("There appears to be a problem with the information that you have entered, please check the information and try again or call 334-956-8200 for assistance.");
 
-                var donorList = new DonorList(ConnectionString, "", txtFinderNumber.Text.Trim());
+                var donorList = new DonorList(txtFinderNumber.Text.Trim());
 
                 if (!donorList.IsValid)
                     throw new Exception("There appears to be a problem with the information that you have entered, please check the information and try again or call 334-956-8200 for assistance.");

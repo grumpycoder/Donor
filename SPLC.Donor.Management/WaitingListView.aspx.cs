@@ -29,7 +29,7 @@ namespace SPLC.Donor.Management
                 ddlEvents.Items.Insert(0, new ListItem("Select Event", ""));
                 ddlEvents.SelectedIndex = 0;
 
-                DonorList DL = new DonorList(_ConnStr, User.Identity.Name);
+                DonorList DL = new DonorList();
                 ddlDonorType.DataSource = DL.GetDonorTypes();
                 ddlDonorType.DataTextField = "DonorType";
                 ddlDonorType.DataValueField = "DonorType";

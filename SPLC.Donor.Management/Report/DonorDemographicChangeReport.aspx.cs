@@ -34,7 +34,7 @@ namespace SPLC.Donor.Management.Report
 
         protected void gvReport_Sorting(object sender, GridViewSortEventArgs e)
         {
-            DonorList DL = new DonorList(_ConnStr, User.Identity.Name);
+            DonorList DL = new DonorList();
 
             string[] SortOrder = ViewState["SortExpr"].ToString().Split(' ');
             if (SortOrder[0] == e.SortExpression)
@@ -103,7 +103,7 @@ namespace SPLC.Donor.Management.Report
 
             }
 
-            DonorList DL = new DonorList(_ConnStr, User.Identity.Name);
+            DonorList DL = new DonorList();
 
             gvReport.PageIndex = pPageIndex;
             gvReport.DataSource = DL.GetDonorDemoUpdates(ViewState["SortExpr"].ToString());

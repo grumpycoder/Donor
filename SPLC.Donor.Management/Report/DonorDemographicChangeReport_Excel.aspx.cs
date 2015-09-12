@@ -24,7 +24,7 @@ namespace SPLC.Donor.Management.Report
             Response.AddHeader("content-disposition", attachment);
             Response.ContentType = "application/ms-excel";
 
-            DonorList DL = new DonorList(_ConnStr, User.Identity.Name);
+            DonorList DL = new DonorList();
 
             gvExcel.DataSource = DL.GetDonorDemoUpdates();
             gvExcel.DataBind();

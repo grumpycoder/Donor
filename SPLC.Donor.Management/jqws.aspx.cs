@@ -107,7 +107,7 @@ namespace SPLC.Donor.Management
 
             try
             {
-                DonorList DL = new DonorList(_ConnStr, User.Identity.Name, pID);
+                DonorList DL = new DonorList(pID);
 
                 
                 switch (pField)

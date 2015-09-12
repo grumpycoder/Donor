@@ -114,7 +114,7 @@ namespace SPLC.Donor.Management
 
                     if (chkGuest.Checked)
                     {
-                        DL = new DonorList(_ConnStr, User.Identity.Name);
+                        DL = new DonorList();
                         DL.AddNewGuestToEvent(EL.pk_Event);
 
                         DonorEL.fk_Event = EL.pk_Event;
@@ -124,7 +124,7 @@ namespace SPLC.Donor.Management
                     }
                     else
                     {
-                        DL = new DonorList(_ConnStr, User.Identity.Name, txtDonorID.Text.ToString().Trim());
+                        DL = new DonorList(txtDonorID.Text.ToString().Trim());
                         DonorEL.Load(EL.pk_Event, txtDonorID.Text.ToString().Trim());
 
                         if (DonorEL.pk_DonorEventList <= 0)
@@ -134,7 +134,7 @@ namespace SPLC.Donor.Management
                             throw new Exception("Donor has already registered for this Event!");
                     }
 
-                    DL = new DonorList(_ConnStr, User.Identity.Name, DonorEL.fk_DonorList);
+                    DL = new DonorList(DonorEL.fk_DonorList);
 
                     // Update Donor Information
                     if (UpdateDonorList(DL))
@@ -352,7 +352,7 @@ namespace SPLC.Donor.Management
 
                     if (DEL.IsValid)
                     {
-                        DonorList DL = new DonorList(_ConnStr, User.Identity.Name, DEL.fk_DonorList);
+                        DonorList DL = new DonorList(DEL.fk_DonorList);
                         if (DL.IsValid)
                         {
                             txtName.Text = DL.AccountName;
