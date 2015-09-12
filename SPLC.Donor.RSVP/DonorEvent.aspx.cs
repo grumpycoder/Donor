@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Configuration;
 using System.Drawing;
+using System.Linq;
 using System.Text;
 using System.Web.UI.WebControls;
 using SPLC.Donor.Models;
@@ -85,6 +86,25 @@ namespace SPLC.Donor.RSVP
                 var donorEventList = (DonorEventList)Session["SPLC.Donor.RSVP.DEL"];
                 var donorList = (DonorList)Session["SPLC.Donor.RSVP.DL"];
 
+                //Special case for event without normal invitation distribution
+
+                var finderNumber = donorList.pk_DonorList;
+                var specialEventCodes = new[] { "JBGE", "SNCC", "NAACP", "SPLC", "HRCJB", "JBLC" };
+
+                if (specialEventCodes.Contains(finderNumber.Substring(0, 4)))
+                {
+                    donorList.KeyName = txtName.Text;
+                    donorList.AccountName = txtName.Text;
+                    donorList.AddressLine1 = txtMailingAddress.Text;
+                    donorList.AddressLine2 = txtAddress2.Text;
+                    donorList.City = txtCity.Text;
+                    donorList.State = ddlState.Text;
+                    donorList.PostCode = txtZipCode.Text;
+                    donorList.PhoneNumber = txtPhoneNumber.Text;
+                    donorList.EmailAddress = txtEmail.Text;
+                    donorList.Save();
+                }
+
 
                 // Update Donor Information
                 if (UpdateDonorList(donorList))
@@ -129,7 +149,9 @@ namespace SPLC.Donor.RSVP
                 }
 
 
-                donorEventList.Update();
+                //                donorEventList.Update();
+                donorEventList.SaveChanges();
+
                 Session["SPLC.Donor.RSVP.DEL"] = donorEventList;
 
 
@@ -194,8 +216,9 @@ namespace SPLC.Donor.RSVP
             }
 
             if (blReturn)
-                donorList.Update();
+                //                donorList.Update();
 
+                donorList.Save();
             return blReturn;
         }
 

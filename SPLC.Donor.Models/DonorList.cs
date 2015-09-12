@@ -155,6 +155,43 @@ namespace SPLC.Donor.Models
             }
         }
 
+        public void Save()
+        {
+            using (var cn = new SqlConnection(_ConnStr))
+            {
+                cn.Open();
+                var cmd = new SqlCommand()
+                {
+                    CommandText = "UPDATE DonorList SET " +
+                                  "AccountType = @AccountType, KeyName = @KeyName, " + 
+                                  "InsideSal = @InsideSal, OutsideSal = @OutsideSal, " +
+                                  "AccountName = @AccountName, AddressLine1 = @AddressLine1, AddressLine2 = @AddressLine2, City = @City, " +
+                                  "State = @State, PostCode = @PostCode, EmailAddress = @EmailAddress, PhoneNumber = @PhoneNumber " +
+                                  "WHERE pk_DonorList = @pk_DonorList",
+                    Connection = cn,
+                    CommandType = CommandType.Text
+                };
+                cmd.Parameters.AddWithValue("pk_DonorList", pk_DonorList);
+
+                cmd.Parameters.AddWithValue("AccountType", "Individual");
+                cmd.Parameters.AddWithValue("KeyName", KeyName);
+                cmd.Parameters.AddWithValue("InsideSal", AccountName);
+                cmd.Parameters.AddWithValue("OutsideSal", AccountName);
+                cmd.Parameters.AddWithValue("AccountName", AccountName);
+                cmd.Parameters.AddWithValue("AddressLine1", AddressLine1);
+                cmd.Parameters.AddWithValue("AddressLine2", AddressLine2);
+                cmd.Parameters.AddWithValue("City", City);
+                cmd.Parameters.AddWithValue("State", State);
+                cmd.Parameters.AddWithValue("PostCode", PostCode);
+                cmd.Parameters.AddWithValue("EmailAddress", EmailAddress);
+                cmd.Parameters.AddWithValue("PhoneNumber", PhoneNumber);
+
+                if (AddressLine2 == null) cmd.Parameters["AddressLine2"].Value = DBNull.Value; 
+
+                cmd.ExecuteNonQuery();
+            }
+        }
+
         #endregion
 
 

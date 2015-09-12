@@ -66,7 +66,7 @@ namespace SPLC.Donor.RSVP
         {
             var finderNumber = txtFinderNumber.Text;
             var specialEventCodes = new[] { "JBGEN15106", "SNCC151006", "NAACP15106", "SPLC151006", "HRCJB15106", "JBLC151006" };
-            var pk_Event = int.Parse(Request["eid"]);
+            var pkEvent = int.Parse(Request["eid"]);
 
             if (specialEventCodes.Contains(finderNumber))
             {
@@ -76,10 +76,10 @@ namespace SPLC.Donor.RSVP
                 var donor = new DonorList(ConnectionString, "") { pk_DonorList = key, IsValid = true };
                 donor.Create();
 
-                var donorEventList = new DonorEventList(ConnectionString, "") { fk_Event = pk_Event, fk_DonorList = key };
+                var donorEventList = new DonorEventList(ConnectionString, "") { fk_Event = pkEvent, fk_DonorList = key };
                 donorEventList.Create();
 
-                donorEventList.GetDonorEventListID(donor.pk_DonorList, pk_Event, true);
+                donorEventList.GetDonorEventListID(donor.pk_DonorList, pkEvent, true);
                 Session["SPLC.Donor.RSVP.DL"] = donor;
                 Session["SPLC.Donor.RSVP.DEL"] = donorEventList;
 

@@ -65,6 +65,7 @@ namespace SPLC.Donor.Models
             _ConnStr = pConnString;
             _User = pUser;
             pk_Event = pID;
+
             Load();
         }
 
