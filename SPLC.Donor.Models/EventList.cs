@@ -1,21 +1,22 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 
 namespace SPLC.Donor.Models
 {
     public class EventList
     {
+        private const string BaseDate = "1/1/2000";
+
         #region Private Variables
-            private static string _ConnStr = "";
-            private static string _User = "";
+        private static string _user = "";
         #endregion
+
+        private string ConnectionString { get; set; }
 
         #region Accessors
 
@@ -52,20 +53,18 @@ namespace SPLC.Donor.Models
         #region Constructors
 
         public EventList()
-        { }
-
-        public EventList(string pConnString,string pUser)
         {
-            _ConnStr = pConnString;
-            _User = pUser;
+            ConnectionString = ConfigurationManager.ConnectionStrings["Donor_ConnStr"].ToString();
         }
 
-        public EventList(string pConnString, string pUser,int pID)
+        public EventList(string user) : this()
         {
-            _ConnStr = pConnString;
-            _User = pUser;
-            pk_Event = pID;
+            _user = user;
+        }
 
+        public EventList(string user, int eventId) : this(user)
+        {
+            pk_Event = eventId;
             Load();
         }
 
@@ -75,15 +74,15 @@ namespace SPLC.Donor.Models
 
         private void Load()
         {
-            SqlConnection Conn = new SqlConnection(_ConnStr);
-            Conn.Open();
-            string strSQL = "SELECT TOP 1 * FROM EventList WHERE pk_Event=@pk_Event";
-            SqlCommand cmd = new SqlCommand(strSQL, Conn);
+            var conn = new SqlConnection(ConnectionString);
+            conn.Open();
+            var sql = "SELECT TOP 1 * FROM EventList WHERE pk_Event=@pk_Event";
+            var cmd = new SqlCommand(sql, conn);
             cmd.Parameters.AddWithValue("@pk_Event", pk_Event);
-            SqlDataAdapter da = new SqlDataAdapter(cmd);
-            DataTable dt = new DataTable();
+            var da = new SqlDataAdapter(cmd);
+            var dt = new DataTable();
             da.Fill(dt);
-            DataRow dr = dt.Rows[0];
+            var dr = dt.Rows[0];
             Date_Added = DateTime.Parse(dr["Date_Added"].ToString());
             User_Added = dr["User_Added"].ToString();
             EventName = dr["EventName"].ToString();
@@ -114,7 +113,7 @@ namespace SPLC.Donor.Models
 
             if (!dr["InActive_Date"].ToString().Equals(""))
                 InActive_Date = DateTime.Parse(dr["InActive_Date"].ToString());
-            
+
             InActive_User = dr["InActive_User"].ToString();
 
             HTML_Header = dr["HTML_Header"].ToString();
@@ -125,27 +124,24 @@ namespace SPLC.Donor.Models
 
             cmd.Dispose();
             da.Dispose();
-            Conn.Close(); 
-                           
+            conn.Close();
+
         }
 
-        public bool Exists(string pName,DateTime pDate)
+        public bool Exists(string eventName, DateTime startDate)
         {
-            string strSql = "IF EXISTS(SELECT TOP 1 pk_Event FROM EventList WHERE EventName=@EventName " +
-                " AND convert(varchar(10), StartDate, 120) = convert(datetime,'" + pDate.ToShortDateString() + "',120)) " +
+            var sql = "IF EXISTS(SELECT TOP 1 pk_Event FROM EventList WHERE EventName=@EventName " +
+                " AND convert(varchar(10), StartDate, 120) = convert(datetime,'" + startDate.ToShortDateString() + "',120)) " +
                 " BEGIN SELECT 'True' END ELSE BEGIN SELECT 'False' END";
 
-            SqlConnection Conn = new SqlConnection(_ConnStr);
-            Conn.Open();
-            SqlCommand cmd = new SqlCommand(strSql, Conn);
+            var conn = new SqlConnection(ConnectionString);
+            conn.Open();
+            var cmd = new SqlCommand(sql, conn);
             cmd.Parameters.AddWithValue("@EventName", EventName);
-            string strES = cmd.ExecuteScalar().ToString();
-            Conn.Close();
+            var result = cmd.ExecuteScalar().ToString();
+            conn.Close();
 
-            if (strES.Equals("True"))
-                return true;
-            else
-                return false;
+            return result.Equals("True");
         }
 
         public void AddNew()
@@ -153,19 +149,19 @@ namespace SPLC.Donor.Models
 
             if (!Exists(EventName, StartDate))
             {
-                string strSql = @"INSERT INTO EventList (EventName,DisplayName,StartDate,User_Added,Active,OnlineCloseDate) VALUES  
+                const string sql = @"INSERT INTO EventList (EventName,DisplayName,StartDate,User_Added,Active,OnlineCloseDate) VALUES  
                                     (@EventName,@EventName,@StartDate,@User_Added,1,@StartDate); SELECT SCOPE_IDENTITY() ";
 
-                SqlConnection Conn = new SqlConnection(_ConnStr);
-                Conn.Open();
-                SqlCommand cmd = new SqlCommand(strSql, Conn);
+                var conn = new SqlConnection(ConnectionString);
+                conn.Open();
+                var cmd = new SqlCommand(sql, conn);
 
                 cmd.Parameters.AddWithValue("@EventName", EventName);
                 cmd.Parameters.AddWithValue("@StartDate", StartDate);
-                cmd.Parameters.AddWithValue("@User_Added", _User);
+                cmd.Parameters.AddWithValue("@User_Added", _user);
 
                 pk_Event = int.Parse(cmd.ExecuteScalar().ToString());
-                Conn.Close();
+                conn.Close();
             }
             else
                 pk_Event = -1;
@@ -174,27 +170,25 @@ namespace SPLC.Donor.Models
         public void Update()
         {
 
-            SqlConnection Conn = new SqlConnection(_ConnStr);
-            SqlDataAdapter da = new SqlDataAdapter("SELECT * FROM EventList WHERE pk_Event=@pk_Event", Conn);
-            SqlParameter param = new SqlParameter("@pk_Event", SqlDbType.Int);
-            param.Value = pk_Event;
+            var conn = new SqlConnection(ConnectionString);
+            var da = new SqlDataAdapter("SELECT * FROM EventList WHERE pk_Event=@pk_Event", conn);
+            var param = new SqlParameter("@pk_Event", SqlDbType.Int) { Value = pk_Event };
             da.SelectCommand.Parameters.Add(param);
 
-            SqlCommandBuilder db = new SqlCommandBuilder(da);
-            DataSet ds = new DataSet();
+            var ds = new DataSet();
             da.Fill(ds);
 
-            DataRow dr = ds.Tables[0].Rows[0];
-            
+            var dr = ds.Tables[0].Rows[0];
+
             dr["Active"] = Active;
 
-            if (StartDate > DateTime.Parse("1/1/2000"))
+            if (StartDate > DateTime.Parse(BaseDate))
                 dr["StartDate"] = StartDate;
-            if (EndDate > DateTime.Parse("1/1/2000"))
+            if (EndDate > DateTime.Parse(BaseDate))
                 dr["EndDate"] = EndDate;
-            if (DoorsOpenDate > DateTime.Parse("1/1/2000"))
+            if (DoorsOpenDate > DateTime.Parse(BaseDate))
                 dr["DoorsOpenDate"] = DoorsOpenDate;
-            if (OnlineCloseDate > DateTime.Parse("1/1/2000"))
+            if (OnlineCloseDate > DateTime.Parse(BaseDate))
                 dr["OnlineCloseDate"] = OnlineCloseDate;
 
             dr["EventName"] = EventName;
@@ -209,7 +203,7 @@ namespace SPLC.Donor.Models
             dr["ImageURL"] = ImageURL;
             dr["TicketsAllowed"] = TicketsAllowed;
 
-            if (InActive_Date > DateTime.Parse("1/1/2000"))
+            if (InActive_Date > DateTime.Parse(BaseDate))
             {
                 if (Active)
                 {
@@ -224,8 +218,8 @@ namespace SPLC.Donor.Models
             dr["HTML_Header"] = HTML_Header;
             dr["HTML_FAQ"] = HTML_FAQ;
 
-            if(Header_Image != null)
-                dr["Header_Image"] = ConvertImageToByteArray(Header_Image, System.Drawing.Imaging.ImageFormat.Jpeg);
+            if (Header_Image != null)
+                dr["Header_Image"] = ConvertImageToByteArray(Header_Image, ImageFormat.Jpeg);
 
             dr["HTML_Yes"] = HTML_Yes;
             dr["HTML_No"] = HTML_No;
@@ -233,11 +227,8 @@ namespace SPLC.Donor.Models
 
             da.Update(ds.Tables[0]);
             da.Dispose();
-            Conn.Close();
+            conn.Close();
         }
-
-        public void Delete()
-        { }
 
         #endregion
 
@@ -245,58 +236,45 @@ namespace SPLC.Donor.Models
 
         public bool SaveHeaderImage()
         {
-            
-            try
-            {
-                SqlConnection Conn = new SqlConnection(_ConnStr);
-                Conn.Open();
-                string strSQL = @"UPDATE EventList SET Header_Image=@Header_Image WHERE pk_Event=" + pk_Event.ToString();
-                SqlCommand cmd = new SqlCommand(strSQL, Conn);
-                cmd.Parameters.Add("@Header_Image", SqlDbType.Image, 0).Value = ConvertImageToByteArray(Header_Image, System.Drawing.Imaging.ImageFormat.Jpeg);
-                int qResult = cmd.ExecuteNonQuery();
-                if (qResult == 1)
-                    throw new Exception("Error");
+            var conn = new SqlConnection(ConnectionString);
+            conn.Open();
+            var sql = @"UPDATE EventList SET Header_Image=@Header_Image WHERE pk_Event=" + pk_Event;
+            var cmd = new SqlCommand(sql, conn);
+            cmd.Parameters.Add("@Header_Image", SqlDbType.Image, 0).Value = ConvertImageToByteArray(Header_Image, ImageFormat.Jpeg);
+            var qResult = cmd.ExecuteNonQuery();
+            var result = qResult != 1;
 
-                Conn.Close();
-            }
-            catch (Exception EX)
-            {
-                return false;
-            }
+            conn.Close();
 
-            return true;
+            return result;
         }
 
-        private byte[] ConvertImageToByteArray(System.Drawing.Image imageToConvert,
-                                       System.Drawing.Imaging.ImageFormat formatOfImage)
+        private byte[] ConvertImageToByteArray(Image imageToConvert,
+                                       ImageFormat formatOfImage)
         {
-            byte[] Ret;
-            try
+            byte[] ret;
+            using (var ms = new MemoryStream())
             {
-                using (MemoryStream ms = new MemoryStream())
-                {
-                    imageToConvert.Save(ms, formatOfImage);
-                    Ret = ms.ToArray();
-                }
+                imageToConvert.Save(ms, formatOfImage);
+                ret = ms.ToArray();
             }
-            catch (Exception) { throw; }
-            return Ret;
+            return ret;
         }
 
         public DataTable GetEvents()
         {
 
-            SqlConnection Conn = new SqlConnection(_ConnStr);
-            Conn.Open();
-            
-            SqlDataAdapter da = new SqlDataAdapter("SELECT pk_Event,EventName + ' | ' + convert(varchar(10), StartDate, 120) " +
-                " AS EName FROM EventList", Conn);
+            var conn = new SqlConnection(ConnectionString);
+            conn.Open();
 
-            DataSet ds = new DataSet();
+            var da = new SqlDataAdapter("SELECT pk_Event,EventName + ' | ' + convert(varchar(10), StartDate, 120) " +
+                " AS EName FROM EventList", conn);
+
+            var ds = new DataSet();
             da.Fill(ds);
 
             da.Dispose();
-            Conn.Close();
+            conn.Close();
 
             return ds.Tables[0];
         }
@@ -304,10 +282,10 @@ namespace SPLC.Donor.Models
         public DataTable GetEventsReport()
         {
 
-            SqlConnection Conn = new SqlConnection(_ConnStr);
-            Conn.Open();
+            var conn = new SqlConnection(ConnectionString);
+            conn.Open();
 
-            string strSQL = @"SELECT pk_Event, EventName, Capacity, VenueCity,CONVERT(VARCHAR(8), StartDate, 1) AS EventDate,
+            const string sql = @"SELECT pk_Event, EventName, Capacity, VenueCity,CONVERT(VARCHAR(8), StartDate, 1) AS EventDate,
                                 COUNT(fk_Event)AS ADDED, COUNT(Response_Date) AS RESPONSE,SUM(TicketsRequested) AS TicketsRequested,
                                 COUNT(WaitingList_Date) AS WaitList,COUNT(TicketsMailed_Date) AS TicketsMailed
                                 FROM EventList
@@ -316,13 +294,13 @@ namespace SPLC.Donor.Models
                                 GROUP BY pk_Event, EventName, Capacity, VenueCity, CONVERT(VARCHAR(8), StartDate, 1)
                                 ORDER BY CONVERT(VARCHAR(8), StartDate, 1) DESC";
 
-            SqlDataAdapter da = new SqlDataAdapter(strSQL, Conn);
+            var da = new SqlDataAdapter(sql, conn);
 
-            DataSet ds = new DataSet();
+            var ds = new DataSet();
             da.Fill(ds);
 
             da.Dispose();
-            Conn.Close();
+            conn.Close();
 
             return ds.Tables[0];
         }
@@ -330,26 +308,26 @@ namespace SPLC.Donor.Models
         public DataTable GetEvents_Search()
         {
 
-            SqlConnection Conn = new SqlConnection(_ConnStr);
-            Conn.Open();
-            string strSQL = @"SELECT pk_Event,StartDate,EventName,
+            var conn = new SqlConnection(ConnectionString);
+            conn.Open();
+            const string sql = @"SELECT pk_Event,StartDate,EventName,
                                 (SELECT SUM(TicketsRequested) FROM DonorEventList WHERE fk_Event=EL.pk_Event
 	                                AND Response_Date IS NOT NULL) AS RegCount,
                                 (SELECT SUM(TicketsRequested) FROM DonorEventList WHERE fk_Event=EL.pk_Event
 	                                AND WaitingList_Date IS NOT NULL) AS WaitCount
                                 FROM EventList EL
                                 ORDER BY StartDate DESC";
-            SqlDataAdapter da = new SqlDataAdapter(strSQL, Conn);
+            var da = new SqlDataAdapter(sql, conn);
 
-            DataSet ds = new DataSet();
+            var ds = new DataSet();
             da.Fill(ds);
 
             da.Dispose();
-            Conn.Close();
+            conn.Close();
 
             return ds.Tables[0];
         }
-        
+
         #endregion
     }
 

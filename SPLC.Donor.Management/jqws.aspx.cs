@@ -79,7 +79,7 @@ namespace SPLC.Donor.Management
                 try { DateTime EDate = DateTime.Parse(pDate); }
                 catch { throw new Exception("Error"); }
 
-                var EL = new EventList(_ConnStr,User.Identity.Name)
+                var EL = new EventList(User.Identity.Name)
                 {
                     EventName = pEName,
                     StartDate = DateTime.Parse(pDate)
@@ -192,7 +192,7 @@ namespace SPLC.Donor.Management
 
             try
             {
-                EventList EL = new EventList(_ConnStr, User.Identity.Name, int.Parse(pID));
+                EventList EL = new EventList(User.Identity.Name, int.Parse(pID));
 
                 switch (pField)
                 {

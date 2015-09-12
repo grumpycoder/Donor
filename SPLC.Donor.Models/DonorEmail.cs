@@ -107,7 +107,7 @@ namespace SPLC.Donor.Models
                 sr.Close();
                 mResponse.Close();
 
-                EventList EL = new EventList(_ConnStr, _User, _DEL.fk_Event);
+                EventList EL = new EventList(_User, _DEL.fk_Event);
 
                 
                 if (_DEL.WaitingList_Date > DateTime.Parse("1/1/2000"))

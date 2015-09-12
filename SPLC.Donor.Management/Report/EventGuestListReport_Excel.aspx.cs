@@ -27,7 +27,7 @@ namespace SPLC.Donor.Management.Report
             if (Request["eid"] != null)
             {
                 DonorEventList DEL = new DonorEventList(User.Identity.Name);
-                EventList EL = new EventList(_ConnStr, User.Identity.Name, int.Parse(Request["eid"].ToString()));
+                EventList EL = new EventList(User.Identity.Name, int.Parse(Request["eid"].ToString()));
 
                 gvExcel.DataSource = DEL.GetDonorEventList_ByEvent(EL.pk_Event);
                 gvExcel.DataBind();

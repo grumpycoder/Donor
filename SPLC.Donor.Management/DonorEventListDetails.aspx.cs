@@ -24,7 +24,7 @@ namespace SPLC.Donor.Management
                     if (Request["delid"] != null)
                     {
                         DonorEventList DEL = new DonorEventList(User.Identity.Name, int.Parse(Request["delid"].ToString()));
-                        EventList EL = new EventList(_ConnStr, User.Identity.Name, DEL.fk_Event);
+                        EventList EL = new EventList(User.Identity.Name, DEL.fk_Event);
                         DonorList DL = new DonorList(DEL.fk_DonorList);
 
                         hfPK.Value = DEL.pk_DonorEventList.ToString();

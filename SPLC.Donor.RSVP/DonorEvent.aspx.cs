@@ -21,7 +21,7 @@ namespace SPLC.Donor.RSVP
 
                 var donorEventList = (DonorEventList)Session["SPLC.Donor.RSVP.DEL"];
                 var donorList = (DonorList)Session["SPLC.Donor.RSVP.DL"];
-                var eventList = new EventList(ConnectionString, User.Identity.Name, donorEventList.fk_Event);
+                var eventList = new EventList(User.Identity.Name, donorEventList.fk_Event);
 
                 if (donorList.IsValid)
                 {
@@ -124,7 +124,7 @@ namespace SPLC.Donor.RSVP
                     throw new Exception(@"It appears you have already registered for this event, please check 
                                             the information and try again or call 334-956-8200 for assistance.");
 
-                var eventList = new EventList(ConnectionString, User.Identity.Name, donorEventList.fk_Event);
+                var eventList = new EventList(User.Identity.Name, donorEventList.fk_Event);
 
                 if (attendingRadio.SelectedValue.Equals("0"))
                 {

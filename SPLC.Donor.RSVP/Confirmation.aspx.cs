@@ -18,7 +18,7 @@ namespace SPLC.Donor.RSVP
         {
             DonorEventList DEL = (DonorEventList)Session["SPLC.Donor.RSVP.DEL"];
             DonorList DL = (DonorList)Session["SPLC.Donor.RSVP.DL"];
-            EventList EL = new EventList(_ConnStr, User.Identity.Name, DEL.fk_Event);
+            EventList EL = new EventList(User.Identity.Name, DEL.fk_Event);
 
             // Add HTML from DB
             StringBuilder sbHTML = new StringBuilder(EL.HTML_Header);

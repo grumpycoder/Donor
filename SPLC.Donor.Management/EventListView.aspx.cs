@@ -18,7 +18,7 @@ namespace SPLC.Donor.Management
             if (!Page.IsPostBack)
             {
 
-                EventList EL = new EventList(_ConnStr, User.Identity.Name);
+                EventList EL = new EventList(User.Identity.Name);
 
                 gvEventList.DataSource = EL.GetEvents_Search();
                 gvEventList.DataBind();

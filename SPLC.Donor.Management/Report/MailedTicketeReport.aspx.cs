@@ -21,7 +21,7 @@ namespace SPLC.Donor.Management.Report
 
                 if (Request["eid"] != null)
                 {
-                    EventList EL = new EventList(_ConnStr, User.Identity.Name, int.Parse(Request["eid"].ToString()));
+                    EventList EL = new EventList(User.Identity.Name, int.Parse(Request["eid"].ToString()));
 
                     lblEvent.Text = EL.EventName.ToString();
 
@@ -40,7 +40,7 @@ namespace SPLC.Donor.Management.Report
         protected void gvReport_Sorting(object sender, GridViewSortEventArgs e)
         {
             DonorEventList DEL = new DonorEventList(User.Identity.Name);
-            EventList EL = new EventList(_ConnStr, User.Identity.Name, int.Parse(Request["eid"].ToString()));
+            EventList EL = new EventList(User.Identity.Name, int.Parse(Request["eid"].ToString()));
 
 
 
@@ -110,7 +110,7 @@ namespace SPLC.Donor.Management.Report
             }
 
             DonorEventList DEL = new DonorEventList(User.Identity.Name);
-            EventList EL = new EventList(_ConnStr, User.Identity.Name, int.Parse(Request["eid"].ToString()));
+            EventList EL = new EventList(User.Identity.Name, int.Parse(Request["eid"].ToString()));
 
             gvReport.PageIndex = pPageIndex;
             gvReport.DataSource = DEL.GetDonorEventMailedTickets_ByEvent(EL.pk_Event, ViewState["SortExpr"].ToString());

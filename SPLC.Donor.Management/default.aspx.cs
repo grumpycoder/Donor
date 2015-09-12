@@ -25,7 +25,7 @@ namespace SPLC.Donor.Management
 
             if (!Page.IsPostBack)
             {
-                EventList EL = new EventList(_ConnStr, User.Identity.Name);
+                EventList EL = new EventList(User.Identity.Name);
 
                 ddlEvents.DataSource = EL.GetEvents();
                 ddlEvents.DataTextField = "EName";
@@ -108,7 +108,7 @@ namespace SPLC.Donor.Management
                     if (!chkAttending.Checked && int.Parse(txtAttending.Text.ToString()) > 0)
                         throw new Exception("If not attending please remove the number of attendees!");
 
-                    EventList EL = new EventList(_ConnStr, User.Identity.Name, int.Parse(ddlEvents.SelectedValue.ToString()));
+                    EventList EL = new EventList(User.Identity.Name, int.Parse(ddlEvents.SelectedValue.ToString()));
                     DonorEventList DonorEL = new DonorEventList(User.Identity.Name);
                     DonorList DL;
 
@@ -235,7 +235,7 @@ namespace SPLC.Donor.Management
                 sbMsg = sbMsg.Replace("@{DATE}", DateTime.Today.ToString("MMMM dd, yyyy"));
                 sbMsg = sbMsg.Replace("@{SALUTATION}", pDL.AccountName);
 
-                EventList EL = new EventList(_ConnStr, User.Identity.Name, pDEL.fk_Event);
+                EventList EL = new EventList(User.Identity.Name, pDEL.fk_Event);
 
                 sbMsg = sbMsg.Replace("@{DisplayName}", EL.DisplayName);
                 sbMsg = sbMsg.Replace("@{City}", EL.VenueCity);

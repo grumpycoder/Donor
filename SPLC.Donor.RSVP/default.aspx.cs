@@ -16,7 +16,7 @@ namespace SPLC.Donor.RSVP
                 // If the parameter EID is null or the expired date has passed then redirect to the Event Expiration page
                 if (Request["eid"] != null)
                 {
-                    var eventList = new EventList(ConnectionString, User.Identity.Name, int.Parse(Request["eid"]));
+                    var eventList = new EventList(User.Identity.Name, int.Parse(Request["eid"]));
 
                     if (eventList.OnlineCloseDate < DateTime.Parse("1/1/2000"))
                         throw new Exception("No Close Date");

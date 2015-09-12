@@ -17,7 +17,7 @@ namespace SPLC.Donor.Management
         {
             if (!Page.IsPostBack)
             {
-                EventList EL = new EventList(_ConnStr, User.Identity.Name);
+                EventList EL = new EventList(User.Identity.Name);
 
                 ddlEvents.DataSource = EL.GetEvents();
                 ddlEvents.DataTextField = "EName";

@@ -21,7 +21,7 @@ namespace SPLC.Donor.RSVP
                 {
                     if (!Request["eid"].ToString().Equals("NULL"))
                     {
-                        EventList EL = new EventList(_ConnStr, User.Identity.Name, int.Parse(Request["eid"].ToString()));
+                        EventList EL = new EventList(User.Identity.Name, int.Parse(Request["eid"].ToString()));
                         // Add image URL to the page
                         pnlContentBefore.Visible = true;
                     }

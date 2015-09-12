@@ -27,7 +27,7 @@ namespace SPLC.Donor.Management
 
                     lblHeader.Text = "Event";
                     
-                    EventList EL = new EventList(_ConnStr, User.Identity.Name, int.Parse(Request["eid"].ToString()));
+                    EventList EL = new EventList(User.Identity.Name, int.Parse(Request["eid"].ToString()));
                     hfPK.Value = EL.pk_Event.ToString();
                     txtEventName.Text = EL.EventName;
                     txtDisplayName.Text = EL.DisplayName;
@@ -391,7 +391,7 @@ namespace SPLC.Donor.Management
 
         protected void btnUpdateHeader_Click(object sender, EventArgs e)
         {
-            EventList EL = new EventList(_ConnStr, User.Identity.Name, int.Parse(Request["eid"].ToString()));
+            EventList EL = new EventList(User.Identity.Name, int.Parse(Request["eid"].ToString()));
             EL.HTML_Header = txtHeader.Text.ToString();
             EL.Update();
         }
@@ -411,7 +411,7 @@ namespace SPLC.Donor.Management
                 if(EDate < DateTime.Now)
                     throw new Exception("Cannot create an event in the past!");
 
-                EventList EL = new EventList(_ConnStr,User.Identity.Name);
+                EventList EL = new EventList(User.Identity.Name);
                 EL.EventName = txtNEventName.Text.ToString();
                 EL.StartDate = EDate;
                 EL.AddNew();
@@ -431,28 +431,28 @@ namespace SPLC.Donor.Management
 
         protected void btnUpdateFAQ_Click(object sender, EventArgs e)
         {
-            EventList EL = new EventList(_ConnStr, User.Identity.Name, int.Parse(Request["eid"].ToString()));
+            EventList EL = new EventList(User.Identity.Name, int.Parse(Request["eid"].ToString()));
             EL.HTML_FAQ = txtFAQ.Text.ToString();
             EL.Update();
         }
 
         protected void btnUpdateYes_Click(object sender, EventArgs e)
         {
-            EventList EL = new EventList(_ConnStr, User.Identity.Name, int.Parse(Request["eid"].ToString()));
+            EventList EL = new EventList(User.Identity.Name, int.Parse(Request["eid"].ToString()));
             EL.HTML_Yes = txtYes.Text.ToString();
             EL.Update();
         }
 
         protected void btnUpdateNo_Click(object sender, EventArgs e)
         {
-            EventList EL = new EventList(_ConnStr, User.Identity.Name, int.Parse(Request["eid"].ToString()));
+            EventList EL = new EventList(User.Identity.Name, int.Parse(Request["eid"].ToString()));
             EL.HTML_No = txtNo.Text.ToString();
             EL.Update();
         }
 
         protected void btnUpdateWait_Click(object sender, EventArgs e)
         {
-            EventList EL = new EventList(_ConnStr, User.Identity.Name, int.Parse(Request["eid"].ToString()));
+            EventList EL = new EventList(User.Identity.Name, int.Parse(Request["eid"].ToString()));
             EL.HTML_Wait = txtWait.Text.ToString();
             EL.Update();
         }
@@ -461,7 +461,7 @@ namespace SPLC.Donor.Management
         {
             if (fuImage.HasFile)
             {
-                EventList EL = new EventList(_ConnStr, User.Identity.Name, int.Parse(Request["eid"].ToString()));
+                EventList EL = new EventList(User.Identity.Name, int.Parse(Request["eid"].ToString()));
                 EL.Header_Image = System.Drawing.Image.FromStream(fuImage.PostedFile.InputStream);
                 EL.Update();
 
