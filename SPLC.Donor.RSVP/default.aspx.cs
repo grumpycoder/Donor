@@ -73,12 +73,11 @@ namespace SPLC.Donor.RSVP
                 var guid = Guid.NewGuid();
 
                 var key = finderNumber.Substring(0, 4) + guid.ToString().Replace("-", "").Substring(0, 6).ToUpper();
-                var donor = new DonorList(ConnectionString, "") { pk_DonorList = key };
+                var donor = new DonorList(ConnectionString, "") { pk_DonorList = key, IsValid = true };
                 donor.Create();
 
                 var donorEventList = new DonorEventList(ConnectionString, "") { fk_Event = pk_Event, fk_DonorList = key };
-                //                donorEventList.Create();
-                donorEventList.AddNew();
+                donorEventList.Create();
 
                 donorEventList.GetDonorEventListID(donor.pk_DonorList, pk_Event, true);
                 Session["SPLC.Donor.RSVP.DL"] = donor;

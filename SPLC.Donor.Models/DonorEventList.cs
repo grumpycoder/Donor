@@ -86,6 +86,29 @@ namespace SPLC.Donor.Models
             }
         }
 
+
+        public void Create()
+        {
+            string sql = @"INSERT INTO DonorEventList (fk_Event, fk_DonorList, Date_Added, User_Added, TicketsRequested, WaitingListOrder, Attending, UpdatedInfo) " + 
+                            "VALUES (@fk_Event, @fk_DonorList, getdate(), @User_Added, 0, 0, 0, 0); SELECT SCOPE_IDENTITY()";
+
+            var conn = new SqlConnection(_ConnStr);
+            conn.Open();
+            SqlCommand cmd = new SqlCommand(sql, conn);
+            cmd.Parameters.AddWithValue("@fk_Event", fk_Event);
+            cmd.Parameters.AddWithValue("@fk_DonorList", fk_DonorList);
+            cmd.Parameters.AddWithValue("@User_Added", _User);
+            var result = cmd.ExecuteScalar().ToString();
+            conn.Close();
+
+            if (int.Parse(result) > 0)
+            {
+                pk_DonorEventList = int.Parse(result);
+                Load();
+            }
+        }
+
+
         public void Load(int pEventID,string pDonorListID)
         {
             string strSql = @"IF EXISTS(SELECT pk_DonorEventList FROM DonorEventList WHERE fk_Event=@fk_Event AND fk_DonorList=@fk_DonorList)
