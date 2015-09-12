@@ -23,7 +23,7 @@ namespace SPLC.Donor.Management
                 {
                     if (Request["delid"] != null)
                     {
-                        DonorEventList DEL = new DonorEventList(_ConnStr, User.Identity.Name, int.Parse(Request["delid"].ToString()));
+                        DonorEventList DEL = new DonorEventList(User.Identity.Name, int.Parse(Request["delid"].ToString()));
                         EventList EL = new EventList(_ConnStr, User.Identity.Name, DEL.fk_Event);
                         DonorList DL = new DonorList(DEL.fk_DonorList);
 
@@ -86,7 +86,7 @@ namespace SPLC.Donor.Management
 
         protected void btnMailCard_Click(object sender, EventArgs e)
         {
-            DonorEventList DEL = new DonorEventList(_ConnStr, User.Identity.Name, int.Parse(Request["delid"].ToString()));
+            DonorEventList DEL = new DonorEventList(User.Identity.Name, int.Parse(Request["delid"].ToString()));
             DEL.TicketsMailed_Date = DateTime.Now;
             DEL.TicketsMailed_User = User.Identity.Name;
             DEL.TicketsRequested = int.Parse(txtAttending.Text.ToString());
@@ -102,7 +102,7 @@ namespace SPLC.Donor.Management
 
         protected void btnUpdateDemo_Click(object sender, EventArgs e)
         {
-            DonorEventList DEL = new DonorEventList(_ConnStr, User.Identity.Name, int.Parse(Request["delid"].ToString()));
+            DonorEventList DEL = new DonorEventList(User.Identity.Name, int.Parse(Request["delid"].ToString()));
             DEL.UpdatedInfo = false;
             DEL.UpdatedInfo_User = null;
             DEL.UpdatedInfoDateTime = DateTime.Parse("1/1/1000");

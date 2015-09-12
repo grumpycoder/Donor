@@ -137,7 +137,7 @@ namespace SPLC.Donor.Management
 
                 DL.Update();
 
-                DonorEventList DEL = new DonorEventList(_ConnStr, User.Identity.Name, int.Parse(pDELID));
+                DonorEventList DEL = new DonorEventList(User.Identity.Name, int.Parse(pDELID));
                 DEL.UpdatedInfo = true;
                 DEL.UpdatedInfoDateTime = DateTime.Now;
                 DEL.UpdatedInfo_User = User.Identity.Name;
@@ -159,7 +159,7 @@ namespace SPLC.Donor.Management
 
             try
             {
-                DonorEventList DEL = new DonorEventList(_ConnStr, User.Identity.Name, int.Parse(pID));
+                DonorEventList DEL = new DonorEventList(User.Identity.Name, int.Parse(pID));
                 
                 switch (pField)
                 {

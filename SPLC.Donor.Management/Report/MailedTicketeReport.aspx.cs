@@ -39,7 +39,7 @@ namespace SPLC.Donor.Management.Report
 
         protected void gvReport_Sorting(object sender, GridViewSortEventArgs e)
         {
-            DonorEventList DEL = new DonorEventList(_ConnStr, User.Identity.Name);
+            DonorEventList DEL = new DonorEventList(User.Identity.Name);
             EventList EL = new EventList(_ConnStr, User.Identity.Name, int.Parse(Request["eid"].ToString()));
 
 
@@ -109,7 +109,7 @@ namespace SPLC.Donor.Management.Report
 
             }
 
-            DonorEventList DEL = new DonorEventList(_ConnStr, User.Identity.Name);
+            DonorEventList DEL = new DonorEventList(User.Identity.Name);
             EventList EL = new EventList(_ConnStr, User.Identity.Name, int.Parse(Request["eid"].ToString()));
 
             gvReport.PageIndex = pPageIndex;

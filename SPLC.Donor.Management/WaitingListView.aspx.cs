@@ -38,7 +38,7 @@ namespace SPLC.Donor.Management
                 ddlDonorType.Items.Insert(0, new ListItem("Select Donor Type", ""));
                 ddlDonorType.SelectedIndex = 0;
 
-                DonorEventList DEL = new DonorEventList(_ConnStr, User.Identity.Name);
+                DonorEventList DEL = new DonorEventList(User.Identity.Name);
 
                 gvDonorEvents.DataSource = DEL.GetWaitingList_Search("", "", "","");
                 gvDonorEvents.DataBind();
@@ -48,7 +48,7 @@ namespace SPLC.Donor.Management
 
         protected void btnSearch_Click(object sender, EventArgs e)
         {
-            DonorEventList DEL = new DonorEventList(_ConnStr, User.Identity.Name);
+            DonorEventList DEL = new DonorEventList(User.Identity.Name);
 
             gvDonorEvents.DataSource = DEL.GetWaitingList_Search(ddlEvents.SelectedValue.ToString(), txtDonorID.Text.ToString(), txtName.Text.ToString(),ddlDonorType.SelectedValue.ToString());
             gvDonorEvents.DataBind();

@@ -28,7 +28,7 @@ namespace SPLC.Donor.RSVP
                         throw new Exception("Not Active");
 
                     // Write Page
-                    var donorEventList = new DonorEventList(ConnectionString, User.Identity.Name)
+                    var donorEventList = new DonorEventList(User.Identity.Name)
                     {
                         fk_Event = eventList.pk_Event
                     };
@@ -76,7 +76,7 @@ namespace SPLC.Donor.RSVP
                 var donor = new DonorList() { pk_DonorList = key, IsValid = true };
                 donor.Create();
 
-                var donorEventList = new DonorEventList(ConnectionString, "") { fk_Event = pkEvent, fk_DonorList = key };
+                var donorEventList = new DonorEventList("") { fk_Event = pkEvent, fk_DonorList = key };
                 donorEventList.Create();
 
                 donorEventList.GetDonorEventListID(donor.pk_DonorList, pkEvent, true);
@@ -98,7 +98,7 @@ namespace SPLC.Donor.RSVP
 
                 Session["SPLC.Donor.RSVP.DL"] = donorList;
 
-                var donorEventList = new DonorEventList(ConnectionString, "");
+                var donorEventList = new DonorEventList("");
                 donorEventList.GetDonorEventListID(donorList.pk_DonorList, int.Parse(Request["eid"]), true);
 
                 if (!donorEventList.IsValid)

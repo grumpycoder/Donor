@@ -40,7 +40,6 @@ namespace SPLC.Donor.Models
 
         public DonorList(string donorListId) : this()
         {
-            IsValid = false;
             pk_DonorList = donorListId;
             Load();
         }

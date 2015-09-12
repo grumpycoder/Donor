@@ -47,7 +47,7 @@ namespace SPLC.Donor.Management
                 {
                     //lblTest.Text = Page.User.Identity.Name.ToString();
 
-                    DonorEventList DEL = new DonorEventList(_ConnStr, User.Identity.Name);
+                    DonorEventList DEL = new DonorEventList(User.Identity.Name);
 
                     gvDonorList.DataSource = DEL.GetDonorList_Search(ddlEvent2.SelectedValue.ToString(),txtLName.Text.ToString(),100);
                     gvDonorList.DataBind();
@@ -66,7 +66,7 @@ namespace SPLC.Donor.Management
                 {
                     //lblTest.Text = Page.User.Identity.Name.ToString();
 
-                    DonorEventList DEL = new DonorEventList(_ConnStr, User.Identity.Name);
+                    DonorEventList DEL = new DonorEventList(User.Identity.Name);
 
                     gvRegistrations.DataSource = DEL.GetRecentResponses(15);
                     gvRegistrations.DataBind();
@@ -109,7 +109,7 @@ namespace SPLC.Donor.Management
                         throw new Exception("If not attending please remove the number of attendees!");
 
                     EventList EL = new EventList(_ConnStr, User.Identity.Name, int.Parse(ddlEvents.SelectedValue.ToString()));
-                    DonorEventList DonorEL = new DonorEventList(_ConnStr, User.Identity.Name);
+                    DonorEventList DonorEL = new DonorEventList(User.Identity.Name);
                     DonorList DL;
 
                     if (chkGuest.Checked)
@@ -347,7 +347,7 @@ namespace SPLC.Donor.Management
             {
                 try
                 {
-                    DonorEventList DEL = new DonorEventList(_ConnStr, User.Identity.Name);
+                    DonorEventList DEL = new DonorEventList(User.Identity.Name);
                     DEL.GetDonorEventListID(txtDonorID.Text.ToString(), int.Parse(ddlEvents.SelectedValue.ToString()), true);
 
                     if (DEL.IsValid)
@@ -382,7 +382,7 @@ namespace SPLC.Donor.Management
 
         protected void btnSearchDonor_Click(object sender, EventArgs e)
         {
-            DonorEventList DEL = new DonorEventList(_ConnStr, User.Identity.Name);
+            DonorEventList DEL = new DonorEventList(User.Identity.Name);
 
             gvDonorList.DataSource = DEL.GetDonorList_Search(ddlEvent2.SelectedValue.ToString(), txtLName.Text.ToString(),0);
             gvDonorList.DataBind();

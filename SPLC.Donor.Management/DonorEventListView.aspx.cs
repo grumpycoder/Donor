@@ -25,7 +25,7 @@ namespace SPLC.Donor.Management
                 ddlEvents.DataValueField = "pk_Event";
                 ddlEvents.DataBind();
 
-                DonorEventList DEL = new DonorEventList(_ConnStr, User.Identity.Name);
+                DonorEventList DEL = new DonorEventList(User.Identity.Name);
 
                 gvDonorEvents.DataSource = DEL.GetDonorEventList_Search(ddlEvents.SelectedIndex.ToString(), "", "",500, true);
                 gvDonorEvents.DataBind();
@@ -40,7 +40,7 @@ namespace SPLC.Donor.Management
 
         private void LoadGrid()
         {
-            DonorEventList DEL = new DonorEventList(_ConnStr, User.Identity.Name);
+            DonorEventList DEL = new DonorEventList(User.Identity.Name);
             bool blShow = false;
 
             if (chMailListOnly.Checked)
@@ -73,7 +73,7 @@ namespace SPLC.Donor.Management
                 int intEL = int.Parse(ddlEvents.SelectedValue.ToString());
                 string strDonor = row.Cells[0].Text.ToString();
 
-                DonorEventList DEL = new DonorEventList(_ConnStr, User.Identity.Name);
+                DonorEventList DEL = new DonorEventList(User.Identity.Name);
                 DEL.Load(intEL, strDonor);
 
                 DEL.TicketsMailed_Date = DateTime.Now;
