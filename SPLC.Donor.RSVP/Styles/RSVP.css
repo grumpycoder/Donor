@@ -1,0 +1,2262 @@
+﻿
+.clear-block:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+
+.clear-block {
+    display: inline-block;
+}
+/*_\*/
+* html .clear-block {
+    height: 1%;
+}
+
+.clear-block {
+    display: block;
+}
+/* End hide from IE-mac */
+
+
+.container-inline div, .container-inline label {
+    display: inline;
+}
+
+.noborder {
+    border: 0;
+}
+
+ul.primary {
+    border-collapse: collapse;
+    padding: 0 0 0 1em;
+    white-space: nowrap;
+    list-style: none;
+    margin: 5px;
+    height: auto;
+    line-height: normal;
+    border-bottom: 1px solid #bbb;
+}
+
+    ul.primary li {
+        display: inline;
+    }
+
+        ul.primary li a {
+            background-color: #ddd;
+            border-color: #bbb;
+            border-width: 1px;
+            border-style: solid solid none solid;
+            height: auto;
+            margin-right: 0.5em;
+            padding: 0 1em;
+            text-decoration: none;
+        }
+
+        ul.primary li.active a {
+            background-color: #fff;
+            border: 1px solid #bbb;
+            border-bottom: #fff 1px solid;
+        }
+
+        ul.primary li a:hover {
+            background-color: #eee;
+            border-color: #ccc;
+            border-bottom-color: #eee;
+        }
+
+ul.secondary {
+    border-bottom: 1px solid #bbb;
+    padding: 0.5em 1em;
+    margin: 5px;
+}
+
+    ul.secondary li {
+        display: inline;
+        padding: 0 1em;
+        border-right: 1px solid #ccc;
+    }
+
+    ul.secondary a {
+        padding: 0;
+        text-decoration: none;
+    }
+
+        ul.secondary a.active {
+            border-bottom: 4px solid #999;
+        }
+
+
+
+/*html.js input.form-autocomplete {
+    background-image: url(http://www.splcenter.org/misc/throbber.gif);
+    background-repeat: no-repeat;
+    background-position: 100% 2px;
+}
+
+html.js input.throbbing {
+    background-position: 100% -18px;
+}
+
+html.js fieldset.collapsed {
+    border-bottom-width: 0;
+    border-left-width: 0;
+    border-right-width: 0;
+    margin-bottom: 0;
+    height: 1em;
+}
+
+    html.js fieldset.collapsed * {
+        display: none;
+    }
+
+    html.js fieldset.collapsed legend {
+        display: block;
+    }
+
+html.js fieldset.collapsible legend a {
+    padding-left: 15px;
+    background: url(http://www.splcenter.org/misc/menu-expanded.png) 5px 75% no-repeat;
+}
+
+html.js fieldset.collapsed legend a {
+    background-image: url(http://www.splcenter.org/misc/menu-collapsed.png);
+    background-position: 5px 50%;
+}
+
+* html.js fieldset.collapsed legend, * html.js fieldset.collapsed legend *, * html.js fieldset.collapsed table * {
+    display: inline;
+}
+
+html.js fieldset.collapsible {
+    position: relative;
+}
+
+    html.js fieldset.collapsible legend a {
+        display: block;
+    }
+
+    html.js fieldset.collapsible .fieldset-wrapper {
+        overflow: auto;
+    }*/
+
+
+
+html.js .no-js {
+    display: none;
+}
+
+
+
+#first-time strong {
+    display: block;
+    padding: 1.5em 0 .5em;
+}
+
+tr.selected td {
+    background: #ffc;
+}
+
+table.sticky-header {
+    margin-top: 0;
+    background: #fff;
+}
+
+#clean-url.install {
+    display: none;
+}
+
+html.js .js-hide {
+    display: none;
+}
+
+#system-modules div.incompatible {
+    font-weight: bold;
+}
+
+#system-themes-form div.incompatible {
+    font-weight: bold;
+}
+
+ul.menu {
+    list-style: none;
+    border: none;
+    text-align: left;
+}
+
+    ul.menu li {
+        margin: 0 0 0 0.5em;
+    }
+
+li.expanded {
+    list-style-type: circle;
+    list-style-image: url(http://www.splcenter.org/misc/menu-expanded.png);
+    padding: 0.2em 0.5em 0 0;
+    margin: 0;
+}
+
+li.collapsed {
+    list-style-type: disc;
+    list-style-image: url(http://www.splcenter.org/misc/menu-collapsed.png);
+    padding: 0.2em 0.5em 0 0;
+    margin: 0;
+}
+
+li.leaf {
+    list-style-type: square;
+    list-style-image: url(http://www.splcenter.org/misc/menu-leaf.png);
+    padding: 0.2em 0.5em 0 0;
+    margin: 0;
+}
+
+li a.active {
+    color: #000;
+}
+
+ul.links {
+    margin: 0;
+    padding: 0;
+}
+
+    ul.links.inline {
+        display: inline;
+    }
+
+    ul.links li {
+        display: inline;
+        list-style-type: none;
+        padding: 0 0.5em;
+    }
+
+.block ul {
+    margin: 0;
+    padding: 0 0 0.25em 1em;
+}
+
+
+/*.timeEntry_control {
+    vertical-align: middle;
+    margin-left: 2px;
+}
+
+* html .timeEntry_control {
+    margin-top: -4px;
+}*/
+
+.eventTitle {
+    font-size: 18px;
+}
+
+
+
+#google-cse-searchbox-form div, #google-cse-searchbox-form input {
+    margin: 0;
+    display: inline;
+}
+
+#google-cse-results-searchbox-form div, #google-cse-results-searchbox-form input {
+    margin: 0;
+    display: inline;
+}
+
+#google-cse-searchbox-form .form-radios div {
+    display: block;
+}
+
+#google-cse-results-searchbox-form .form-radios div {
+    display: block;
+}
+
+#google-cse-results-gadget a {
+    margin-left: 2em;
+}
+
+
+
+
+
+.clearfix:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+
+* html > body .clearfix {
+    display: inline;
+    width: 100%;
+}
+
+* html .clearfix { /*_\*/
+    height: 1%; /* End hide from IE-mac */
+}
+
+
+
+@media print {
+    span.ext, span.mailto {
+        display: none;
+        padding: 0;
+    }
+}
+
+
+
+html.js a.views-throbbing, html.js span.views-throbbing {
+    background: url(http://www.splcenter.org/sites/all/modules/views/images/status-active.gif) no-repeat right center;
+    padding-right: 18px;
+}
+
+body {
+    color: #000;
+    background: #FFF;
+}
+
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, textarea, p, blockquote, th, td {
+    margin: 0;
+    padding: 0;
+}
+
+li {
+    list-style: none;
+}
+
+
+h1, h2, h3, h4, h5, h6 {
+    font-size: 100%;
+    font-weight: normal;
+}
+
+
+legend {
+    color: #000;
+}
+
+body {
+    font: 13px arial,helvetica,clean,sans-serif;
+    *font-size: small;
+    *font: x-small;
+}
+
+
+body * {
+    line-height: 1.22em;
+}
+
+h1 {
+    font-size: 138.5%;
+}
+
+h2 {
+    font-size: 123.1%;
+}
+
+h3 {
+    font-size: 108%;
+}
+
+h1, h2, h3 {
+    margin-top: 1em;
+}
+
+h1, h2, h3, h4, h5, h6, strong {
+    font-weight: bold;
+}
+
+
+
+
+ol, ul, dl {
+    margin-left: .5em;
+}
+
+    ol li {
+        list-style: decimal outside;
+    }
+
+    ul li {
+        list-style: disc outside;
+    }
+
+    dl dd {
+        margin-bottom: 0.5em;
+    }
+
+
+ul {
+    list-style-type: disc;
+}
+
+    ul ul {
+        list-style-type: circle;
+    }
+
+        ul ul ul {
+            list-style-type: square;
+        }
+
+            ul ul ul ul {
+                list-style-type: circle;
+            }
+
+ol {
+    list-style-type: decimal;
+}
+
+    ol ol {
+        list-style-type: lower-alpha;
+    }
+
+        ol ol ol {
+            list-style-type: decimal;
+        }
+
+ul, ol {
+    padding-left: 1.5em;
+}
+
+hr {
+    height: 1px;
+    border: 1px solid #666;
+}
+
+
+ul.primary {
+    margin: .5em 0 0 0;
+    padding: 0 0 0 0;
+    border-width: 0;
+    list-style: none;
+    white-space: nowrap;
+    line-height: normal;
+    background: url(http://www.splcenter.org/sites/all/themes/derma/inc/images/tab-bar.png) repeat-x left bottom;
+}
+
+    ul.primary li {
+        float: left;
+        margin: 0;
+        padding: 0;
+    }
+
+        ul.primary li a {
+            display: block;
+            height: 24px;
+            margin: 0;
+            padding: 0 0 0 5px;
+            border-width: 0;
+            font-weight: bold;
+            text-decoration: none;
+            color: #666;
+            background-color: transparent;
+            background: url(http://www.splcenter.org/sites/all/themes/derma/inc/images/tab-left.png) no-repeat left -38px;
+        }
+
+            ul.primary li a .tab {
+                display: block;
+                height: 20px;
+                margin: 0;
+                padding: 4px 17px 0 10px;
+                border-width: 0;
+                line-height: 20px;
+                background: url(http://www.splcenter.org/sites/all/themes/derma/inc/images/tab-right.png) no-repeat right -38px;
+            }
+
+            ul.primary li a:hover {
+                border-width: 0;
+                background-color: transparent;
+                background: url(http://www.splcenter.org/sites/all/themes/derma/inc/images/tab-left.png) no-repeat left -76px;
+            }
+
+                ul.primary li a:hover .tab {
+                    background: url(http://www.splcenter.org/sites/all/themes/derma/inc/images/tab-right.png) no-repeat right -76px;
+                }
+
+        ul.primary li.active a, ul.primary li.active a:hover {
+            border-width: 0;
+            color: #000;
+            background-color: transparent;
+            background: url(http://www.splcenter.org/sites/all/themes/derma/inc/images/tab-left.png) no-repeat left 0;
+        }
+
+            ul.primary li.active a .tab, ul.primary li.active a:hover .tab {
+                background: url(http://www.splcenter.org/sites/all/themes/derma/inc/images/tab-right.png) no-repeat right 0;
+            }
+
+ul.secondary {
+    margin: 0;
+    padding: 0 0 0 5px;
+    border-bottom: 1px solid #c0c0c0;
+    list-style: none;
+    white-space: nowrap;
+    background-color: #fff;
+}
+
+    ul.secondary li {
+        float: left;
+        margin: 0 5px 0 0;
+        padding: 5px 0;
+        border-right: none;
+    }
+
+    ul.secondary a {
+        display: block;
+        height: 24px;
+        margin: 0;
+        padding: 0;
+        border: 1px solid #c0c0c0;
+        text-decoration: none;
+        color: #777;
+        background: url(http://www.splcenter.org/sites/all/themes/derma/inc/images/tab-secondary.png) repeat-x left -56px;
+    }
+
+        ul.secondary a .tab {
+            display: block;
+            height: 18px;
+            margin: 0;
+            padding: 3px 8px;
+            line-height: 18px;
+        }
+
+        ul.secondary a:hover {
+            background: url(http://www.splcenter.org/sites/all/themes/derma/inc/images/tab-secondary.png) repeat-x left bottom;
+        }
+
+        ul.secondary a.active, ul.secondary a.active:hover {
+            border: 1px solid #c0c0c0;
+            color: #000;
+            background: url(http://www.splcenter.org/sites/all/themes/derma/inc/images/tab-secondary.png) repeat-x left top;
+        }
+
+div.messages {
+    margin: 10px 5px 5px 5px;
+    border: 2px solid #ccc;
+    padding: 10px;
+    color: #000;
+    background-color: #fff;
+}
+
+div.status {
+    border: 2px solid #6dea5d;
+}
+
+div.warning {
+    border: 2px solid #f0c020;
+}
+
+div.warning, tr.warning, body.section-admin tr.warning {
+    background: #ffd;
+}
+
+div.error {
+    border: 2px solid #CC0000;
+    background-color: #FFEEEE;
+    color: #CC0000;
+}
+
+.help {
+    margin: 1em 0;
+}
+
+div.messages ul li {
+    list-style-position: inside;
+}
+
+.block-region {
+    margin-top: 0;
+}
+
+.node-unpublished, .comment-unpublished {
+    background: url(http://www.splcenter.org/sites/all/themes/derma/inc/images/unpublished.png) repeat;
+}
+
+.block ul {
+    padding: 0;
+}
+
+    .block ul.menu, .item-list ul {
+        padding: 0 0 0 1.5em;
+    }
+
+.node-links a {
+    margin-right: 1.5em;
+}
+
+ul ul, ul ol, ol ol, ol ul, .block ul ul, .block ul ol, .block ol ol, .block ol ul, .item-list ul ul, .item-list ul ol, .item-list ol ol, .item-list ol ul {
+    margin: 0;
+}
+
+.item-list ul li {
+    margin: 0;
+    padding: 0;
+    list-style: inherit;
+}
+
+ul.menu li, li.expanded, li.collapsed, li.leaf {
+    margin: 0;
+    padding: 0;
+    line-height: 1.5em;
+}
+
+ul.links li {
+    padding: 0;
+}
+
+#secondary {
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+#navbar li {
+    float: left;
+    padding: 0 15px 0 0;
+}
+
+#footer .menu li {
+    float: left;
+    margin-right: 20px;
+    margin-left: 0;
+    list-style-image: none;
+    list-style-type: none;
+}
+
+#footer .block ul {
+    padding: 0;
+}
+
+fieldset {
+    margin: 1em 0;
+    padding: .5em 1em .5em 1em;
+    border: 2px solid #ccc;
+}
+
+html.js fieldset.collapsed {
+    margin-left: 2px;
+    margin-right: 2px;
+    margin-bottom: 0;
+}
+
+fieldset legend {
+    font-weight: bold;
+    padding: 0 5px;
+}
+
+html.js fieldset.collapsible legend {
+    padding-left: 0;
+}
+
+fieldset legend a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.form-item, .form-submit {
+    margin: 0 0 .5em 0;
+}
+
+label {
+    line-height: 1.5em;
+}
+
+.form-text, .form-textarea {
+    border: 1px solid #999;
+    padding: 3px 3px;
+}
+
+    .form-text:focus, .form-textarea:focus {
+        border-color: #333;
+    }
+
+.form-submit {
+    margin-top: .5em;
+}
+
+#search-box .form-text {
+    padding: 2px;
+}
+
+#search-theme-form label {
+    display: none;
+}
+
+tr.content-add-new td {
+    vertical-align: bottom;
+}
+
+#edit--add-existing-field-field-name {
+    width: 200px;
+}
+
+#edit--add-new-field-type {
+    width: 100px;
+}
+
+.draggable a.tabledrag-handle .handle {
+    margin-top: 0;
+}
+
+thead th {
+    border: none;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+th, thead th, tbody th {
+    text-align: left;
+    padding-right: 0;
+}
+
+tr.even, tr.odd {
+    background-color: transparent;
+}
+
+tbody {
+    border-top: inherit;
+}
+
+.section-admin #content-area tr.even td, .section-admin #content-area tr.odd td {
+    border-bottom: 1px solid #DDD;
+    padding: 0.5em;
+}
+
+.section-admin #content-area tr.odd td {
+    background-color: #F0F0F0;
+}
+
+.section-admin #content-area thead th {
+    border-bottom: 3px solid #CCCCCC;
+}
+
+abbr.created {
+    border: none;
+    cursor: auto;
+    white-space: normal;
+}
+
+h1.page-title, h2.block-title {
+    margin-top: 0;
+}
+
+div.admin .left, .node-type-list, .admin-list {
+    margin-left: 0;
+}
+
+div.admin-panel, div.admin-panel .body, div.admin {
+    padding: 0;
+}
+
+#site-name {
+    margin: 0;
+    font-size: 2em;
+    line-height: 1.5em;
+}
+
+.views-view-grid tbody {
+    border: none;
+}
+
+body.mceContentBody {
+    background-color: #fff;
+    background-image: none;
+    padding: 5px;
+}
+
+#skip-nav {
+    display: none;
+}
+
+.float-right {
+    float: right;
+    margin-left: 10px;
+}
+
+.float-left {
+    float: left;
+    margin-right: 10px;
+}
+
+#page, #closure-blocks {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#header-blocks {
+    clear: both;
+}
+
+#main-row {
+    position: relative;
+}
+
+#main-col, .two-sidebars #main-col {
+    float: left;
+    padding: 0;
+}
+
+.sidebar-right #main-col {
+    margin-left: 0;
+}
+
+.no-sidebars #main-col {
+    margin-left: 0;
+}
+
+#main-col-inner {
+    margin: 0;
+    padding: 0;
+}
+
+#sidebar-left {
+    float: left;
+    margin-left: 0;
+    padding: 0;
+}
+
+#sidebar-right {
+    float: left;
+    padding: 0;
+}
+
+#header, #content, #navbar, #sidebar-left, #sidebar-right, #footer, #closure-blocks {
+    overflow: visible;
+    word-wrap: break-word;
+}
+
+#page {
+    margin: auto;
+}
+
+#page-inner {
+    margin: auto;
+}
+
+#main-col {
+    width: 100%;
+}
+
+#sidebar-left, #sidebar-right, #main-col {
+    position: relative;
+    float: left;
+}
+
+#sidebar-left {
+    margin-left: -100%;
+}
+
+#page-inner {
+    width: 960px;
+}
+
+.sidebar-left #main-row, .two-sidebars #main-row {
+    padding-left: 200px;
+}
+
+#sidebar-left {
+    width: 200px;
+    right: 200px;
+}
+
+#sidebar-right {
+    width: 150px;
+    margin-right: -150px;
+}
+
+.sidebar-right #main-row, .two-sidebars #main-row {
+    padding-right: 150px;
+}
+
+#header, #navbar {
+    position: relative;
+}
+
+#search-box {
+    position: absolute;
+    right: 0;
+    top: 20px;
+}
+
+#logo {
+    margin: 0 10px 0 0;
+    padding: 0;
+    float: left;
+}
+
+#navbar {
+    overflow: hidden;
+}
+
+.breadcrumb {
+    padding: 10px 20px;
+}
+
+#footer {
+    clear: both;
+}
+
+
+
+
+.fieldlayout-region-hard-left, .fieldlayout-region-soft-left, .node-hard-left, .node-soft-left {
+    float: left;
+    margin-right: 10px;
+}
+
+.fieldlayout-region-soft-right, .fieldlayout-region-hard-right, .node-hard-right, .node-soft-right {
+    float: right;
+    margin-left: 10px;
+}
+
+.node-has-region-hard-left .node-body {
+    margin-left: 10em;
+    zoom: 1;
+}
+
+.node-has-region-hard-right .node-body {
+    margin-right: 10em;
+}
+
+
+#page {
+    width: 980px;
+    margin-bottom: 30px;
+}
+
+#page-inner {
+    width: auto;
+    padding: 25px;
+    padding-top: 10px;
+}
+
+.sidebar-left #main-row, .two-sidebars #main-row {
+    padding-left: 260px;
+}
+
+#sidebar-left {
+    width: 260px;
+    right: 260px;
+}
+
+#sidebar-right {
+    width: 200px;
+    margin-right: -200px;
+}
+
+.sidebar-right #main-row, .two-sidebars #main-row {
+    padding-right: 200px;
+}
+
+#sidebar-right-inner {
+    margin: 0 10px;
+}
+
+#page {
+    background: #fff url(http://www.splcenter.org/sites/default/themes/splcenter/inc/images/bg-outer.gif) repeat-y center;
+}
+
+#page-inner {
+    background: transparent url(http://www.splcenter.org/sites/default/themes/splcenter/inc/images/bg-outer-bottom.gif) no-repeat center bottom;
+}
+
+body {
+    background-color: #5e5e5e;
+}
+
+.popup {
+    background-color: #fff;
+}
+
+.node-unpublished, .comment-unpublished {
+    background: url(http://www.splcenter.org/sites/default/themes/splcenter/inc/images/unpublished.png) repeat scroll 0 0 transparent;
+}
+
+#main-row {
+    margin: 10px 0 10px 0;
+}
+
+#page-content {
+    border: 1px solid black;
+    padding-bottom: 20px;
+    padding-top: 20px;
+}
+
+.front #page-content {
+    border-top: 0;
+    padding-bottom: 0;
+}
+
+.sidebar-left #main-col-inner {
+    margin-left: 5px;
+}
+
+#content-after {
+    margin-top: 10px;
+}
+
+#content-right, #content-right-top {
+    float: right;
+    clear: right;
+    margin-left: 20px;
+}
+
+#content-right-inner {
+    width: 178px;
+}
+
+#content-right {
+    padding: 20px;
+    padding-bottom: 0;
+    margin-bottom: 20px;
+}
+
+#content-right-top-inner {
+    width: 220px;
+}
+
+.right-sidebar-narrow #content-right-inner {
+    width: 103px;
+}
+
+.right-sidebar-narrow #content-right-top-inner {
+    width: 140px;
+}
+
+#content-header {
+    margin: 0;
+    padding: 5px 0 10px 0;
+}
+
+.if-header {
+    padding: 20px 0 10px 0;
+}
+
+.before-title {
+    padding: 10px 0 0 0;
+    margin-bottom: 10px;
+}
+
+.after-title {
+    float: right;
+}
+
+.after-title, .breadcrumb {
+    line-height: 20px;
+    padding: 0 0 10px 0;
+}
+
+.breadcrumb {
+    line-height: 14px;
+}
+
+#search .form-submit {
+    border: none;
+    padding: 1px;
+    margin-right: 15px;
+    margin-top: 4px;
+    overflow: hidden;
+    width: 19px;
+    height: 19px;
+    background: #fff url(http://www.splcenter.org/sites/default/themes/splcenter/inc/images/button-search.gif) no-repeat 50% 50%;
+    cursor: pointer;
+    text-indent: -100em;
+    letter-spacing: -100em;
+    line-height: 100em;
+    margin-left: 4px;
+    overflow: hidden;
+    vertical-align: middle;
+}
+
+#search label {
+    display: none;
+}
+
+#search-box {
+    top: 0;
+}
+
+#logo {
+    margin-right: 0;
+}
+
+#site-name {
+    margin-top: 5px;
+    height: 70px;
+    width: 300px;
+    overflow: hidden;
+    position: relative;
+    line-height: 100em;
+    text-indent: -100em;
+    word-spacing: 0;
+    text-align: left;
+    z-index: 20;
+}
+
+    #site-name a {
+        background-repeat: no-repeat;
+        background-position: center left;
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        background-image: url(http://www.splcenter.org/sites/default/themes/splcenter/inc/images/sitename.gif);
+        height: 70px;
+        width: 300px;
+    }
+
+#primary {
+    text-align: right;
+    position: inherit;
+    width: auto;
+    background: url(http://www.splcenter.org/sites/default/themes/splcenter/inc/images/bg-border.gif) repeat-x left bottom;
+}
+
+    #primary ul {
+        float: right;
+    }
+
+    #primary li {
+        padding: 0 13px;
+    }
+
+        #primary li.last {
+            background: none;
+        }
+
+        #primary li a {
+            padding: 10px;
+            display: block;
+        }
+
+        #primary li.active-trail a, #primary li.active a {
+            background: url(http://www.splcenter.org/sites/default/themes/splcenter/inc/images/primary-on.gif) no-repeat center bottom;
+        }
+
+#secondary {
+    margin-top: 7px;
+    text-align: right;
+    position: absolute;
+    right: 170px;
+    width: auto;
+}
+
+    #secondary a {
+        padding: 3px 6px;
+        border: 1px solid black;
+        margin-right: 0;
+    }
+
+    #secondary li {
+        margin-right: 0;
+        margin-left: 10px;
+        padding: 0;
+    }
+
+#site-slogan {
+    text-align: right;
+    position: absolute;
+    top: 35px;
+    right: 15px;
+}
+
+#footer {
+    color: #fff;
+}
+
+#footer a {
+    color: #fff;
+}
+
+#footer-message {
+    float: right;
+    padding: 10px 2px 0;
+    color: #000;
+}
+
+#footer-blocks {
+    padding: 10px 15px 15px;
+    background: #9e3023 url(http://www.splcenter.org/sites/default/themes/splcenter/inc/images/bg-footer.gif) repeat-x 0 bottom;
+}
+
+    #footer-blocks .block {
+        float: left;
+    }
+
+    #footer-blocks .block-menu_block {
+        width: 195px;
+    }
+
+    #footer-blocks #block-menu_block-8 {
+        width: auto;
+    }
+
+    #footer-blocks .block-menu_block .menu li {
+        margin: 0;
+        float: none;
+    }
+
+    #footer-blocks .block-menu_block .menu a {
+        padding-right: 10px;
+        margin-right: 10px;
+    }
+
+ul.primary {
+    padding: 0;
+}
+
+    ul.primary li a {
+        background: url(http://www.splcenter.org/sites/default/themes/splcenter/inc/images/tab-left.png) no-repeat left -38px;
+    }
+
+        ul.primary li a .tab {
+            background: url(http://www.splcenter.org/sites/default/themes/splcenter/inc/images/tab-right.png) no-repeat right -38px;
+        }
+
+        ul.primary li a:hover {
+            background: url(http://www.splcenter.org/sites/default/themes/splcenter/inc/images/tab-left.png) no-repeat left -76px;
+        }
+
+            ul.primary li a:hover .tab {
+                background: url(http://www.splcenter.org/sites/default/themes/splcenter/inc/images/tab-right.png) no-repeat right -76px;
+            }
+
+    ul.primary li.active a, ul.primary li.active a:hover {
+        background: url(http://www.splcenter.org/sites/default/themes/splcenter/inc/images/tab-left.png) no-repeat left 0;
+    }
+
+        ul.primary li.active a .tab, ul.primary li.active a:hover .tab {
+            background: url(http://www.splcenter.org/sites/default/themes/splcenter/inc/images/tab-right.png) no-repeat right 0;
+        }
+
+#block-menu_block-1 .block-title {
+    display: none;
+}
+
+#sidebar-left .menu-name-primary-links {
+    background: #e6e6e6 url(http://www.splcenter.org/sites/default/themes/splcenter/inc/images/bg-leftmenu.gif) repeat-y;
+}
+
+    #sidebar-left .menu-name-primary-links li {
+        border-bottom: 5px solid #fff;
+    }
+
+        #sidebar-left .menu-name-primary-links li.last {
+            border-bottom: none;
+        }
+
+        #sidebar-left .menu-name-primary-links li li {
+            border: none;
+        }
+
+    #sidebar-left .menu-name-primary-links li, #sidebar-left .menu-name-primary-links ul.menu {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        list-style-image: none;
+    }
+
+        #sidebar-left .menu-name-primary-links li a {
+            padding: 10px 10px 10px 40px;
+            display: block;
+        }
+
+        #sidebar-left .menu-name-primary-links li.first a {
+            margin-top: 0;
+        }
+
+        #sidebar-left .menu-name-primary-links li li a {
+            padding: 0 0 7px 40px;
+            margin-top: 0;
+            margin-bottom: 4px;
+        }
+
+        #sidebar-left .menu-name-primary-links li li.last a {
+            margin-bottom: 0;
+        }
+
+        #sidebar-left .menu-name-primary-links li li a {
+            background: transparent url(http://www.splcenter.org/sites/default/themes/splcenter/inc/images/menu-seperator.gif) no-repeat left bottom;
+        }
+
+        #sidebar-left .menu-name-primary-links li li.active-trail a {
+            background: transparent url(http://www.splcenter.org/sites/default/themes/splcenter/inc/images/menu-seperator-active.gif) no-repeat left bottom;
+        }
+
+        #sidebar-left .menu-name-primary-links li li.last a {
+            background: none;
+        }
+
+            #sidebar-left .menu-name-primary-links li li.last.active-trail a, #sidebar-left .menu-name-primary-links li li.last a.active {
+                background: transparent url(http://www.splcenter.org/sites/default/themes/splcenter/inc/images/menu-seperator-active-last.gif) no-repeat left bottom;
+            }
+
+    #sidebar-left .menu-name-primary-links .expanded.menu-mlid-158 {
+        background: url(http://www.splcenter.org/sites/default/themes/splcenter/inc/images/menu-who-we-are.gif) no-repeat 5px 13px;
+    }
+
+    #sidebar-left .menu-name-primary-links .expanded.menu-mlid-159 {
+        background: url(http://www.splcenter.org/sites/default/themes/splcenter/inc/images/menu-what-we-do.gif) no-repeat 5px 13px;
+    }
+
+    #sidebar-left .menu-name-primary-links .expanded.menu-mlid-256 {
+        background: url(http://www.splcenter.org/sites/default/themes/splcenter/inc/images/menu-get-informed.gif) no-repeat 5px 13px;
+    }
+
+    #sidebar-left .menu-name-primary-links .expanded.menu-mlid-255 {
+        background: url(http://www.splcenter.org/sites/default/themes/splcenter/inc/images/menu-get-involved.gif) no-repeat 5px 13px;
+    }
+
+    #sidebar-left .menu-name-primary-links .collapsed {
+        background-image: none;
+    }
+
+.region-content_before .block-menu_block {
+    margin: 20px 20px 0 20px;
+    background: #fff url(http://www.splcenter.org/sites/default/themes/splcenter/inc/images/bg-tab.gif) repeat-x left bottom;
+}
+
+.region-content_before ul.menu {
+    margin: 0 0;
+    padding: 0;
+}
+
+    .region-content_before ul.menu li {
+        float: left;
+        list-style-image: none;
+        list-style-type: none;
+        margin-right: 10px;
+        margin-bottom: 4px;
+        padding: 5px 10px 2px 10px;
+        border: 1px solid black;
+        border-bottom: none;
+    }
+
+        .region-content_before ul.menu li.active-trail, .region-content_before ul.menu li.active {
+            background-color: black;
+            padding-bottom: 7px;
+            border: none;
+            margin-bottom: 0;
+            background: #fff url(http://www.splcenter.org/sites/default/themes/splcenter/inc/images/bg-tab-active.gif) repeat-x center bottom;
+        }
+
+            .region-content_before ul.menu li.active-trail a, .region-content_before ul.menu li.active a {
+                color: #fff;
+            }
+
+.node-teaser {
+    margin-bottom: 0;
+}
+
+    .node-teaser .field-field-image-thumbnail {
+        margin-bottom: 20px;
+    }
+
+.views-exposed-widget .form-submit {
+    margin-bottom: 30px;
+}
+
+.views-exposed-widget .form-select {
+    width: 100px;
+}
+
+.view-publications .views-exposed-widget .form-select, #block-views--exp-careers-page_1 .views-exposed-widget .form-select {
+    width: auto;
+}
+
+.node-detail .node-soft-right {
+    width: 220px;
+}
+
+.node-type-magazine_issue .node-soft-right {
+    width: auto;
+}
+
+.node-teaser .node-soft-right {
+    width: auto;
+}
+
+.node-detail .node-soft-left {
+    width: 150px;
+}
+
+.node-type-magazine_issue-detail .node-soft-left {
+    width: auto;
+}
+
+.node-teaser .node-soft-left {
+    width: auto;
+    padding: 0;
+}
+
+.node-detail .page-lead-art {
+    width: 200px;
+    margin-bottom: 1em;
+}
+
+.node-detail .node-body td {
+    padding: 0;
+}
+
+.node-teaser .node-soft-left {
+    width: 100px;
+}
+
+.node-detail .node-body-top {
+    margin-bottom: 1em;
+}
+
+.node-teaser .node-body-top {
+    margin-bottom: 5px;
+}
+
+.node-teaser .node-body-top {
+    margin-bottom: 5px;
+}
+
+.node-type-magazine_article-teaser .node-body-top {
+    margin-bottom: 0;
+}
+
+.not-front #content-area {
+    padding-bottom: 20px;
+}
+
+#content-area .views-row-last > .node-teaser {
+    background: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.view-hp-news {
+    padding-bottom: 40px;
+}
+
+.node-soft-right .field-items .field-item {
+    margin-top: 10px;
+}
+
+#content-area .node-type-pod-teaser .node-teaser {
+    padding-bottom: 0;
+}
+
+.node-before-pod .node-title {
+    background: none;
+    padding-bottom: 0;
+    margin-bottom: 10px;
+}
+
+#content-area .node-type-pod .node-teaser {
+    background-image: none;
+}
+
+#content-bottom #block-views-if_jump_profiles-block_1 .block-title, #content-bottom #block-views-if_jump_profiles-block_2 .block-title, #content-bottom #block-views-if_jump_profiles-block_3 .block-title {
+    background: none;
+    margin: 0 0 0 20px;
+}
+
+#content-bottom #block-views-if_jump_profiles-block_1, #content-bottom #block-views-if_jump_profiles-block_2, #content-bottom #block-views-if_jump_profiles-block_3 {
+    border: 1px solid black;
+    padding: 0 0 10px 0;
+    margin: 0 10px;
+}
+
+#content-bottom #block-views-if_jump_profiles-block_3 {
+    margin-bottom: 20px;
+}
+
+#content-bottom #block-views-if_jump_profiles-block_1 {
+    border-bottom: 0;
+    padding-top: 20px;
+}
+
+#content-bottom #block-views-if_jump_profiles-block_2 {
+    border-bottom: 0;
+    border-top: 0;
+}
+
+#content-bottom #block-views-if_jump_profiles-block_3 {
+    border-top: 0;
+    padding-bottom: 20px;
+}
+
+.stand-strong-promo {
+    border: 1px solid black;
+    margin-top: 0;
+    padding: 10px;
+    width: 280px;
+}
+
+#block-views-careers-block_1 .block-content {
+    margin-bottom: 20px;
+}
+
+.section-explore-intelligence-files #content-bottom #block-splc-if_browse .block-title, .section-explore-intelligence-files #content-bottom .block-block .block-title {
+    margin-bottom: 0;
+    background: none;
+}
+
+.section-get-informed-intelligence-files .node-body-top {
+    margin-bottom: 0;
+}
+
+.section-get-informed-intelligence-files .field-field-related-ideology {
+    margin-bottom: 1em;
+}
+
+.view-if-profiles .field-type-nodereference {
+    display: none;
+}
+
+.node-detail .node-hard-left {
+    width: 240px;
+    padding: 10px 0;
+}
+
+.node-teaser .node-soft-left, .node-detail .node-hard-left, .node-detail .node-left .node-left {
+    width: auto;
+    padding: 0;
+}
+
+.node-type-publication-detail .node-soft-right {
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.node-detail.node-has-region-hard-left .node-body .item-list .pager {
+    clear: none;
+}
+
+.item-list ul.pager {
+    padding: 0;
+    margin-top: 20px;
+}
+
+.paging-not-first .node-body-top {
+    display: none;
+}
+
+.node-type-magazine-article .paging-not-first .node-body-top {
+    display: block;
+}
+
+.node-detail .node-left .node-left .field {
+    margin: 0;
+}
+
+.node-hard-left .field-type-nodereference, .node-hard-left .field-field-related-link, .node-soft-left .field-type-nodereference, .node-soft-left .field-field-related-link {
+    margin-bottom: 0;
+}
+
+body .node-hard-left .field-label, body .node-soft-left .field-label {
+    margin: 0 10px 5px 10px;
+}
+
+.node-hard-left .field .field-label, .node-soft-left .field .field-label, .node-left .node-left .field-label {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.node-left .node-left {
+    margin: 0;
+}
+
+
+#block-views-if_profiles-block_1 .block-title, #content-bottom #block-views-magazine_latest-block_1 .block-title {
+    margin-right: 240px;
+}
+
+#content-bottom #block-views-magazine_latest-block_1 .field-field-image-thumbnail {
+    display: none;
+}
+
+#content-bottom #block-views-magazine_latest-block_1 .node-body {
+    margin-left: 0;
+}
+
+.node, .node-bottom, .node-after, .node-before {
+    clear: left;
+}
+
+.node-type-agenda-teaser {
+    clear: right;
+}
+
+.view-publications .sub-title, .view-magazine-issue {
+    clear: left;
+}
+
+.node-type-news .node-field-terms .inline li {
+    display: none;
+}
+
+    .node-type-news .node-field-terms .inline li.taxonomy_term_9 {
+        display: inline;
+    }
+
+.node-form .form-item {
+    margin-bottom: 1em;
+}
+
+.service-links, .node-field-parent_link_rendered {
+    margin: 1em 0;
+}
+
+.has-content-right .node:after {
+    display: none;
+}
+
+html body .has-content-right .node {
+    display: block;
+    height: auto;
+}
+
+/*#content-right-top .views-view-grid * {
+    width: auto;
+    margin: 0;
+    line-height: 0;
+}
+
+body #content-right-top .views-view-grid * {
+    line-height: 0;
+}
+
+#content-right-top .node-teaser .node-hard-left, #content-right-top .node-teaser .node-soft-left {
+    margin: 0;
+    padding: 0;
+}
+
+#content-left-top .views-view-grid .node-body {
+    width: auto;
+}
+
+#content-right-top .views-view-grid .node-links {
+    display: none;
+}
+
+#content-right-top .views-view-grid td {
+    padding-right: 5px;
+    padding-bottom: 5px;
+}
+
+#content-right-top .views-view-grid img {
+    border: 1px solid black;
+}
+
+#content-right-top .node-teaser {
+    background: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+    #content-right-top .node-teaser .node-contents {
+        margin-bottom: 0;
+    }
+
+#content-right-top .node-title {
+    display: none;
+}
+
+.field-label-display-inline div {
+    display: inline;
+}
+
+.field-field-caption {
+    margin-bottom: 10px;
+}
+
+.view-children-staff .views-field-field-image-thumbnail-fid, .view-children-board .views-field-field-image-thumbnail-fid {
+    margin-bottom: 10px;
+}
+
+    .view-children-staff .views-field-field-image-thumbnail-fid a, .view-children-board .views-field-field-image-thumbnail-fid a {
+        height: 130px;
+        display: block;
+    }
+
+.view-children-staff table, .view-children-board table {
+    width: 100%;
+}
+
+.view-children-staff .views-view-grid td, .view-children-board .views-view-grid td {
+    width: 33%;
+    padding: 0 10px 20px 0;
+}
+
+.view-children-staff h3, .view-children-board h3 {
+    border-bottom: 1px dotted black;
+    margin-bottom: 5px;
+    padding-bottom: 5px;
+}
+
+.node-type-case-teaser .node-body-top .field-label, .node-type-case-teaser .node-body-top .field-items, .node-type-case-teaser .node-body-top .field-item {
+    display: inline;
+}
+
+.node-type-case-detail .node-body .field {
+    margin-bottom: 1em;
+}
+
+#edit-landmark-wrapper {
+    display: none;
+}
+
+.view-id-field_related_media {
+    overflow: hidden;
+}
+
+.region-content_right_top .field-field-image-thumbnail {
+    line-height: 0;
+    margin-bottom: 8px;
+}
+
+.view-id-field_related_media .view-content {
+    margin-right: -8px;
+}
+
+.view-id-field_related_media .views-row {
+    width: 68px;
+    height: 68px;
+    overflow: hidden;
+    float: left;
+    margin-right: 8px;
+    margin-bottom: 8px;
+    padding: 0;
+}
+
+.view-id-field_related_media .node-body-top {
+    margin: 0;
+}*/
+
+.sidebar .block {
+    margin-bottom: 1em;
+}
+
+.sidebar #block-menu_block-1 {
+    margin-bottom: 0;
+}
+
+#content-right .block, #content-right .newchild {
+    margin-bottom: 10px;
+}
+
+#content-right .block-title, #content-right .field-label, #content-right .node-type-pod .node-title {
+    border-bottom: 1px dotted black;
+    margin-bottom: 5px;
+    padding-bottom: 3px;
+}
+
+#content-right ul.menu, #content-right .item-list ul {
+    margin: inherit;
+    padding: inherit;
+}
+
+    #content-right ul.menu li.leaf, #content-right .item-list ul li, #content-right ul.menu li.expanded, #content-right ul.menu li.collapsed {
+        list-style-position: outside;
+        list-style-image: url(http://www.splcenter.org/sites/default/themes/splcenter/inc/images/bullet-sm-onblue.gif);
+        padding-bottom: 10px;
+    }
+
+#content-right .field-item, #content-right .views-field-title, .if-browse-box .node-title {
+    padding-bottom: 10px;
+}
+
+.node-type-case #content-right .field .node-type-case #content-right ul.menu li.leaf, .node-type-case #content-right .item-list ul li, .node-type-case #content-right ul.menu li.expanded, .node-type-case #content-right ul.menu li.collapsed, .node-type-case #content-right .field-item, .node-type-case #content-right .views-field-title, .if-browse-box .node-title {
+    padding-bottom: 20px;
+}
+
+.node-type-case #content-right .filefield-file a {
+    word-wrap: break-word;
+}
+
+.node-type-case #content-right .field-label {
+    margin-bottom: 0;
+    border-bottom: none;
+}
+
+#content-right .more-link, .section-get-informed-intelligence-files #content-right .field {
+    margin-bottom: 20px;
+}
+
+#content-right ul.menu li.last, #content-right .item-list ul li.last {
+    padding-bottom: 0;
+}
+
+.if-browse-box {
+    margin-top: 10px;
+}
+
+#content-right ul li ul, #content-right .colon {
+    display: none;
+}
+
+#content-right .field-type-nodereference .field-item, #content-right .field-field-external-links .field-item, #content-right .views-field-title, .if-browse-box .node-title, #content-right .node-title {
+    margin-left: -20px;
+    padding-left: 20px;
+    background: url(http://www.splcenter.org/sites/default/themes/splcenter/inc/images/bullet-sm-onblue.gif) no-repeat 10px 1px;
+}
+
+#content-right ul .views-field-title, #content-right ul .field-type-nodereference .field-item, #content-right .node-type-pod .node-title {
+    background: none;
+    margin-left: 0;
+    padding-left: 0;
+}
+
+#content-right .field-field-link-more .field-item, #content-right .node-type-pod .views-field-title {
+    padding-bottom: 0;
+}
+
+#content-right .more-link {
+    text-align: left;
+}
+
+#content-right .node-type-pod, #content-right .attachment-before {
+    margin-bottom: 40px;
+}
+
+#content-right .node-type-promo_tile .node-title {
+    display: none;
+}
+
+#content-bottom .block {
+    margin: 0 20px;
+    list-style-position: outside;
+}
+
+#content-bottom .block {
+    margin: 0;
+}
+
+#sidebar-left .node-type-promo_tile {
+    margin-right: 15px;
+    margin-left: 40px;
+    margin-bottom: 20px;
+}
+
+#sidebar-left .node-has-region-hard-right .node-body {
+    margin-right: 70px;
+}
+
+
+
+.view-header-banner {
+    position: relative;
+}
+
+
+
+fieldset {
+    border-width: 1px;
+    padding-bottom: 1em;
+    padding-top: 1em;
+}
+
+html.js input.form-autocomplete {
+    background-position: 100% 4px;
+}
+
+html.js input.throbbing {
+    background-position: 100% -16px;
+}
+
+
+
+html.js fieldset#edit-donation-type-other-outer-wrapper.collapsible .fieldset-wrapper, html.js fieldset#edit-donation-type-outer-wrapper.collapsible .fieldset-wrapper {
+    overflow: hidden;
+}
+
+html.js fieldset#edit-donation-type-other-outer-wrapper.collapsible {
+    margin-right: 1em;
+}
+
+#edit-donation-type-other-outer-wrapper-hidden {
+    display: none;
+}
+
+#edit-gift-ecard-outer-wrapper label {
+    width: auto;
+    display: block;
+    float: none;
+}
+
+.donor-contact {
+    margin-bottom: 1em;
+}
+
+
+
+
+
+h1, h2, h3 {
+    margin-top: 0;
+}
+
+.sitemap-menus .sitemap-box {
+    float: right;
+    width: 33%;
+}
+
+.sub-title, .node-type-pod .node-before .node-title, .node-left .field-label, #content-bottom .block-title {
+    border-bottom: 1px dotted black;
+    margin-bottom: 5px;
+    padding-bottom: 5px;
+}
+
+hr {
+    border: 0;
+    background: url(http://www.splcenter.org/sites/default/themes/splcenter/inc/images/hp-news-seperator.gif) repeat-x left bottom;
+}
+
+
+.views-exposed-form .views-exposed-widget label {
+    line-height: 1.5em;
+    height: 1.5em;
+}
+
+.forward-page {
+    padding-right: 25px;
+    padding-top: 2px;
+    margin-left: 20px;
+}
+
+.addthis-button img {
+    margin-left: 15px;
+    position: relative;
+    top: 3px;
+}
+
+.node-field-terms .inline li {
+    display: block;
+}
+
+.views-view-grid td {
+    padding: 0;
+    padding-right: 10px;
+}
+
+#content-right-top .views-view-grid td {
+    padding: 0;
+    padding-bottom: 3px;
+    overflow: hidden;
+    width: 75px;
+}
+
+.view-ecards .views-row-odd, .view-ecards .views-row-even {
+    float: left;
+    margin-right: 10px;
+}
+
+
+html.js fieldset.collapsed {
+    padding-top: 0;
+    padding-bottom: 0;
+    margin-bottom: 1em;
+    margin-left: 1px;
+    margin-right: 1px;
+}
+
+.field .field-label-inline {
+    display: none;
+}
+
+#content-area {
+    padding: 0 40px;
+}
+
+#content-header, .if-header, .node-type-magazine_issue-detail .node-contents-magazine_issue .node-body {
+    padding-left: 40px;
+    padding-right: 40px;
+}
+
+
+body #admin-menu {
+    font-size: 12px;
+}
+
+.right {
+    margin: 0.5em 0 0.5em 0.8em;
+    float: right;
+}
+
+.left {
+    margin: 0.5em 0.8em 0.5em 0;
+    float: left;
+}
+
+.node-type-blog_post-teaser .links {
+    float: right;
+}
+
+.node-type-blog_post-teaser .node-links a {
+    margin-left: 1.5em;
+    margin-right: 0;
+}
+
+.node-teaser .comment_add, .has-no-comments div#comments h2#comments-title, body.node-type-bio .block .node-field-field_byline_rendered, div#comments h2#comments-title {
+    display: none;
+}
+
+
+
+html.js div#comments fieldset.collapsible legend a {
+    background-image: url(http://www.splcenter.org/sites/default/themes/splcenter/inc/images/menu-expanded.png);
+}
+
+html.js div#comments fieldset.collapsed legend a {
+    background-image: url(http://www.splcenter.org/sites/default/themes/splcenter/inc/images/menu-collapsed.png);
+}
+
+.view-bio-related-content .issue_season_year_rendered {
+    padding-bottom: 5px;
+}
+
+.addthis_counter.addthis_pill_style.addthis_nonzero a.addthis_button_expanded {
+    display: none !important;
+}
+
+#google-cse-results-gadget {
+    display: none !important;
+}
+
+#search-form.search-form input#edit-keys.form-text {
+    background-image: none !important;
+}
+
+#search-box h2 {
+    display: none !important;
+}
+
+#search-box #edit-query-wrapper {
+    position: relative;
+    top: 3px;
+}
+
+#search-box #edit-query {
+    background-image: none !important;
+    border: 1px solid #cccccc !important;
+    background-color: #e6e6e6 !important;
+    padding: 2px !important;
+    color: #aaa !important;
+}
+
+#search-box #edit-sa {
+    border: none;
+    padding: 1px;
+    margin-right: 15px;
+    margin-top: 4px;
+    overflow: hidden;
+    width: 19px;
+    height: 19px;
+    background: #fff url(http://www.splcenter.org/sites/default/themes/splcenter/inc/images/button-search.gif) no-repeat 50% 50%;
+    cursor: pointer;
+    text-indent: -100em;
+    letter-spacing: -100em;
+    line-height: 100em;
+    margin-left: 4px;
+    overflow: hidden;
+    vertical-align: middle;
+}
+
+body.section-search-google #content-area div.tabs ul.tabs.primary li {
+    display: none;
+}
+
+    body.section-search-google #content-area div.tabs ul.tabs.primary li.active {
+        display: block !important;
+    }
+
+body * {
+    line-height: 1.25em;
+}
+
+#page {
+    font-size: 92.3%;
+    font-family: Arial,Helvetica,Verdana,Tahoma,sans-serif;
+}
+
+.field-field-caption, .caption, .float-right, .float-left, .cutline, .media-embed, .more-link {
+    font-size: 83.33%;
+}
+
+#secondary, .after-title, .node-teaser .node-body-top .field, .field-field-landmark, .sidebar .field-field-teaser, .view-hp-explore .field-field-teaser, .field-field-display-header, h5, h6, .node-field-file_info, body .node-detail.node-has-region-hard-left .views-view-grid .node-title, body .node-detail.node-has-region-hard-left .views-view-grid .node-links, .form-item .description, .breadcrumb, #footer-blocks .block .block-content, #footer-message, #content-right .newchild, #content-right .field-field-link-more, #content-right .more-link, .view-children-staff .views-field-field-teaser-value, .views-field-field-job-title-value, .views-field-field-bio-title-value, .node-teaser .links, div#comments #comments-subscribe {
+    font-size: 91.67%;
+}
+
+#content-right .block-title, #content-right .field-label, #content-right .node-type-pod .node-title, #content-right .if-browse-box .node-title, h3.comment-title {
+    font-size: 100%;
+}
+
+#primary, .views_slideshow_singleframe_pager, .view-hp-news .field-field-teaser {
+    font-size: 116.67%;
+}
+
+.node-title, .view-children-staff .views-field-title, .node-type-magazine_issue .node-field-content_body, #site-slogan, .sub-title, h4, .sidebar .block-title, .node-field-title, .view-children-staff h3, div#comments fieldset.collapsible legend {
+    font-size: 125%;
+}
+
+    .sub-title .links {
+        font-size: 86.67%;
+    }
+
+#sidebar-left .menu-name-primary-links li a, #footer-blocks .block-title, .view-hp-news .node-title, h3, #edit-confirmation .value {
+    font-size: 141.67%;
+}
+
+#sidebar-left .menu-name-primary-links li li a, .region-content_top ul.menu li, .node-soft-right .node-title {
+    font-size: 110%;
+}
+
+.page-title, .node-type-magazine_issue-detail .node-contents-magazine_issue .node-title, .node-type-pod .node-before .node-title, .section-explore-intelligence-files #content-bottom .block-block .block-title, .view-if-map-groups caption {
+    font-size: 191.67%;
+}
+
+#block-views-careers-block_1 .block-title {
+    padding-bottom: 10px;
+}
+
+a {
+    text-decoration: none;
+}
+
+.lower {
+    text-transform: lowercase;
+}
+
+#search label {
+    text-transform: uppercase;
+}
+
+.comment .links {
+    text-transform: capitalize;
+}
+
+#secondary, .field-field-date-source, .node-teaser .field-field-date, .node-teaser .field-field-date-publication, .region-content_top ul.menu .active-trail, #stateSelectContainer label, .node-type-splc_hatemap .yui-dt-hd, .node-body-top .field, .field-field-display-header, .subtitle, .views_slideshow_singleframe_pager, .node-field-file_info, .browse-careers, .field-label, .node-type-pod .node-before .node-title, .donations-type-help .donations-help-label, .node-field-title, .node-soft-right .node-title, .node-field-parent_link_rendered span, #content-right .newchild, #content-right .field-field-link-more, #content-right .more-link, #content-right .node-type-pod .node-title, .node-contents-magazine_issue .node-title, .node-title, .field-field-job-title, .field-field-bio-title, .views-field-field-job-title-value, .views-field-field-bio-title-value, .comment .submitted {
+    font-weight: bold;
+}
+
+.node-title, #search label, .all-link, .node-body-top .field-field-date-publication, #footer-blocks h2.block-title, .banner-title {
+    font-weight: normal;
+}
+
+#secondary {
+    text-transform: uppercase;
+}
+
+body, .newsletter-title a, .after-title a, .sub-title .links a, .node-soft-right .node-title, .menu-name-primary-links li a, .view-children-staff h3 a, .menu-name-primary-links li.active-trail li a, .node-type-magazine_issue-detail .node-body .node-title {
+    color: #333333;
+}
+
+.node-type-pod .node-before .node-title, .view-if-map-groups caption, .section-explore-intelligence-files #content-bottom .block-block .block-title, .section-explore-intelligence-files #content-bottom #block-splc-if_browse .block-title, #block-views-careers-block_1 .block-title {
+    color: #666666;
+}
+
+.page-title, h3, h4, h5, .node-detail .node-left .field-label-inline-first, .node-detail .node-left .field-label, #content-right .node-type-pod .node-title {
+    color: #000;
+}
+
+.dimmed {
+    color: #aaa;
+}
+
+#search .form-text, .node-type-splc_hatemap .yui-dt-hd {
+    background-color: #e6e6e6;
+}
+
+    #search .form-text:focus {
+        background-color: #fff;
+    }
+
+#search .form-text {
+    border: 1px solid #cccccc;
+}
+
+#page-content, #primary, #content-bottom .block-title, #block-views-hp_explore-block_1 .block-content, #secondary a, .view-id-magazine_issue .views-view-columns td, .view-id-magazine_issue .views-view-grid td, .sub-title, .node-type-pod .node-before .node-title, .node-left .field-label, #content-bottom .block-title, #content-right-top .views-view-grid img {
+    border-color: #ccc;
+}
+
+.node-title, a, #secondary a, .field-field-landmark, #content-right a, #edit-confirmation .value, #promo-floater a, .menu-name-primary-links li.active-trail a {
+    color: #006699;
+}
+
+.region-content_before ul.menu li, #content-right .block-title, #content-right .field-label, #content-right .node-type-pod .node-title {
+    border-color: #006699;
+}
+
+    .region-content_before ul.menu li.active-trail, .region-content_before ul.menu li.active {
+        background-color: #006699;
+    }
+
+#site-slogan, #site-slogan a, .field-field-inactive {
+    color: #9e2f22;
+}
+
+.pager-current {
+    color: #aaaaaa;
+}
+
+#block-views-careers-block_1 .block-content {
+    background: none;
+    border: none;
+}
+
+body.node-type-magazine-issue #content-right {
+    background: #fff;
+}
+
+.node-soft-left .node-inner, .node-left-detail, .node-type-publication-detail .node-soft-right, #content-right {
+    border: 1px solid #e7e7e7;
+}
+
+#content-bottom #block-views-if_jump_profiles-block_1, #content-bottom #block-views-if_jump_profiles-block_2, #content-bottom #block-views-if_jump_profiles-block_3, .stand-strong-promo, .view-children-staff h3, .node-type-magazine_issue-detail .node-contents-magazine_issue .node-body {
+    border-color: #e7e7e7;
+}
+
+.node-detail .node-left .node-left {
+    border: none;
+    background-color: transparent;
+}
+
+.field-field-teaser p {
+    margin-bottom: 0;
+}
+
+.node-teaser .node-contents {
+    margin-bottom: 1em;
+}
+
+.node-type-header_banner-teaser .node-contents, .node-type-hp_feature-teaser .node-contents, .node-soft-right .node-contents {
+    margin-bottom: inherit;
+}
+
+.search-results dt {
+    font-size: 1.2em;
+}
+
+dt.search-item-breadcrumb {
+    font-size: 0.9em;
+}
+
+.view-bio-related-content .issue_season_year_rendered {
+    font-weight: normal;
+    font-size: 0.9em;
+}
+.sampleCodeTopMargin {
+    margin-top: 15px;
+}
+
+.samplecode {
+    width: 200px;
+}
+
+.SampleCodeText {
+    font-family: Helvetica;
+    font-weight: bold;
+    font-size: 8pt;
+}
+
+.SampleCodeStyle {
+    font-family: Helvetica;
+    font-weight: bold;
+    font-size: 12pt;
+}

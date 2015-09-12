@@ -1,0 +1,430 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{1F8499A2-5FF2-42E4-A9B6-E2BCBB6B39CA}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SPLC.Donor.Management</RootNamespace>
+    <AssemblyName>SPLC.Donor.Management</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication>disabled</IISExpressAnonymousAuthentication>
+    <IISExpressWindowsAuthentication>enabled</IISExpressWindowsAuthentication>
+    <IISExpressUseClassicPipelineMode>true</IISExpressUseClassicPipelineMode>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AjaxControlToolkit">
+      <HintPath>..\packages\AjaxControlToolkit.7.1213\lib\45\AjaxControlToolkit.dll</HintPath>
+    </Reference>
+    <Reference Include="AjaxMin">
+      <HintPath>..\packages\AjaxMin.4.97.4951.28483\lib\net40\AjaxMin.dll</HintPath>
+    </Reference>
+    <Reference Include="HtmlAgilityPack">
+      <HintPath>..\packages\HtmlAgilityPack.1.4.6\lib\Net45\HtmlAgilityPack.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Data.Edm, Version=5.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.Data.Edm.5.2.0\lib\net40\Microsoft.Data.Edm.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Data.OData, Version=5.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.Data.OData.5.2.0\lib\net40\Microsoft.Data.OData.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAzure.Configuration">
+      <HintPath>..\packages\Microsoft.WindowsAzure.ConfigurationManager.1.8.0.0\lib\net35-full\Microsoft.WindowsAzure.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAzure.Storage">
+      <HintPath>..\packages\WindowsAzure.Storage.2.1.0.4\lib\net40\Microsoft.WindowsAzure.Storage.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data.Services.Client" />
+    <Reference Include="System.Spatial, Version=5.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\System.Spatial.5.2.0\lib\net40\System.Spatial.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Admin\dbadmin.aspx" />
+    <Content Include="Content\jHtmlArea\jHtmlArea.ColorPickerMenu.css" />
+    <Content Include="Content\jHtmlArea\jHtmlArea.css" />
+    <Content Include="Content\jHtmlArea\jHtmlArea.Editor.css" />
+    <Content Include="Content\jHtmlArea\jHtmlArea.png" />
+    <Content Include="Content\jHtmlArea\jHtmlArea_Toolbar_Group_BG.png" />
+    <Content Include="Content\jHtmlArea\jHtmlArea_Toolbar_Group__Btn_Select_BG.png" />
+    <Content Include="CustomForms\mainnav.ascx" />
+    <Content Include="default.aspx" />
+    <Content Include="DonorEventListDetails.aspx" />
+    <Content Include="DonorEventListView.aspx" />
+    <Content Include="Event.aspx" />
+    <Content Include="EventListView.aspx" />
+    <Content Include="Global.asax" />
+    <Content Include="images\af_content_bg.png" />
+    <Content Include="images\btm_border.png" />
+    <Content Include="images\cal.png" />
+    <Content Include="images\deleteicon.png" />
+    <Content Include="images\down_left.png" />
+    <Content Include="images\drag_field.png" />
+    <Content Include="images\drag_field_small.png" />
+    <Content Include="images\excel_icon.png" />
+    <Content Include="images\img_header_with_logo_1.png" />
+    <Content Include="images\login_assets\admin.png" />
+    <Content Include="images\login_assets\admin_icon.png" />
+    <Content Include="images\login_assets\config_new.png" />
+    <Content Include="images\login_assets\config_text.png" />
+    <Content Include="images\login_assets\editusers.png" />
+    <Content Include="images\login_assets\home.png" />
+    <Content Include="images\login_assets\home_icon.png" />
+    <Content Include="images\login_assets\login.png" />
+    <Content Include="images\login_assets\login58.png" />
+    <Content Include="images\login_assets\login_icon.png" />
+    <Content Include="images\login_assets\logout79.png" />
+    <Content Include="images\login_assets\logout_text.png" />
+    <Content Include="images\login_assets\menu_top_sep.png" />
+    <Content Include="images\login_assets\password_icon.png" />
+    <Content Include="images\login_assets\red_bar.png" />
+    <Content Include="images\login_assets\right_lines.png" />
+    <Content Include="images\login_assets\search_icon.png" />
+    <Content Include="images\login_assets\search_text.png" />
+    <Content Include="images\login_assets\settings_icon19.png" />
+    <Content Include="images\login_assets\username.png" />
+    <Content Include="images\login_assets\username_icon.png" />
+    <Content Include="images\navbuttons\admin.png" />
+    <Content Include="images\navbuttons\ButtonSetup.png" />
+    <Content Include="images\navbuttons\config.png" />
+    <Content Include="images\navbuttons\donoreventlist.png" />
+    <Content Include="images\navbuttons\editusers.png" />
+    <Content Include="images\navbuttons\eventlist.png" />
+    <Content Include="images\navbuttons\guestlist.png" />
+    <Content Include="images\navbuttons\home.png" />
+    <Content Include="images\navbuttons\login.png" />
+    <Content Include="images\navbuttons\logout.png" />
+    <Content Include="images\navbuttons\newevent.png" />
+    <Content Include="images\navbuttons\reports.png" />
+    <Content Include="images\navbuttons\search.png" />
+    <Content Include="images\navbuttons\summary.png" />
+    <Content Include="images\navbuttons\tax.png" />
+    <Content Include="images\navbuttons\waitinglist.png" />
+    <Content Include="images\nav_btn_donoreventlist.png" />
+    <Content Include="images\nav_btn_eventlist.png" />
+    <Content Include="images\nav_btn_waitlist.png" />
+    <Content Include="images\red_btn_with_shadow_sm.png" />
+    <Content Include="images\SPLC_logo.png" />
+    <Content Include="images\SPLC_Logo_Text.png" />
+    <Content Include="jqws.aspx" />
+    <Content Include="Reports.aspx" />
+    <Content Include="Report\DonorDemographicChangeReport.aspx" />
+    <Content Include="Report\DonorDemographicChangeReport_Excel.aspx" />
+    <Content Include="Report\EventGuestListReport.aspx" />
+    <Content Include="Report\EventGuestListReport_Excel.aspx" />
+    <Content Include="Report\EventReport.aspx" />
+    <Content Include="Report\MailedTicketeReport.aspx" />
+    <Content Include="Report\MailedTicketReport_Excel.aspx" />
+    <Content Include="Scripts\FormScripts\default.js" />
+    <Content Include="Scripts\FormScripts\DonorEventListDetails.js" />
+    <Content Include="ihandler.ashx" />
+    <None Include="Properties\PublishProfiles\DEBUG.pubxml" />
+    <None Include="Scripts\jHtmlArea-0.7.5-vsdoc.js" />
+    <None Include="Scripts\jHtmlArea-0.7.5.min-vsdoc.js" />
+    <Content Include="Scripts\FormScripts\Event.js" />
+    <Content Include="Scripts\jHtmlArea-0.7.5.js" />
+    <Content Include="Scripts\jHtmlArea-0.7.5.min.js" />
+    <Content Include="Scripts\jHtmlArea.ColorPickerMenu-0.7.0.js" />
+    <Content Include="Scripts\jHtmlArea.ColorPickerMenu-0.7.0.min.js" />
+    <Content Include="Scripts\jquery-1.11.0.min.js" />
+    <None Include="Scripts\jquery-1.4.1-vsdoc.js" />
+    <Content Include="Scripts\jquery-1.4.1.js" />
+    <Content Include="Scripts\jquery-1.4.1.min.js" />
+    <Content Include="Scripts\jquery-ui-1.9.2.js" />
+    <Content Include="Styles\Donor.css" />
+    <Content Include="Styles\themes\1.9.2\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Styles\themes\1.9.2\base\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Styles\themes\1.9.2\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Styles\themes\1.9.2\base\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Styles\themes\1.9.2\base\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Styles\themes\1.9.2\base\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Styles\themes\1.9.2\base\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Styles\themes\1.9.2\base\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Styles\themes\1.9.2\base\images\ui-icons_222222_256x240.png" />
+    <Content Include="Styles\themes\1.9.2\base\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Styles\themes\1.9.2\base\images\ui-icons_454545_256x240.png" />
+    <Content Include="Styles\themes\1.9.2\base\images\ui-icons_888888_256x240.png" />
+    <Content Include="Styles\themes\1.9.2\base\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Styles\themes\1.9.2\base\jquery-ui-1.9.2.css" />
+    <Content Include="Tax.aspx" />
+    <Content Include="TaxDetails.aspx" />
+    <Content Include="Uploads\Templates\rsvp_no.html" />
+    <Content Include="Uploads\Templates\rsvp_yes.html" />
+    <Content Include="Uploads\Templates\wait_yes.html" />
+    <Content Include="UploadFile.aspx" />
+    <Content Include="WaitingListView.aspx" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Admin\dbadmin.aspx.cs">
+      <DependentUpon>dbadmin.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\dbadmin.aspx.designer.cs">
+      <DependentUpon>dbadmin.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CustomForms\mainnav.ascx.cs">
+      <DependentUpon>mainnav.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CustomForms\mainnav.ascx.designer.cs">
+      <DependentUpon>mainnav.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="default.aspx.cs">
+      <DependentUpon>default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="default.aspx.designer.cs">
+      <DependentUpon>default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="DonorEventListDetails.aspx.cs">
+      <DependentUpon>DonorEventListDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DonorEventListDetails.aspx.designer.cs">
+      <DependentUpon>DonorEventListDetails.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="DonorEventListView.aspx.cs">
+      <DependentUpon>DonorEventListView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DonorEventListView.aspx.designer.cs">
+      <DependentUpon>DonorEventListView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Event.aspx.cs">
+      <DependentUpon>Event.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Event.aspx.designer.cs">
+      <DependentUpon>Event.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="EventListView.aspx.cs">
+      <DependentUpon>EventListView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="EventListView.aspx.designer.cs">
+      <DependentUpon>EventListView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="ihandler.ashx.cs">
+      <DependentUpon>ihandler.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="jqws.aspx.cs">
+      <DependentUpon>jqws.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="jqws.aspx.designer.cs">
+      <DependentUpon>jqws.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reports.aspx.cs">
+      <DependentUpon>Reports.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports.aspx.designer.cs">
+      <DependentUpon>Reports.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Report\DonorDemographicChangeReport.aspx.cs">
+      <DependentUpon>DonorDemographicChangeReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Report\DonorDemographicChangeReport.aspx.designer.cs">
+      <DependentUpon>DonorDemographicChangeReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Report\DonorDemographicChangeReport_Excel.aspx.cs">
+      <DependentUpon>DonorDemographicChangeReport_Excel.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Report\DonorDemographicChangeReport_Excel.aspx.designer.cs">
+      <DependentUpon>DonorDemographicChangeReport_Excel.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Report\EventGuestListReport.aspx.cs">
+      <DependentUpon>EventGuestListReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Report\EventGuestListReport.aspx.designer.cs">
+      <DependentUpon>EventGuestListReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Report\EventGuestListReport_Excel.aspx.cs">
+      <DependentUpon>EventGuestListReport_Excel.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Report\EventGuestListReport_Excel.aspx.designer.cs">
+      <DependentUpon>EventGuestListReport_Excel.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Report\EventReport.aspx.cs">
+      <DependentUpon>EventReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Report\EventReport.aspx.designer.cs">
+      <DependentUpon>EventReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Report\MailedTicketeReport.aspx.cs">
+      <DependentUpon>MailedTicketeReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Report\MailedTicketeReport.aspx.designer.cs">
+      <DependentUpon>MailedTicketeReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Report\MailedTicketReport_Excel.aspx.cs">
+      <DependentUpon>MailedTicketReport_Excel.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Report\MailedTicketReport_Excel.aspx.designer.cs">
+      <DependentUpon>MailedTicketReport_Excel.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="site.master.cs">
+      <DependentUpon>site.master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="site.master.designer.cs">
+      <DependentUpon>site.master</DependentUpon>
+    </Compile>
+    <Compile Include="Tax.aspx.cs">
+      <DependentUpon>Tax.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Tax.aspx.designer.cs">
+      <DependentUpon>Tax.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="TaxDetails.aspx.cs">
+      <DependentUpon>TaxDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="TaxDetails.aspx.designer.cs">
+      <DependentUpon>TaxDetails.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="UploadFile.aspx.cs">
+      <DependentUpon>UploadFile.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UploadFile.aspx.designer.cs">
+      <DependentUpon>UploadFile.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WaitingListView.aspx.cs">
+      <DependentUpon>WaitingListView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WaitingListView.aspx.designer.cs">
+      <DependentUpon>WaitingListView.aspx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="site.master" />
+    <Content Include="packages.config" />
+    <None Include="Properties\PublishProfiles\DEV.pubxml" />
+    <None Include="Properties\PublishProfiles\PROD_Staging.pubxml" />
+    <None Include="Properties\PublishProfiles\Test.pubxml" />
+    <None Include="Properties\PublishProfiles\UAT.pubxml" />
+    <Content Include="Uploads\RSVP_Donor_Test_List.csv" />
+    <None Include="Web.DEV.config">
+      <DependentUpon>Web.config</DependentUpon>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web.PROD.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.UAT.config">
+      <DependentUpon>Web.config</DependentUpon>
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\SPLC.Donor.DB\SPLC.Donor.DB.sqlproj">
+      <Project>{a63230e8-e5e0-4cf3-bff0-c36cccad921a}</Project>
+      <Name>SPLC.Donor.DB</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SPLC.Donor.Models\SPLC.Donor.Models.csproj">
+      <Project>{12dab8f9-f0da-4341-8f92-908e9128a1df}</Project>
+      <Name>SPLC.Donor.Models</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'UAT|AnyCPU'">
+    <OutputPath>bin\</OutputPath>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'PROD|AnyCPU'">
+    <OutputPath>bin\</OutputPath>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DEV|AnyCPU'">
+    <OutputPath>bin\</OutputPath>
+    <Prefer32Bit>false</Prefer32Bit>
+    <ExcludeApp_Data>false</ExcludeApp_Data>
+    <PrecompileBeforePublish>false</PrecompileBeforePublish>
+    <FilesToIncludeForPublish>OnlyFilesToRunTheApp</FilesToIncludeForPublish>
+    <ExcludeGeneratedDebugSymbol>false</ExcludeGeneratedDebugSymbol>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DEBUG|AnyCPU'">
+    <OutputPath>bin\</OutputPath>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>58653</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:58653/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

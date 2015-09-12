@@ -1,0 +1,31 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="TaxReceipt.master.cs" Inherits="SPLC.Donor.RSVP.TaxReceipt" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>Tax Receipt</title>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+    <link href="~/Styles/DonorTax.css" rel="stylesheet" />
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <header>
+        <div id="SPLC_HEADER_CONTAINER">
+		    <a href="http://www.splcenter.org">
+		    <div class="SPLC_Header"></div>
+		    </a>
+	    </div>
+    </header>
+    <form id="form1" runat="server">
+    <div>
+        <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+        </asp:ContentPlaceHolder>
+    </div>
+        <div id="MC_BADGE" style="display:none;">
+            <a target="_blank" href="https://www2.mcafeesecure.com/verify?host=taxreceipt.splcenter.org"><img width="94" height="54" style="border:#666666 1px solid;"  border="0" src="https://images.scanalert.com/meter/secure.splcenter.org/23.gif" alt="McAfee Secure sites help keep you safe from identity theft, credit card fraud, spyware, spam, viruses and online scams" oncontextmenu="alert('Copying Prohibited by Law - McAfee Secure is a Trademark of McAfee, Inc.'); return false;"/></a>
+		</div>
+    </form>
+</body>
+</html>

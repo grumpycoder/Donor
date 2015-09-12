@@ -1,0 +1,100 @@
+﻿
+.SPLC_Header {
+    position: relative;
+    left: 0px;
+    width: 530px;
+    height: 100px;
+    background-image:  url(../images/splc_header.gif);
+   
+}
+#SPLC_HEADER_CONTAINER{
+	position:relative;
+	top:0px;
+	left:0px;
+	width:100%;
+	height:100px;
+	border:0;
+	margin:0;
+	padding:0;
+	
+	background-color:#9c3022;
+}
+
+.TaxDiv {
+    font-weight: bold;
+    padding-left: 5em;
+}
+
+.UserInputDiv {
+    font-weight: bold;
+    padding-left: 150px;
+}
+
+.SupportID {
+    padding-left: 5em;
+}
+
+.PrivacyPolicy {
+    color: #9c3022;
+}
+
+.WhatThis {
+    color: #9c3022;
+    font-size: x-small;
+    cursor: pointer;
+}
+
+#PrivacyPolicyDiv{
+    padding-left: 16em;
+}
+
+.FORM_TEXT_LABEL{
+	position:relative;
+	top:10px;
+	margin-left:20px;
+}
+
+.FORM_TEXTFIELD{
+	float:right;
+	margin-top:-20px;
+	padding:0px;
+}
+.FORM_CHECKBOX{
+	float:left;
+	margin-right:5px;
+	margin-top:10px;
+}
+
+#SubmitButtonDiv{
+    padding-left: 20em;
+}
+
+.Para2 {
+    padding-left: 150px;
+}
+
+.ErrorControl{
+    background-color: #FBE3E4;
+    border: solid 1px Red;
+}
+
+#MC_BADGE{
+	padding-top:10px;
+	padding-bottom:20px;
+    padding-left: 40em;
+}
+
+#dialog {
+    font-size: 15px;
+}
+
+.InstructionLabel {
+    margin-left: 35px;
+    font-family: Arial;
+}
+
+img[title$='splcLogo'] {
+    -ms-interpolation-mode: bicubic;
+}
+
+

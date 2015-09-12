@@ -1,0 +1,66 @@
+﻿body {
+}
+
+.SubmitButton {
+    margin-top: 10px;
+    float: right;
+    color: white;
+}
+
+.HeaderImage {
+    margin-bottom: 0px;
+    margin-top: 0px;
+    width: 665px;
+    /*height: 200px;*/
+}
+
+hr {
+    margin-top: 12px;
+    margin-bottom: 12px;
+}
+
+.Response {
+    margin-top: 15px;
+    font-weight: normal;
+}
+
+.txtSpace {
+    margin-right: 7px;
+}
+
+.txtMarginBottom {
+    margin-bottom: 5px;
+}
+
+.comment-Resize {
+    resize: none;
+}
+
+td {
+    padding-right: 30px;  
+}
+
+.labelFW {
+    font-weight: bold;
+}
+
+.required {
+    color: red;
+    font-weight: bold;
+}
+
+.FAQs {
+    color: #9c3022;
+    font-size: small;
+}
+
+.txtnoborder {
+    border-width: 0px;
+    border-color: white;
+}
+
+.height {
+    height: 19px;
+}
+
+

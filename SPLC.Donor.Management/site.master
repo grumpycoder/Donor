@@ -1,0 +1,51 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="site.master.cs" Inherits="SPLC.Donor.Management.site" %>
+<%@ Register src="CustomForms/mainnav.ascx" tagname="mainnav" tagprefix="uc1" %>
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <meta http-equiv="X-UA-Compatible" content="IE=10">
+    <title>RSVP Management</title>
+    <link href="~/Styles/Donor.css" rel="stylesheet" />
+    <link href="~/Styles/themes/1.9.2/base/jquery-ui-1.9.2.css" rel="stylesheet" type="text/css" />
+    <script src="Scripts/jquery-1.11.0.min.js"></script>
+    <script src="Scripts/jquery-ui-1.9.2.js"></script>
+    
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <ajaxToolkit:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server"></ajaxToolkit:ToolkitScriptManager>
+    <div class="af_body">
+        <asp:Panel ID="af_content" CssClass="af_content" runat="server">
+            <div id="af_header_banner" class="af_header_banner">
+                <div class="af_header_nav">
+                    <div class="af_header_info">
+                        <span style="font-size: 70%;"></span>
+                    </div>
+                    <div id="af_header_banner_r" class="af_header_banner_r">
+                        <uc1:mainnav ID="mainnav1" runat="server" />
+                    </div>
+                </div>
+                
+            </div>
+            <div id="af_content_main" class="af_content_main">
+                <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+        
+        </asp:ContentPlaceHolder>
+            </div>
+        </asp:Panel>
+        <asp:Panel ID="af_footer" CssClass="af_footer" runat="server">
+            <div class="af_footer_copyright">
+            &copy; Copyright 2014 | Southern Poverty Law Center | <a href="http://www.splcenter.org" target="_blank">www.splcenter.org</a>
+            </div>
+        </asp:Panel>
+    </div>
+
+    <div>
+        
+    </div>
+    </form>
+</body>
+</html>
