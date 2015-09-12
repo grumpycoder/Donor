@@ -5,7 +5,7 @@ namespace SPLC.Donor.RSVP
 {
     public class BasePage: Page
     {
-        public string ConnectionString { get; set; }
+        private string ConnectionString { get; set; }
 
         protected BasePage()
         {

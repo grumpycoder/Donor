@@ -37,7 +37,7 @@ namespace SPLC.Donor.RSVP
                     ddlNoGuests.Items.Clear();
 
                     // Add the allowed ticket number
-                    for (int i = 0; i <= eventList.TicketsAllowed; i++)
+                    for (var i = 0; i <= eventList.TicketsAllowed; i++)
                     {
                         ddlNoGuests.Items.Add(new ListItem(i.ToString(), i.ToString()));
                     }
@@ -48,7 +48,7 @@ namespace SPLC.Donor.RSVP
                     var donorEmail = new DonorEmail();
 
                     sbHeader = donorEmail.ParseTextSubEL(sbHeader, eventList);
-                    ltHeader.Text = sbHeader.ToString();  // EL.HTML_Header;
+                    ltHeader.Text = sbHeader.ToString();  
 
                     var faq = new StringBuilder(eventList.HTML_FAQ);
                     faq = donorEmail.ParseTextSubEL(faq, eventList);
