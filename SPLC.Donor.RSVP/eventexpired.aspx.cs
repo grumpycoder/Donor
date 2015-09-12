@@ -1,17 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Configuration;
-using SPLC.Donor.Models;
 
 namespace SPLC.Donor.RSVP
 {
-    public partial class eventexpired : System.Web.UI.Page
+    public partial class eventexpired : BasePage
     {
-        private static string _ConnStr = ConfigurationManager.ConnectionStrings["Donor_ConnStr"].ToString();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -19,12 +11,9 @@ namespace SPLC.Donor.RSVP
             {
                 try
                 {
-                    if (!Request["eid"].ToString().Equals("NULL"))
-                    {
-                        EventList EL = new EventList(User.Identity.Name, int.Parse(Request["eid"].ToString()));
-                        // Add image URL to the page
-                        pnlContentBefore.Visible = true;
-                    }
+                    if (Request["eid"].Equals("NULL")) return;
+                    // Add image URL to the page
+                    pnlContentBefore.Visible = true;
                 }
                 catch
                 {
