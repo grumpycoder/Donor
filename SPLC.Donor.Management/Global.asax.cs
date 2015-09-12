@@ -1,19 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web;
-using System.Web.Security;
-using System.Web.SessionState;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Configuration;
+using SPLC.Donor.Models;
 
 namespace SPLC.Donor.Management
 {
-    public class Global : System.Web.HttpApplication
+    public class Global : HttpApplication
     {
-        private static string _ConnStr = ConfigurationManager.ConnectionStrings["Donor_ConnStr"].ToString();
-
         protected void Application_Start(object sender, EventArgs e)
         {
             
@@ -22,14 +14,14 @@ namespace SPLC.Donor.Management
         protected void Session_Start(object sender, EventArgs e)
         {
             // Write entry when user starts application
-            var DM = new Models.DonorMessages()
+            var donorMessages = new DonorMessages()
             {
                 MessageId = 100,
                 MessageText = "Session Started",
                 MessageDescription = "User started new session with application",
-                User_Added = User.Identity.Name.ToString()
+                User_Added = User.Identity.Name
             };
-            DM.AddNew();
+            donorMessages.AddNew();
         }
 
         protected void Application_BeginRequest(object sender, EventArgs e)
