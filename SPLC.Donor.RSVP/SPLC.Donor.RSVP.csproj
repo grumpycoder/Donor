@@ -14,11 +14,12 @@
     <RootNamespace>SPLC.Donor.RSVP</RootNamespace>
     <AssemblyName>SPLC.Donor.RSVP</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="itextsharp">
@@ -167,6 +168,9 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BasePage.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="Confirmation.aspx.cs">
       <DependentUpon>Confirmation.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -300,7 +304,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>49804</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:53784/</IISUrl>
+          <IISUrl>http://localhost/rsvp</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

@@ -140,6 +140,34 @@ namespace SPLC.Donor.Models
             Conn.Close();
         }
 
+        public void Create()
+        {
+            using (var cn = new SqlConnection(_ConnStr))
+            {
+                cn.Open();
+                var cmd = new SqlCommand()
+                {
+                    CommandText = "INSERT INTO DonorList " +
+                                  "(pk_DonorList, AddressLine1, AddressLine2, City, State, PostCode, PhoneNumber)" +
+                                  "VALUES(@pk_DonorList, @AddressLine1, @AddressLine2, @City, @State, @PostCode, @PhoneNumber)",
+                    Connection = cn,
+                    CommandType = CommandType.Text
+                };
+                cmd.Parameters.AddWithValue("pk_DonorList", this.pk_DonorList);
+//                cmd.Parameters.AddWithValue("KeyName", this.KeyName);
+//                cmd.Parameters.AddWithValue("AccountType", this.KeyName);
+                cmd.Parameters.AddWithValue("AddressLine1", this.AddressLine1 ?? "");
+                cmd.Parameters.AddWithValue("AddressLine2", this.AddressLine2 ?? "");
+                cmd.Parameters.AddWithValue("City", this.City ?? "");
+                cmd.Parameters.AddWithValue("State", this.State ?? "");
+                cmd.Parameters.AddWithValue("PostCode", this.PostCode ?? "");
+                cmd.Parameters.AddWithValue("PhoneNumber", this.PhoneNumber ?? "");
+
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+
         #endregion
 
 

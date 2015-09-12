@@ -103,24 +103,6 @@ namespace SPLC.Donor.RSVP {
         protected global::System.Web.UI.WebControls.CustomValidator ReservationCodeCustomValidator;
         
         /// <summary>
-        /// ReservationCodeRequiredFieldValidator control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator ReservationCodeRequiredFieldValidator;
-        
-        /// <summary>
-        /// ReservationCodeRegularExpressionValidator control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RegularExpressionValidator ReservationCodeRegularExpressionValidator;
-        
-        /// <summary>
         /// txtFinderNumber control.
         /// </summary>
         /// <remarks>

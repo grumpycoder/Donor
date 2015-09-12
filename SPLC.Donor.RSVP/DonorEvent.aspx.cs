@@ -1,20 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 using System.Configuration;
-using System.Net;
-using System.Net.Mail;
+using System.Drawing;
 using System.Text;
+using System.Web.UI.WebControls;
 using SPLC.Donor.Models;
 
 namespace SPLC.Donor.RSVP
 {
-    public partial class DonorEvent : System.Web.UI.Page
+    public partial class DonorEvent : BasePage
     {
-        private static string _ConnStr = ConfigurationManager.ConnectionStrings["Donor_ConnStr"].ToString();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -22,67 +16,60 @@ namespace SPLC.Donor.RSVP
             {
                 lblMessage.Text = "";
 
-                if (!Page.IsPostBack)
+                if (Page.IsPostBack) return;
+
+                var donorEventList = (DonorEventList)Session["SPLC.Donor.RSVP.DEL"];
+                var donorList = (DonorList)Session["SPLC.Donor.RSVP.DL"];
+                var eventList = new EventList(ConnectionString, User.Identity.Name, donorEventList.fk_Event);
+
+                if (donorList.IsValid)
                 {
-                    DonorEventList DEL = (DonorEventList)Session["SPLC.Donor.RSVP.DEL"];
-                    DonorList DL = (DonorList)Session["SPLC.Donor.RSVP.DL"];
-                    EventList EL = new EventList(_ConnStr,User.Identity.Name,DEL.fk_Event);
+                    txtName.Text = donorList.AccountName;
+                    txtMailingAddress.Text = donorList.AddressLine1;
+                    txtAddress2.Text = donorList.AddressLine2;
+                    txtCity.Text = donorList.City;
+                    ddlState.SelectedValue = donorList.State;
+                    txtZipCode.Text = donorList.PostCode;
+                    txtEmail.Text = donorList.EmailAddress;
+                    txtPhoneNumber.Text = donorList.PhoneNumber;
 
-                    if(DL.IsValid)
+                    ddlNoGuests.Items.Clear();
+
+                    // Add the allowed ticket number
+                    for (int i = 0; i <= eventList.TicketsAllowed; i++)
                     {
-                        txtName.Text = DL.AccountName;
-                        txtMailingAddress.Text = DL.AddressLine1;
-                        txtAddress2.Text = DL.AddressLine2;
-                        txtCity.Text = DL.City;
-                        ddlState.SelectedValue = DL.State;
-                        txtZipCode.Text = DL.PostCode;
-                        txtEmail.Text = DL.EmailAddress;
-                        txtPhoneNumber.Text = DL.PhoneNumber;
-
-                        ddlNoGuests.Items.Clear();
-
-                        // Add the allowed ticket number
-                        for (int i = 0; i <= EL.TicketsAllowed; i++)
-                        {
-                            ddlNoGuests.Items.Add(new ListItem(i.ToString(), i.ToString()));
-                        }
-
-                        // Add HTML from DB
-
-                        StringBuilder sbHeader = new StringBuilder(EL.HTML_Header);
-                        DonorEmail dEMail = new DonorEmail();
-
-                        sbHeader = dEMail.ParseTextSubEL(sbHeader, EL);
-                        ltHeader.Text = sbHeader.ToString();  // EL.HTML_Header;
-
-                        StringBuilder sbFAQ = new StringBuilder(EL.HTML_FAQ);
-                        sbFAQ = dEMail.ParseTextSubEL(sbFAQ, EL);
-                        ltFAQ.Text = sbFAQ.ToString();
-
-
-                        //ltHeader.Text = EL.HTML_Header;
-                        //ltFAQ.Text = EL.HTML_FAQ;
-
-                        lblEvent.Text = EL.DisplayName;
-
-                        imgHeader.ImageUrl = "ihandler.ashx?eid=" + EL.pk_Event.ToString();
-                        
+                        ddlNoGuests.Items.Add(new ListItem(i.ToString(), i.ToString()));
                     }
-                    else
-                    {
-                        lblMessage.ForeColor = System.Drawing.Color.Red;
-                        lblMessage.Text = @"There appears to be a problem with the information that you have entered, please check 
-                                            the information and try again or call 334-956-8200 for assistance.";
-                    }
+
+                    // Add HTML from DB
+
+                    var sbHeader = new StringBuilder(eventList.HTML_Header);
+                    var donorEmail = new DonorEmail();
+
+                    sbHeader = donorEmail.ParseTextSubEL(sbHeader, eventList);
+                    ltHeader.Text = sbHeader.ToString();  // EL.HTML_Header;
+
+                    var faq = new StringBuilder(eventList.HTML_FAQ);
+                    faq = donorEmail.ParseTextSubEL(faq, eventList);
+                    ltFAQ.Text = faq.ToString();
+
+                    lblEvent.Text = eventList.DisplayName;
+
+                    imgHeader.ImageUrl = "ihandler.ashx?eid=" + eventList.pk_Event;
+
                 }
-
+                else
+                {
+                    lblMessage.ForeColor = Color.Red;
+                    lblMessage.Text = @"There appears to be a problem with the information that you have entered, please check 
+                                            the information and try again or call 334-956-8200 for assistance.";
+                }
             }
-            catch(Exception EX)
+            catch (Exception ex)
             {
 
             }
         }
-
 
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
@@ -95,119 +82,119 @@ namespace SPLC.Donor.RSVP
                 if (attendingRadio.SelectedValue.Equals("1") && (!ddlNoGuests.SelectedValue.Equals("0")))
                     throw new Exception("If you are not attending please select (0) for the number of Guests attending.");
 
-                DonorEventList DEL = (DonorEventList)Session["SPLC.Donor.RSVP.DEL"];
-                DonorList DL = (DonorList)Session["SPLC.Donor.RSVP.DL"];
+                var donorEventList = (DonorEventList)Session["SPLC.Donor.RSVP.DEL"];
+                var donorList = (DonorList)Session["SPLC.Donor.RSVP.DL"];
 
-                
+
                 // Update Donor Information
-                if(UpdateDonorList(DL))
+                if (UpdateDonorList(donorList))
                 {
-                    DEL.UpdatedInfo = true;
-                    DEL.UpdatedInfoDateTime = DateTime.Now;
-                    DEL.UpdatedInfo_User = DL.AccountName;
+                    donorEventList.UpdatedInfo = true;
+                    donorEventList.UpdatedInfoDateTime = DateTime.Now;
+                    donorEventList.UpdatedInfo_User = donorList.AccountName;
                 }
 
-                DL.EmailAddress = txtEmail.Text.ToString();
+                donorList.EmailAddress = txtEmail.Text;
                 //DL.Update();
 
-                if (DEL.pk_DonorEventList <= 0)
+                if (donorEventList.pk_DonorEventList <= 0)
                     throw new Exception("Donor ID is not registered with this Event!");
 
-                if (DEL.Response_Date > DateTime.Parse("1/1/2000"))
+                if (donorEventList.Response_Date > DateTime.Parse("1/1/2000"))
                     throw new Exception(@"It appears you have already registered for this event, please check 
                                             the information and try again or call 334-956-8200 for assistance.");
 
-                EventList EL = new EventList(_ConnStr, User.Identity.Name, DEL.fk_Event);
+                var eventList = new EventList(ConnectionString, User.Identity.Name, donorEventList.fk_Event);
 
                 if (attendingRadio.SelectedValue.Equals("0"))
                 {
-                    DEL.Attending = true;
-                    DEL.TicketsRequested = int.Parse(ddlNoGuests.SelectedValue.ToString());
+                    donorEventList.Attending = true;
+                    donorEventList.TicketsRequested = int.Parse(ddlNoGuests.SelectedValue);
                 }
                 else
                 {
-                    DEL.Attending = false;
-                    DEL.TicketsRequested = 0;
+                    donorEventList.Attending = false;
+                    donorEventList.TicketsRequested = 0;
                 }
-                
-                DEL.DonorComments = txtComments.Text.ToString();
-                DEL.Response_Date = DateTime.Now;
-                DEL.Response_Type = "RSVP Web";
 
-                if (DEL.GetTicketCountForEvent() > EL.Capacity)
+                donorEventList.DonorComments = txtComments.Text;
+                donorEventList.Response_Date = DateTime.Now;
+                donorEventList.Response_Type = "RSVP Web";
+
+                if (donorEventList.GetTicketCountForEvent() > eventList.Capacity)
                 {
                     // Add to Waiting List
-                    DEL.WaitingList_Date = DateTime.Now;
-                    DEL.WaitingListOrder = DEL.GetNextWaitListNumber();
-                 }
+                    donorEventList.WaitingList_Date = DateTime.Now;
+                    donorEventList.WaitingListOrder = donorEventList.GetNextWaitListNumber();
+                }
 
 
-                DEL.Update();
-                Session["SPLC.Donor.RSVP.DEL"] = DEL;
+                donorEventList.Update();
+                Session["SPLC.Donor.RSVP.DEL"] = donorEventList;
 
 
-                DonorEmail DMail = new DonorEmail(_ConnStr, User.Identity.ToString(), ConfigurationManager.AppSettings["EmailTemplatesURL"].ToString(), DL, DEL);
-                DMail.SendEmail();
+                var donorEmail = new DonorEmail(ConnectionString, User.Identity.ToString(), ConfigurationManager.AppSettings["EmailTemplatesURL"], donorList, donorEventList);
+                donorEmail.SendEmail();
 
                 Response.Redirect("Confirmation.aspx");
 
             }
-            catch(Exception EX)
+            catch (Exception ex)
             {
-                lblMessage.ForeColor = System.Drawing.Color.Red;
-                lblMessage.Text = EX.Message;
+                lblMessage.ForeColor = Color.Red;
+                lblMessage.Text = ex.Message;
             }
 
         }
 
-        private bool UpdateDonorList(DonorList pDL)
+        private bool UpdateDonorList(DonorList donorList)
         {
-            bool blReturn = false;
+            var blReturn = false;
 
-            if(!pDL.AccountName.Equals(txtName.Text.ToString()))
+            if (!donorList.AccountName.Equals(txtName.Text))
             {
-                pDL.AccountName = txtName.Text.ToString();
+                donorList.AccountName = txtName.Text;
                 blReturn = true;
             }
 
-            if(!pDL.AddressLine1.Equals(txtMailingAddress.Text.ToString()))
+            if (!donorList.AddressLine1.Equals(txtMailingAddress.Text))
             {
-                pDL.AddressLine1 = txtMailingAddress.Text.ToString();
+                donorList.AddressLine1 = txtMailingAddress.Text;
                 blReturn = true;
             }
 
-            if(!pDL.City.Equals(txtCity.Text.ToString()))
+            if (!donorList.City.Equals(txtCity.Text))
             {
-                pDL.City = txtCity.Text.ToString();
+                donorList.City = txtCity.Text;
                 blReturn = true;
             }
 
-            if(!pDL.State.Equals(ddlState.SelectedValue.ToString()))
+            if (!donorList.State.Equals(ddlState.SelectedValue))
             {
-                pDL.State = ddlState.SelectedValue.ToString();
+                donorList.State = ddlState.SelectedValue;
                 blReturn = true;
             }
 
-            if (!pDL.PostCode.Equals(txtZipCode.Text.ToString()))
+            if (!donorList.PostCode.Equals(txtZipCode.Text))
             {
-                pDL.PostCode = txtZipCode.Text.ToString();
+                donorList.PostCode = txtZipCode.Text;
                 blReturn = true;
             }
 
-            if (!pDL.PhoneNumber.Equals(txtPhoneNumber.Text.ToString()))
+            if (!donorList.PhoneNumber.Equals(txtPhoneNumber.Text))
             {
-                pDL.PhoneNumber = txtPhoneNumber.Text.ToString();
+                donorList.PhoneNumber = txtPhoneNumber.Text;
                 blReturn = true;
             }
 
-            if (!pDL.EmailAddress.Equals(txtEmail.Text.ToString()))
+            if (!donorList.EmailAddress.Equals(txtEmail.Text))
             {
-                pDL.EmailAddress = txtEmail.Text.ToString();
+                donorList.EmailAddress = txtEmail.Text;
                 blReturn = true;
             }
 
-            if(blReturn)
-                pDL.Update();
+            if (blReturn)
+                donorList.Update();
 
             return blReturn;
         }
@@ -215,14 +202,7 @@ namespace SPLC.Donor.RSVP
 
         protected void attendingRadio_SelectedIndexChanged1(object sender, EventArgs e)
         {
-            if (attendingRadio.SelectedValue.Equals("1"))
-            {
-                ddlNoGuests.Enabled = false;
-            }
-            else
-                ddlNoGuests.Enabled = true;
-            
+            ddlNoGuests.Enabled = !attendingRadio.SelectedValue.Equals("1");
         }
-
     }
 }

@@ -90,8 +90,8 @@
                                 <div>
                                     Reservation Code: 
                                     <asp:CustomValidator ID="ReservationCodeCustomValidator" runat="server" ErrorMessage="CustomValidator" ControlToValidate="txtFinderNumber" Display="None"></asp:CustomValidator>
-                                    <asp:RequiredFieldValidator ID="ReservationCodeRequiredFieldValidator" CssClass="required" runat="server" ControlToValidate="txtFinderNumber" ErrorMessage="Please enter a reservation code.">*</asp:RequiredFieldValidator>
-                                    <asp:RegularExpressionValidator ID="ReservationCodeRegularExpressionValidator"  CssClass="required" runat="server"  ControlToValidate="txtFinderNumber" ValidationExpression="[0-9]+" Display="None" ErrorMessage="There appears to be a problem with the information that you have entered, please check the information and try again or call 334-956-8200 for assistance."></asp:RegularExpressionValidator>
+<%--                                    <asp:RequiredFieldValidator ID="ReservationCodeRequiredFieldValidator" CssClass="required" runat="server" ControlToValidate="txtFinderNumber" ErrorMessage="Please enter a reservation code.">*</asp:RequiredFieldValidator>--%>
+<%--                                    <asp:RegularExpressionValidator ID="ReservationCodeRegularExpressionValidator"  CssClass="required" runat="server"  ControlToValidate="txtFinderNumber" ValidationExpression="[0-9]+" Display="None" ErrorMessage="There appears to be a problem with the information that you have entered, please check the information and try again or call 334-956-8200 for assistance."></asp:RegularExpressionValidator>--%>
                                     <asp:TextBox ID="txtFinderNumber" MaxLength="13" runat="server"></asp:TextBox>
                                     &nbsp;
                                     <asp:Button ID="btnSubmit" runat="server" Text="Submit" ForeColor="white" BackColor="#006699" OnClick="btnSubmit_Click"  />

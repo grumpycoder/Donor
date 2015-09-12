@@ -14,12 +14,13 @@
     <RootNamespace>SPLC.Donor.Management</RootNamespace>
     <AssemblyName>SPLC.Donor.Management</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication>disabled</IISExpressAnonymousAuthentication>
     <IISExpressWindowsAuthentication>enabled</IISExpressWindowsAuthentication>
     <IISExpressUseClassicPipelineMode>true</IISExpressUseClassicPipelineMode>
     <TargetFrameworkProfile />
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AjaxControlToolkit">
@@ -410,7 +411,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>58653</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:58653/</IISUrl>
+          <IISUrl>http://localhost/dm</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

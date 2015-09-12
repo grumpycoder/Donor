@@ -1,18 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Configuration;
 using System.Text;
 using SPLC.Donor.Models;
 
 namespace SPLC.Donor.RSVP
 {
-    public partial class _default : System.Web.UI.Page
+    public partial class _default : BasePage
     {
-        private static string _ConnStr = ConfigurationManager.ConnectionStrings["Donor_ConnStr"].ToString();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -21,132 +16,106 @@ namespace SPLC.Donor.RSVP
                 // If the parameter EID is null or the expired date has passed then redirect to the Event Expiration page
                 if (Request["eid"] != null)
                 {
-                    EventList EL = new EventList(_ConnStr, User.Identity.Name, int.Parse(Request["eid"].ToString()));
+                    var eventList = new EventList(ConnectionString, User.Identity.Name, int.Parse(Request["eid"]));
 
-                    if (EL.OnlineCloseDate < DateTime.Parse("1/1/2000"))
+                    if (eventList.OnlineCloseDate < DateTime.Parse("1/1/2000"))
                         throw new Exception("No Close Date");
 
-                    if (EL.OnlineCloseDate < DateTime.Now)
+                    if (eventList.OnlineCloseDate < DateTime.Now)
                         throw new Exception("Expired");
 
-                    if (!EL.Active)
+                    if (!eventList.Active)
                         throw new Exception("Not Active");
 
                     // Write Page
-                    DonorEventList DEL = new DonorEventList(_ConnStr, User.Identity.Name);
-                    DEL.fk_Event = EL.pk_Event;
+                    var donorEventList = new DonorEventList(ConnectionString, User.Identity.Name)
+                    {
+                        fk_Event = eventList.pk_Event
+                    };
 
-                    if (DEL.GetTicketCountForEvent() > EL.Capacity)
+                    if (donorEventList.GetTicketCountForEvent() > eventList.Capacity)
                         pnlCapacity.Visible = true;
 
                     // Add HTML from DB
-                    StringBuilder sbHeader = new StringBuilder(EL.HTML_Header);
-                    DonorEmail dEMail = new DonorEmail();
+                    var sbHeader = new StringBuilder(eventList.HTML_Header);
+                    var donorEmail = new DonorEmail();
 
-                    sbHeader = dEMail.ParseTextSubEL(sbHeader, EL);
+                    sbHeader = donorEmail.ParseTextSubEL(sbHeader, eventList);
                     ltHeader.Text = sbHeader.ToString();  // EL.HTML_Header;
 
-                    StringBuilder sbFAQ = new StringBuilder(EL.HTML_FAQ);
-                    sbFAQ = dEMail.ParseTextSubEL(sbFAQ, EL);
-                    ltFAQ.Text = sbFAQ.ToString();
+                    var faq = new StringBuilder(eventList.HTML_FAQ);
+                    faq = donorEmail.ParseTextSubEL(faq, eventList);
+                    ltFAQ.Text = faq.ToString();
 
-                    //ltFAQ.Text = EL.HTML_FAQ;
+                    lblEvent.Text = eventList.DisplayName;
 
-                    lblEvent.Text = EL.DisplayName;
-
-                    imgHeader.ImageUrl = "ihandler.ashx?eid=" + EL.pk_Event.ToString();
+                    imgHeader.ImageUrl = "ihandler.ashx?eid=" + eventList.pk_Event;
                 }
                 else
                     throw new Exception("Invalid EID");
-                //    try
-                //    {
-                        
-
-                //        // If the Online Close Date is > 1/1/2000 (This means it is not null in DB)
-                //        if (EL.OnlineCloseDate > DateTime.Parse("1/1/2000"))
-                //        {
-                //            // If the Online Close Date < NOW then redirect to evetn expired page
-                //            if (EL.OnlineCloseDate < DateTime.Now)
-                //            {
-                //                Response.Redirect("eventexpired.aspx?eid=NULL");
-                //            }
-                //            else
-                //            {
-                //                // Write Page
-                //                DonorEventList DEL = new DonorEventList(_ConnStr, User.Identity.Name);
-                //                DEL.fk_Event = EL.pk_Event;
-
-                //                if (DEL.GetTicketCountForEvent() > EL.Capacity)
-                //                    pnlCapacity.Visible = true;
-
-                //                // Add HTML from DB
-                //                ltHeader.Text = EL.HTML_Header;
-                //                ltFAQ.Text = EL.HTML_FAQ;
-
-                //                lblEvent.Text = EL.DisplayName;
-
-                //                imgHeader.ImageUrl = "ihandler.ashx?eid=" + EL.pk_Event.ToString();
-
-                //            }
-                //        }
-                //    }
-                //    catch
-                //    {
-                //        pnlRSVP.Visible = false;
-                //        pnlRSVP2.Visible = false;
-                //        pnlUnav.Visible = true;
-                //        //Response.Redirect("eventexpired.aspx?eid=NULL");
-                //    }
-                //}
-                //else
-                //{
-                //    //Response.Redirect("eventexpired.aspx?eid=NULL");
-                //}
             }
-            catch
+            catch (Exception ex)
             {
+                Debug.WriteLine(ex.Message);
                 Response.Redirect("eventexpired.aspx?eid=NULL");
             }
 
         }
 
-        /// <summary>
-        /// On Submit button click, validate donor then redirect to rsvp page
-        /// if valid.  If donor is not valid, display message.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
+            var finderNumber = txtFinderNumber.Text;
+            var specialEventCodes = new[] { "JBGEN15106", "SNCC151006", "NAACP15106", "SPLC151006", "HRCJB15106", "JBLC151006" };
+            var pk_Event = int.Parse(Request["eid"]);
+
+            if (specialEventCodes.Contains(finderNumber))
+            {
+                var guid = Guid.NewGuid();
+
+                var key = finderNumber.Substring(0, 4) + guid.ToString().Replace("-", "").Substring(0, 6).ToUpper();
+                var donor = new DonorList(ConnectionString, "") { pk_DonorList = key };
+                donor.Create();
+
+                var donorEventList = new DonorEventList(ConnectionString, "") { fk_Event = pk_Event, fk_DonorList = key };
+                //                donorEventList.Create();
+                donorEventList.AddNew();
+
+                donorEventList.GetDonorEventListID(donor.pk_DonorList, pk_Event, true);
+                Session["SPLC.Donor.RSVP.DL"] = donor;
+                Session["SPLC.Donor.RSVP.DEL"] = donorEventList;
+
+                Response.Redirect("DonorEvent.aspx");
+            }
+
             try
             {
                 if (txtFinderNumber.Text.Equals(""))
                     throw new Exception("There appears to be a problem with the information that you have entered, please check the information and try again or call 334-956-8200 for assistance.");
 
-                DonorList DL = new DonorList(_ConnStr, "", txtFinderNumber.Text.ToString().Trim());
+                var donorList = new DonorList(ConnectionString, "", txtFinderNumber.Text.Trim());
 
-                if (!DL.IsValid)
+                if (!donorList.IsValid)
                     throw new Exception("There appears to be a problem with the information that you have entered, please check the information and try again or call 334-956-8200 for assistance.");
 
-                Session["SPLC.Donor.RSVP.DL"] = DL;
+                Session["SPLC.Donor.RSVP.DL"] = donorList;
 
-                DonorEventList DEL = new DonorEventList(_ConnStr, "");
-                DEL.GetDonorEventListID(DL.pk_DonorList, int.Parse(Request["eid"].ToString()),true);
+                var donorEventList = new DonorEventList(ConnectionString, "");
+                donorEventList.GetDonorEventListID(donorList.pk_DonorList, int.Parse(Request["eid"]), true);
 
-                if (!DEL.IsValid)
+                if (!donorEventList.IsValid)
                     throw new Exception("There appears to be a problem with the information that you have entered, please check the information and try again or call 334-956-8200 for assistance.");
 
-                if (DEL.Response_Date > DateTime.Parse("1/1/2000"))
+                if (donorEventList.Response_Date > DateTime.Parse("1/1/2000"))
                     throw new Exception("The code you have entered has already been used. If you need to change your reservation please call Courtney at 334-956-8269.");
 
-                Session["SPLC.Donor.RSVP.DEL"] = DEL;
+                Session["SPLC.Donor.RSVP.DEL"] = donorEventList;
 
                 Response.Redirect("DonorEvent.aspx");
 
             }
-            catch(Exception EX)
+            catch (Exception ex)
             {
-                ReservationCodeCustomValidator.ErrorMessage = EX.Message;
+                ReservationCodeCustomValidator.ErrorMessage = ex.Message;
                 ReservationCodeCustomValidator.IsValid = false;
             }
 
