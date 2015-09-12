@@ -117,8 +117,8 @@ namespace SPLC.Donor.Models
                     CommandType = CommandType.Text
                 };
                 cmd.Parameters.AddWithValue("pk_DonorList", pk_DonorList);
-                cmd.Parameters.AddWithValue("KeyName", KeyName);
-                cmd.Parameters.AddWithValue("AccountType", KeyName);
+                cmd.Parameters.AddWithValue("KeyName", KeyName ?? "");
+                cmd.Parameters.AddWithValue("AccountType", "Individual");
                 cmd.Parameters.AddWithValue("AddressLine1", AddressLine1 ?? "");
                 cmd.Parameters.AddWithValue("AddressLine2", AddressLine2 ?? "");
                 cmd.Parameters.AddWithValue("City", City ?? "");
