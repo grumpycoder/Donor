@@ -13,15 +13,6 @@ namespace SPLC.Donor.RSVP {
     public partial class Confirmation {
         
         /// <summary>
-        /// pnlContentBefore control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlContentBefore;
-        
-        /// <summary>
         /// imgHeader control.
         /// </summary>
         /// <remarks>

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using SPLC.Donor.Models;
@@ -56,7 +55,6 @@ namespace SPLC.Donor.RSVP
             }
             catch (Exception ex)
             {
-                Debug.WriteLine(ex.Message);
                 Response.Redirect("eventexpired.aspx?eid=NULL");
             }
 

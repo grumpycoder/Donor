@@ -13,15 +13,6 @@ namespace SPLC.Donor.RSVP {
     public partial class DonorEvent {
         
         /// <summary>
-        /// pnlContentBefore control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlContentBefore;
-        
-        /// <summary>
         /// imgHeader control.
         /// </summary>
         /// <remarks>
@@ -47,15 +38,6 @@ namespace SPLC.Donor.RSVP {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Literal ltHeader;
-        
-        /// <summary>
-        /// ValidationSummary1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ValidationSummary ValidationSummary1;
         
         /// <summary>
         /// lblMessage control.
@@ -85,22 +67,13 @@ namespace SPLC.Donor.RSVP {
         protected global::System.Web.UI.UpdatePanel upGuests;
         
         /// <summary>
-        /// NumGuestLabel control.
+        /// ValidationSummary1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label NumGuestLabel;
-        
-        /// <summary>
-        /// ddlNoGuests control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlNoGuests;
+        protected global::System.Web.UI.WebControls.ValidationSummary ValidationSummary1;
         
         /// <summary>
         /// attendingRadio control.
@@ -121,13 +94,13 @@ namespace SPLC.Donor.RSVP {
         protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvYesNo;
         
         /// <summary>
-        /// btnSubmit control.
+        /// ddlNoGuests control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnSubmit;
+        protected global::System.Web.UI.WebControls.DropDownList ddlNoGuests;
         
         /// <summary>
         /// txtName control.
@@ -245,6 +218,15 @@ namespace SPLC.Donor.RSVP {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtComments;
+        
+        /// <summary>
+        /// btnSubmit control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnSubmit;
         
         /// <summary>
         /// ltFAQ control.

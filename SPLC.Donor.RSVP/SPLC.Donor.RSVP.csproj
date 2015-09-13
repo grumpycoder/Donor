@@ -104,6 +104,7 @@
     <Content Include="Scripts\jquery.validationEngine-en.js" />
     <Content Include="Scripts\jquery.validationEngine.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\splc.js" />
     <Content Include="Scripts\WebForms\DetailsView.js" />
     <Content Include="Scripts\WebForms\Focus.js" />
     <Content Include="Scripts\WebForms\GridView.js" />
@@ -129,6 +130,10 @@
     <Content Include="Styles\DonorEvent.css" />
     <Content Include="Styles\DonorTax.css" />
     <Content Include="Styles\RSVP.css" />
+    <Content Include="Styles\rsvp.min.css" />
+    <Content Include="Styles\style.1.css" />
+    <Content Include="Styles\style.css" />
+    <Content Include="Styles\style.min.css" />
     <Content Include="TaxDefault.aspx" />
     <Content Include="TaxForm.aspx" />
     <Content Include="TaxReceipt.aspx" />
@@ -139,6 +144,9 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="TaxReceipt.Master" />
+    <Content Include="Styles\rsvp.css.map" />
+    <Content Include="Styles\rsvp.scss" />
+    <Content Include="Styles\style.css.map" />
     <None Include="Web.DEBUG.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -276,6 +284,10 @@
     <Content Include="Templates\TaxReport.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="img\" />
+    <Folder Include="Styles\sass\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

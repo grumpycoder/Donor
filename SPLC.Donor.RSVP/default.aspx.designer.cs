@@ -13,15 +13,6 @@ namespace SPLC.Donor.RSVP {
     public partial class _default {
         
         /// <summary>
-        /// pnlContentBefore control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlContentBefore;
-        
-        /// <summary>
         /// imgHeader control.
         /// </summary>
         /// <remarks>
@@ -94,15 +85,6 @@ namespace SPLC.Donor.RSVP {
         protected global::System.Web.UI.WebControls.Panel pnlRSVP2;
         
         /// <summary>
-        /// ReservationCodeCustomValidator control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CustomValidator ReservationCodeCustomValidator;
-        
-        /// <summary>
         /// txtFinderNumber control.
         /// </summary>
         /// <remarks>
@@ -121,22 +103,31 @@ namespace SPLC.Donor.RSVP {
         protected global::System.Web.UI.WebControls.Button btnSubmit;
         
         /// <summary>
-        /// lblExampleReservationWording control.
+        /// ReservationCodeCustomValidator control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblExampleReservationWording;
+        protected global::System.Web.UI.WebControls.CustomValidator ReservationCodeCustomValidator;
         
         /// <summary>
-        /// lblExampleReservationCode control.
+        /// ReservationCodeRequiredFieldValidator control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblExampleReservationCode;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator ReservationCodeRequiredFieldValidator;
+        
+        /// <summary>
+        /// ReservationCodeRegularExpressionValidator control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator ReservationCodeRegularExpressionValidator;
         
         /// <summary>
         /// ltFAQ control.
