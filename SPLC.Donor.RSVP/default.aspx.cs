@@ -63,14 +63,14 @@ namespace SPLC.Donor.RSVP
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
             var finderNumber = txtFinderNumber.Text;
-            var specialEventCodes = new[] { "JBGEN15106", "SNCC151006", "NAACP15106", "SPLC151006", "HRCJB15106", "JBLC151006" };
+            var specialEventCodes = new[] { "JBGEN", "SNCCA", "NAACP", "SPLCA", "HRCJB", "JBLCA" };
             var pkEvent = int.Parse(Request["eid"]);
 
             if (specialEventCodes.Contains(finderNumber))
             {
                 var guid = Guid.NewGuid();
 
-                var key = finderNumber.Substring(0, 4) + guid.ToString().Replace("-", "").Substring(0, 6).ToUpper();
+                var key = finderNumber + guid.ToString().Replace("-", "").Substring(0, 5).ToUpper();
                 var donor = new DonorList() { pk_DonorList = key, IsValid = true };
                 donor.Create();
 
@@ -81,7 +81,15 @@ namespace SPLC.Donor.RSVP
                 Session["SPLC.Donor.RSVP.DL"] = donor;
                 Session["SPLC.Donor.RSVP.DEL"] = donorEventList;
 
-                Response.Redirect("DonorEvent.aspx?eid=" + pkEvent);
+                if (finderNumber.Length >= 5)
+                {
+                    Response.Redirect("DonorEvent.aspx?eid=" + pkEvent);
+                }
+                else
+                {
+                    throw new Exception(
+                        "There appears to be a problem with the information that you have entered, please check the information and try again or call 334-956-8200 for assistance.");
+                }
             }
 
             try

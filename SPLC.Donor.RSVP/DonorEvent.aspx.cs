@@ -89,9 +89,9 @@ namespace SPLC.Donor.RSVP
                 //Special case for event without normal invitation distribution
 
                 var finderNumber = donorList.pk_DonorList;
-                var specialEventCodes = new[] { "JBGE", "SNCC", "NAACP", "SPLC", "HRCJB", "JBLC" };
+                var specialEventCodes = new[] { "JBGEN", "SNCCA", "NAACP", "SPLCA", "HRCJB", "JBLCA" };
 
-                if (specialEventCodes.Contains(finderNumber.Substring(0, 4)))
+                if (specialEventCodes.Contains(finderNumber.Substring(0, 5)))
                 {
                     donorList.KeyName = txtName.Text;
                     donorList.AccountName = txtName.Text;
