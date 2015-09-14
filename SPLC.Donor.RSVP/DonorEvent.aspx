@@ -161,6 +161,7 @@
             <div class="form-group half">
                 <label>Phone Number</label>
                 <asp:TextBox ID="txtPhoneNumber" MaxLength="13" runat="server" Width="100%" />
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator5" CssClass="required" runat="server" ErrorMessage="Please enter a phone number." ControlToValidate="txtPhoneNumber" ForeColor="Red" Visible="true"></asp:RequiredFieldValidator>
             </div>
 
             <div class="form-group half last">
