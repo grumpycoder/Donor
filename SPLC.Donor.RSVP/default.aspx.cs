@@ -81,7 +81,7 @@ namespace SPLC.Donor.RSVP
                 Session["SPLC.Donor.RSVP.DL"] = donor;
                 Session["SPLC.Donor.RSVP.DEL"] = donorEventList;
 
-                Response.Redirect("DonorEvent.aspx");
+                Response.Redirect("DonorEvent.aspx?eid=" + pkEvent);
             }
 
             try
@@ -107,7 +107,7 @@ namespace SPLC.Donor.RSVP
 
                 Session["SPLC.Donor.RSVP.DEL"] = donorEventList;
 
-                Response.Redirect("DonorEvent.aspx");
+                Response.Redirect("DonorEvent.aspx?eid=" + pkEvent);
 
             }
             catch (Exception ex)

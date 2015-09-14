@@ -73,6 +73,13 @@
     <Content Include="Images\splc_header.gif" />
     <Content Include="Images\SPLC_LOGO.jpeg" />
     <Content Include="Images\SPLC_LOGO.png" />
+    <Content Include="img\chevron-down.png" />
+    <Content Include="img\footer-bg.jpg" />
+    <Content Include="img\gift.png" />
+    <Content Include="img\hero.jpg" />
+    <Content Include="img\logo.png" />
+    <Content Include="img\logo_2x.png" />
+    <Content Include="img\memoriam.jpg" />
     <Content Include="Scripts\DonorEvent.js" />
     <Content Include="Scripts\jquery-1.8.2.min.js" />
     <Content Include="RSVP.Master" />
@@ -93,6 +100,7 @@
     <None Include="Properties\PublishProfiles\PROD_Staging.pubxml" />
     <None Include="Properties\PublishProfiles\Test.pubxml" />
     <None Include="Properties\PublishProfiles\UAT.pubxml" />
+    <Content Include="RSVPNoBrand.Master" />
     <None Include="Scripts\jquery-2.1.0.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.0.js" />
     <Content Include="Scripts\jquery-2.1.0.min.js" />
@@ -237,6 +245,13 @@
     <Compile Include="RSVP.Master.designer.cs">
       <DependentUpon>RSVP.Master</DependentUpon>
     </Compile>
+    <Compile Include="RSVPNoBrand.Master.cs">
+      <DependentUpon>RSVPNoBrand.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="RSVPNoBrand.Master.designer.cs">
+      <DependentUpon>RSVPNoBrand.Master</DependentUpon>
+    </Compile>
     <Compile Include="TaxDefault.aspx.cs">
       <DependentUpon>TaxDefault.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -286,7 +301,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="img\" />
     <Folder Include="Styles\sass\" />
   </ItemGroup>
   <PropertyGroup>

@@ -60,14 +60,16 @@
             </h3>
 
             <div class="form-group">
-                <label>Name</label>
+                <label>Name <span class="required">*</span></label>
                 <asp:TextBox ID="txtName" runat="server" MaxLength="256" Width="100%" CssClass="input" />
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator1" CssClass="required" runat="server" ErrorMessage="Please enter a name." ControlToValidate="txtName" ForeColor="Red" Visible="True"></asp:RequiredFieldValidator>
             </div>
 
-            <div class="form-group half">
-                <label>Address 1</label>
-                <asp:TextBox ID="txtMailingAddress" MaxLength="256" runat="server" Width="100%" />
 
+            <div class="form-group half">
+                <label>Address 1 <span class="required">*</span></label>
+                <asp:TextBox ID="txtMailingAddress" MaxLength="256" runat="server" Width="100%" />
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator2" CssClass="required" runat="server" ErrorMessage="Please enter a street address." ControlToValidate="txtMailingAddress" ForeColor="Red" Visible="true"></asp:RequiredFieldValidator>
             </div>
 
             <div class="form-group half last">
@@ -75,13 +77,17 @@
                 <asp:TextBox ID="txtAddress2" runat="server" Width="100%" />
             </div>
 
+
+            <div class="clearfix"></div>
+
             <div class="form-group third">
-                <label>City</label>
+                <label>City <span class="required">*</span></label>
                 <asp:TextBox ID="txtCity" runat="server" Width="100%" />
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator3" CssClass="required" runat="server" ErrorMessage="Please enter a city." ControlToValidate="txtCity" ForeColor="Red" Visible="true"></asp:RequiredFieldValidator>
             </div>
 
             <div class="form-group third">
-                <label>State</label>
+                <label>State <span class="required">*</span></label>
                 <div class="select" style="width: 100%; display: inline-block;">
                     <asp:DropDownList ID="ddlState" runat="server" Width="300px">
                         <asp:ListItem Text="--" Value="" />
@@ -138,14 +144,17 @@
                         <asp:ListItem Value="WY">Wyoming</asp:ListItem>
                     </asp:DropDownList>
                 </div>
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator4" CssClass="required" runat="server" ErrorMessage="Please enter a state." ControlToValidate="ddlState" ForeColor="Red" Visible="true"></asp:RequiredFieldValidator>
             </div>
+
             <div class="form-group third last">
                 <label>ZIP code <span class="required">*</span></label>
                 <asp:TextBox ID="txtZipCode" runat="server" MaxLength="5" Width="100%" />
-                <asp:RequiredFieldValidator ID="ZipCodeRequiredFieldValidator" CssClass="required" runat="server" ErrorMessage="Please enter a zip code." ControlToValidate="txtZipCode" ForeColor="Red">*</asp:RequiredFieldValidator>
+                <asp:RequiredFieldValidator ID="ZipCodeRequiredFieldValidator" CssClass="required" runat="server" ErrorMessage="Please enter a zip code." ControlToValidate="txtZipCode" ForeColor="Red" Visible="True"></asp:RequiredFieldValidator>
                 <asp:RegularExpressionValidator ID="ZipCodeRegularExpressionValidator" runat="server" ErrorMessage="Zip Code must have 5 numeric values." ControlToValidate="txtZipCode" Display="None" ValidationExpression="^\d{5}(-\d{4})?$" ForeColor="Red"></asp:RegularExpressionValidator>
-
             </div>
+
+            <div class="clearfix"></div>
 
             <div class="form-group half">
                 <label>Phone Number</label>

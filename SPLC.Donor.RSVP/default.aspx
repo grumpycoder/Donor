@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/RSVP.Master" AutoEventWireup="true" CodeBehind="default.aspx.cs" Inherits="SPLC.Donor.RSVP._default" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/RSVPNoBrand.Master" AutoEventWireup="true" CodeBehind="default.aspx.cs" Inherits="SPLC.Donor.RSVP._default" %>
 
 <%@ Register Src="faq.ascx" TagName="faq" TagPrefix="uc1" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">

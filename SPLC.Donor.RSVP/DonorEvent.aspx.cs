@@ -225,7 +225,15 @@ namespace SPLC.Donor.RSVP
 
         protected void attendingRadio_SelectedIndexChanged1(object sender, EventArgs e)
         {
-            ddlNoGuests.Enabled = !attendingRadio.SelectedValue.Equals("1");
+//            ddlNoGuests.Enabled = !attendingRadio.SelectedValue.Equals("1");
+            if (attendingRadio.SelectedValue.Equals("1"))
+            {
+                ddlNoGuests.SelectedValue = "0";
+                ddlNoGuests.Enabled = false;
+            }
+            else
+                ddlNoGuests.Enabled = true;
+
         }
     }
 }
