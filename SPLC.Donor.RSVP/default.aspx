@@ -32,7 +32,7 @@
                 <div>
                     <div>
                         <p>
-                            Enter the reservation code from your invitation below, then click the "Submit" button to retrieve your response information.  
+                            Enter the reservation code from your invitation below, then click the "Submit" button. 
                         </p>
                     </div>
                     <asp:ValidationSummary ID="LoginValidationSummary" CssClass="required" runat="server" />

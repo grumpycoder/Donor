@@ -62,16 +62,16 @@ namespace SPLC.Donor.RSVP
 
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
-            var finderNumber = txtFinderNumber.Text;
-            var specialEventCodes = new[] { "JBGEN", "SNCCA", "NAACP", "SPLCA", "HRCJB", "JBLCA" };
+            var finderNumber = txtFinderNumber.Text.ToLower();
+            var specialEventCodes = new[] { "jbgen", "sncca", "naacp", "splca", "hrcjb", "jblca" };
             var pkEvent = int.Parse(Request["eid"]);
 
-            if (specialEventCodes.Contains(finderNumber))
+            if (specialEventCodes.Contains(finderNumber.ToLower()))
             {
                 var guid = Guid.NewGuid();
 
                 var key = finderNumber + guid.ToString().Replace("-", "").Substring(0, 5).ToUpper();
-                var donor = new DonorList() { pk_DonorList = key, IsValid = true };
+                var donor = new DonorList() { pk_DonorList = key.ToUpper(), IsValid = true };
                 donor.Create();
 
                 var donorEventList = new DonorEventList("") { fk_Event = pkEvent, fk_DonorList = key };

@@ -56,7 +56,9 @@
 
 
 
-            <h3>You may update your information below
+<%--            <h3>You may update your information below--%>
+<%--            </h3>--%>
+            <h3>Please provide your name, address and email
             </h3>
 
             <div class="form-group">
@@ -170,7 +172,7 @@
             </div>
 
             <div class="form-group">
-                <label>Comments (Seating is limited but if you would like additional tickets please enter your request here.)</label>
+                <label>Comments</label>
                 <asp:TextBox ID="txtComments" MaxLength="1000" runat="server" TextMode="MultiLine" Rows="3" Width="100%"></asp:TextBox>
             </div>
 
