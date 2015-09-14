@@ -164,6 +164,7 @@ namespace SPLC.Donor.Models
         private StringBuilder ParseTextSubDL(StringBuilder message, DonorList donorList)
         {
             message = message.Replace("@{SALUTATION}", donorList.AccountName);
+            message = message.Replace("@{FINDERNUMBER}", donorList.pk_DonorList);
             return message;
         }
 

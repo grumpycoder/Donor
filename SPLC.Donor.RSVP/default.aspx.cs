@@ -63,7 +63,8 @@ namespace SPLC.Donor.RSVP
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
             var finderNumber = txtFinderNumber.Text.ToLower();
-            var specialEventCodes = new[] { "jbgen", "sncca", "naacp", "splca", "hrcjb", "jblca" };
+
+            var specialEventCodes = new[] { "jbond", "jsncc", "naacp", "splcj", "jbhrc" };
             var pkEvent = int.Parse(Request["eid"]);
 
             if (specialEventCodes.Contains(finderNumber.ToLower()))

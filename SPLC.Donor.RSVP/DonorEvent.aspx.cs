@@ -89,7 +89,7 @@ namespace SPLC.Donor.RSVP
                 //Special case for event without normal invitation distribution
 
                 var finderNumber = donorList.pk_DonorList.ToLower();
-                var specialEventCodes = new[] { "jbgen", "sncca", "naacp", "splca", "hrcjb", "jblca" };
+                var specialEventCodes = new[] { "jbond", "jsncc", "naacp", "splcj", "jbhrc" };
 
                 if (specialEventCodes.Contains(finderNumber.Substring(0, 5)))
                 {
@@ -158,7 +158,8 @@ namespace SPLC.Donor.RSVP
                 var donorEmail = new DonorEmail(User.Identity.ToString(), ConfigurationManager.AppSettings["EmailTemplatesURL"], donorList, donorEventList);
                 donorEmail.SendEmail();
 
-                Response.Redirect("Confirmation.aspx");
+                var pkEvent = int.Parse(Request["eid"]);
+                Response.Redirect("Confirmation.aspx?eid=" + pkEvent);
 
             }
             catch (Exception ex)
