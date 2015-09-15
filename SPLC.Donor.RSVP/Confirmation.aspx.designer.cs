@@ -31,15 +31,6 @@ namespace SPLC.Donor.RSVP {
         protected global::System.Web.UI.WebControls.Label lblEvent;
         
         /// <summary>
-        /// ltHeader control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal ltHeader;
-        
-        /// <summary>
         /// litConfirm control.
         /// </summary>
         /// <remarks>

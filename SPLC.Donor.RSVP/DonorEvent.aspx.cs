@@ -89,7 +89,7 @@ namespace SPLC.Donor.RSVP
                 //Special case for event without normal invitation distribution
 
                 var finderNumber = donorList.pk_DonorList.ToLower();
-                var specialEventCodes = new[] { "jbond", "jsncc", "naacp", "splcj", "jbhrc" };
+                var specialEventCodes = new[] { "jbond", "jsncc", "naacp", "splcj", "jbhrc", "bondj", "jhbms" };
 
                 if (specialEventCodes.Contains(finderNumber.Substring(0, 5)))
                 {

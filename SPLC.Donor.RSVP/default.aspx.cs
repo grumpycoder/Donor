@@ -64,7 +64,7 @@ namespace SPLC.Donor.RSVP
         {
             var finderNumber = txtFinderNumber.Text.ToLower();
 
-            var specialEventCodes = new[] { "jbond", "jsncc", "naacp", "splcj", "jbhrc" };
+            var specialEventCodes = new[] { "jbond", "jsncc", "naacp", "splcj", "jbhrc", "bondj", "jhbms" };
             var pkEvent = int.Parse(Request["eid"]);
 
             if (specialEventCodes.Contains(finderNumber.ToLower()))

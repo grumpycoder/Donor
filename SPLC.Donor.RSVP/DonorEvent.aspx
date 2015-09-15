@@ -59,7 +59,7 @@
 
                 <%--            <h3>You may update your information below--%>
                 <%--            </h3>--%>
-                <h3>Please provide your name, address, phone number and email
+                <h3>Please fill in the form below. All fields are required. 
                 </h3>
 
                 <div class="form-group">
@@ -163,6 +163,7 @@
                     <label>Phone Number <span class="required">*</span></label>
                     <asp:TextBox ID="txtPhoneNumber" MaxLength="13" runat="server" Width="100%" />
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator5" CssClass="required" runat="server" ErrorMessage="Please enter a phone number." ControlToValidate="txtPhoneNumber" ForeColor="Red" Visible="true"></asp:RequiredFieldValidator>
+
                 </div>
 
                 <div class="form-group half last">
@@ -182,14 +183,13 @@
                     <asp:Button ID="btnSubmit" runat="server" Text="Submit" OnClick="btnSubmit_Click" CssClass="form-submit" OnClientClick="window.scrollTo = function(x,y) { return true; };" />
                 </div>
 
-
-
                 <asp:Literal ID="ltFAQ" runat="server" />
-
-
 
             </div>
         </section>
     </div>
 
 </asp:Content>
+
+
+

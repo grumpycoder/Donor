@@ -15,18 +15,17 @@
                 <asp:Label ID="lblEvent" runat="server" />
             </h1>
 
-            <div>
-                <asp:Literal ID="ltHeader" runat="server" />
-            </div>
+<%--            <div>--%>
+<%--                <asp:Literal ID="ltHeader" runat="server" />--%>
+<%--            </div>--%>
 
             <asp:Literal ID="litConfirm" runat="server" />
 
             <asp:Literal ID="ltFAQ" runat="server" />
 
-            <p class="buttonDonate">
-                <a href="https://donate.splcenter.org/sslpage.aspx?pid=463">Donate</a>
-            </p>
-
+            <%--            <p class="buttonDonate">--%>
+            <%--                <a href="https://donate.splcenter.org/sslpage.aspx?pid=463">Donate</a>--%>
+            <%--            </p>--%>
         </section>
     </div>
 

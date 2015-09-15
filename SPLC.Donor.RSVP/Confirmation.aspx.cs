@@ -17,7 +17,7 @@ namespace SPLC.Donor.RSVP
             var html = new StringBuilder(eventList.HTML_Header);
             var donorEmail = new DonorEmail();
             html = donorEmail.ParseText(html, eventList,donorList);
-            ltHeader.Text = html.ToString();
+//            ltHeader.Text = html.ToString();
 
             var faq = new StringBuilder(eventList.HTML_FAQ);
             faq = donorEmail.ParseText(faq, eventList, donorList);
