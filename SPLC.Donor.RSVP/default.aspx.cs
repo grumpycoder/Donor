@@ -55,7 +55,7 @@ namespace SPLC.Donor.RSVP
             }
             catch (Exception ex)
             {
-                Response.Redirect("eventexpired.aspx?eid=NULL");
+                Response.Redirect("eventexpired.aspx");
             }
 
         }

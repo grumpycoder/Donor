@@ -16,7 +16,8 @@ namespace SPLC.Donor.RSVP
 
         protected override void OnPreInit(EventArgs e)
         {
-            var eventId = int.Parse(Request["eid"]);
+            int eventId; 
+            int.TryParse(Request["eid"], out eventId);
 
             MasterPageFile = eventId > 20 ? "~/RSVPNoBrand.Master" : "~/RSVP.Master";
         }
