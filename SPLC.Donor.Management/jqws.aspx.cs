@@ -163,8 +163,8 @@ namespace SPLC.Donor.Management
                         break;
                 }
 
-                donorEventList.Update();
-
+//                donorEventList.Update();
+                donorEventList.SaveChanges();
                 sbReturn.Append("True");
             }
             catch (Exception ex)
