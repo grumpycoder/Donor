@@ -66,8 +66,8 @@
 
 
                     <p>
-                        <span>For example:</span>
-                        <label>Your reservation code is 55566677788</label>
+<%--                        <span>For example:</span>--%>
+<%--                        <label>Your reservation code is 55566677788</label>--%>
                     </p>
                 </div>
 
