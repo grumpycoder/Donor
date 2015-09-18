@@ -148,6 +148,7 @@
     <Content Include="Scripts\FormScripts\DonorEventListDetails.js" />
     <Content Include="ihandler.ashx" />
     <None Include="Properties\PublishProfiles\DEBUG.pubxml" />
+    <None Include="Properties\PublishProfiles\PROD.pubxml" />
     <None Include="Scripts\jHtmlArea-0.7.5-vsdoc.js" />
     <None Include="Scripts\jHtmlArea-0.7.5.min-vsdoc.js" />
     <Content Include="Scripts\FormScripts\Event.js" />
@@ -355,6 +356,9 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Web.PROD.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.PROD_Staging.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
     <None Include="Web.UAT.config">

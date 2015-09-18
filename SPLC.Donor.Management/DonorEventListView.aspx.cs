@@ -1,26 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Configuration;
 using SPLC.Donor.Models;
 
 namespace SPLC.Donor.Management
 {
     public partial class DonorEventListView : System.Web.UI.Page
     {
-        private static string _ConnStr = ConfigurationManager.ConnectionStrings["Donor_ConnStr"].ToString();
-
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!Page.IsPostBack)
             {
 
-                EventList EL = new EventList(User.Identity.Name);
+                var eventList = new EventList(User.Identity.Name);
 
-                ddlEvents.DataSource = EL.GetEvents();
+                ddlEvents.DataSource = eventList.GetEvents();
                 ddlEvents.DataTextField = "EName";
                 ddlEvents.DataValueField = "pk_Event";
                 ddlEvents.DataBind();
@@ -41,12 +34,9 @@ namespace SPLC.Donor.Management
         private void LoadGrid()
         {
             DonorEventList DEL = new DonorEventList(User.Identity.Name);
-            bool blShow = false;
 
-            if (chMailListOnly.Checked)
-            {
-                blShow = true;
-            }
+
+            bool blShow = chMailListOnly.Checked;
 
 
             gvDonorEvents.DataSource = DEL.GetDonorEventList_Search(ddlEvents.SelectedValue.ToString(), txtDonorID.Text.ToString(), txtName.Text.ToString(), 500, blShow);

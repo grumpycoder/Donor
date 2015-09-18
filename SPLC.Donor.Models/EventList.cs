@@ -230,6 +230,77 @@ namespace SPLC.Donor.Models
             conn.Close();
         }
 
+        public void SaveChanges()
+        {
+
+            using (var cn = new SqlConnection(ConnectionString))
+            {
+                var htmlHeaderSet = Header_Image != null ? ", Header_Image = @Header_Image " : "";
+                
+                var sql = string.Format("UPDATE EventList SET " +
+                          "Active = @Active, StartDate = @StartDate, EndDate = @EndDate, DoorsOpenDate = @DoorsOpenDate, " +
+                          "OnlineCloseDate = @OnlineCloseDate, EventName = @EventName, DisplayName = @DisplayName, Speaker = @Speaker, " +
+                          "VenueName = @VenueName, VenueAddress = @VenueAddress, VenueCity = @VenueCity, VenueState = @VenueState, " +
+                          "VenueZipCode = @VenueZipCode, Capacity = @Capacity, ImageURL = @ImageURL, TicketsAllowed = @TicketsAllowed, " +
+                          $"InActive_Date = @InActive_Date, InActive_User = @InActive_User, HTML_Header = @HTML_Header, HTML_FAQ = @HTML_FAQ, " +
+                          "HTML_Yes = @HTML_Yes, HTML_No = @HTML_No, HTML_Wait = @HTML_Wait {0} " +
+                          "WHERE pk_Event = @pk_Event", htmlHeaderSet); 
+
+                cn.Open();
+                var cmd = new SqlCommand()
+                {
+                    CommandText = sql, 
+                    Connection = cn,
+                    CommandType = CommandType.Text
+                };
+                cmd.Parameters.AddWithValue("pk_Event", pk_Event);
+
+                cmd.Parameters.AddWithValue("Active", Active);
+                cmd.Parameters.AddWithValue("StartDate", StartDate);
+                cmd.Parameters.AddWithValue("EndDate", EndDate);
+                cmd.Parameters.AddWithValue("DoorsOpenDate", DoorsOpenDate);
+                cmd.Parameters.AddWithValue("OnlineCloseDate", OnlineCloseDate);
+                cmd.Parameters.AddWithValue("EventName", EventName);
+                cmd.Parameters.AddWithValue("DisplayName", DisplayName);
+                cmd.Parameters.AddWithValue("Speaker", Speaker);
+                cmd.Parameters.AddWithValue("VenueName", VenueName);
+                cmd.Parameters.AddWithValue("VenueAddress", VenueAddress);
+                cmd.Parameters.AddWithValue("VenueCity", VenueCity);
+                cmd.Parameters.AddWithValue("VenueState", VenueState);
+                cmd.Parameters.AddWithValue("VenueZipCode", VenueZipCode);
+                cmd.Parameters.AddWithValue("Capacity", Capacity);
+                cmd.Parameters.AddWithValue("ImageURL", ImageURL);
+                cmd.Parameters.AddWithValue("TicketsAllowed", TicketsAllowed);
+                cmd.Parameters.AddWithValue("InActive_Date", InActive_Date);
+                cmd.Parameters.AddWithValue("InActive_User", InActive_User);
+                cmd.Parameters.AddWithValue("HTML_Header", HTML_Header);
+                cmd.Parameters.AddWithValue("HTML_FAQ", HTML_FAQ);
+                cmd.Parameters.AddWithValue("HTML_Yes", HTML_Yes);
+                cmd.Parameters.AddWithValue("HTML_No", HTML_No);
+                cmd.Parameters.AddWithValue("HTML_Wait", HTML_Wait);
+
+                if (Header_Image != null)
+                {
+                    cmd.Parameters.AddWithValue("Header_Image", ConvertImageToByteArray(Header_Image, ImageFormat.Jpeg));
+                }
+
+                if (!CheckDatePassedDefault(InActive_Date)) cmd.Parameters["InActive_Date"].Value = DBNull.Value;
+                if (!CheckDatePassedDefault(StartDate)) cmd.Parameters["StartDate"].Value = DBNull.Value;
+                if (!CheckDatePassedDefault(EndDate)) cmd.Parameters["EndDate"].Value = DBNull.Value;
+                if (!CheckDatePassedDefault(DoorsOpenDate)) cmd.Parameters["DoorsOpenDate"].Value = DBNull.Value;
+                if (!CheckDatePassedDefault(OnlineCloseDate)) cmd.Parameters["OnlineCloseDate"].Value = DBNull.Value;
+
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        private bool CheckDatePassedDefault(DateTime? checkDate)
+        {
+            if (checkDate == null) return false;
+
+            return checkDate > DateTime.Parse(BaseDate);
+        }
+
         #endregion
 
         #region Custom Methods

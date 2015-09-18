@@ -11,7 +11,7 @@ namespace SPLC.Donor.Models
         private string ConnectionString { get; set; }
 
         #region Private Variables
-        private static string _User = "";
+        private static string _user = "";
         #endregion
 
         #region Accessors
@@ -47,12 +47,12 @@ namespace SPLC.Donor.Models
             ConnectionString = ConfigurationManager.ConnectionStrings["Donor_ConnStr"].ToString();
         }
 
-        public DonorEventList(string pUser) : this()
+        public DonorEventList(string user) : this()
         {
-            _User = pUser;
+            _user = user;
         }
 
-        public DonorEventList(string pUser, int donorEventListId) : this(pUser)
+        public DonorEventList(string user, int donorEventListId) : this(user)
         {
             pk_DonorEventList = donorEventListId;
             Load();
@@ -72,7 +72,7 @@ namespace SPLC.Donor.Models
             var cmd = new SqlCommand(sql, conn);
             cmd.Parameters.AddWithValue("@fk_Event", fk_Event);
             cmd.Parameters.AddWithValue("@fk_DonorList", fk_DonorList);
-            cmd.Parameters.AddWithValue("@User_Added", _User);
+            cmd.Parameters.AddWithValue("@User_Added", _user);
             var result = cmd.ExecuteScalar().ToString();
             conn.Close();
 
@@ -92,7 +92,7 @@ namespace SPLC.Donor.Models
             var cmd = new SqlCommand(sql, conn);
             cmd.Parameters.AddWithValue("@fk_Event", fk_Event);
             cmd.Parameters.AddWithValue("@fk_DonorList", fk_DonorList);
-            cmd.Parameters.AddWithValue("@User_Added", _User);
+            cmd.Parameters.AddWithValue("@User_Added", _user);
             var result = cmd.ExecuteScalar().ToString();
             conn.Close();
 
@@ -522,6 +522,7 @@ namespace SPLC.Donor.Models
                                 LEFT JOIN DonorList DL
                                 ON DEL.fk_DonorList = DL.pk_DonorList
                                 WHERE fk_Event=@fk_Event AND Attending=1 AND TicketsMailed_Date IS NULL
+                                AND WaitingList_Date IS NULL
                                 ORDER BY ";
 
             if (sort.Length > 0)

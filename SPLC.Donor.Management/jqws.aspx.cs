@@ -1,23 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 using System.Text;
-using System.Data;
-using System.Net;
-using System.IO;
-using System.Xml;
-using System.Configuration;
 using SPLC.Donor.Models;
-
 
 namespace SPLC.Donor.Management
 {
     public partial class jqws : System.Web.UI.Page
     {
-        private static string _ConnStr = ConfigurationManager.ConnectionStrings["Donor_ConnStr"].ToString();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -25,30 +13,26 @@ namespace SPLC.Donor.Management
             Response.ContentType = "text/HTML";
             Response.ContentEncoding = Encoding.UTF8;
 
-            StringBuilder sbReturn = new StringBuilder("");
-            //HttpEncoder httE = new HttpEncoder();
+            var sbReturn = new StringBuilder("");
 
             if (Request["fn"] != null)
             {
-                switch (Request["fn"].ToString())
+                switch (Request["fn"])
                 {
                     case "Sample":
                         sbReturn = Sample();
                         break;
                     case "AddNewEvent":
-                        sbReturn = AddNewEvent(Request["p1"].ToString(),Request["p2"].ToString());
+                        sbReturn = AddNewEvent(Request["p1"], Request["p2"]);
                         break;
                     case "UpdateEvent":
-
-                        string strS = Request["p3"].ToString();
-
-                        sbReturn = UpdateEvent(Request["p1"].ToString(), Request["p2"].ToString(),Request["p3"].ToString());
+                        sbReturn = UpdateEvent(Request["p1"], Request["p2"], Request["p3"]);
                         break;
                     case "UpdateDonorEventList":
-                        sbReturn = UpdateDonorEventList(Request["p1"].ToString(), Request["p2"].ToString(), Request["p3"].ToString());
+                        sbReturn = UpdateDonorEventList(Request["p1"], Request["p2"], Request["p3"]);
                         break;
                     case "UpdateDonorList":
-                        sbReturn = UpdateDonorList(Request["p1"].ToString(), Request["p2"].ToString(), Request["p3"].ToString(),Request["p4"].ToString());
+                        sbReturn = UpdateDonorList(Request["p1"], Request["p2"], Request["p3"], Request["p4"]);
                         break;
                     default:
                         sbReturn = sbReturn.Append("NULL");
@@ -61,87 +45,92 @@ namespace SPLC.Donor.Management
 
         private StringBuilder Sample()
         {
-            StringBuilder sbReturn = new StringBuilder();
-
+            var sbReturn = new StringBuilder();
             sbReturn.Append("HTML CODE");
- 
-
             return sbReturn;
         }
 
-        private StringBuilder AddNewEvent(string pEName, string pDate)
+        private StringBuilder AddNewEvent(string eventName, string startDate)
         {
-            StringBuilder sbReturn = new StringBuilder();
+            var sbReturn = new StringBuilder();
 
             try
             {
                 // Check if the date is valid
-                try { DateTime EDate = DateTime.Parse(pDate); }
-                catch { throw new Exception("Error"); }
-
-                var EL = new EventList(User.Identity.Name)
+                try
                 {
-                    EventName = pEName,
-                    StartDate = DateTime.Parse(pDate)
-                };
-                EL.AddNew();
-
-                if (EL.pk_Event.Equals(0))
+                    var eDate = DateTime.Parse(startDate);
+                }
+                catch
+                {
                     throw new Exception("Error");
-                else if (EL.pk_Event.Equals(-1))
+                }
+
+                var eventList = new EventList(User.Identity.Name)
+                {
+                    EventName = eventName,
+                    StartDate = DateTime.Parse(startDate)
+                };
+                eventList.AddNew();
+
+                if (eventList.pk_Event.Equals(0))
+                    throw new Exception("Error");
+                else if (eventList.pk_Event.Equals(-1))
                     throw new Exception("Duplicate");
                 else
-                    sbReturn.Append(EL.pk_Event.ToString());
+                    sbReturn.Append(eventList.pk_Event.ToString());
             }
             catch
             {
                 sbReturn.Append("Error");
             }
-            
+
             return sbReturn;
         }
 
-        private StringBuilder UpdateDonorList(string pID, string pField, string pValue, string pDELID)
+        private StringBuilder UpdateDonorList(string id, string field, string value, string donorEventListId)
         {
-            StringBuilder sbReturn = new StringBuilder();
+            var sbReturn = new StringBuilder();
 
             try
             {
-                DonorList DL = new DonorList(pID);
+                var donorList = new DonorList(id);
 
-                
-                switch (pField)
+                switch (field)
                 {
                     case "AccountName":
-                        DL.AccountName = pValue;
+                        donorList.AccountName = value;
                         break;
                     case "AddressLine1":
-                        DL.AddressLine1 = pValue;
+                        donorList.AddressLine1 = value;
                         break;
                     case "City":
-                        DL.City = pValue;
+                        donorList.City = value;
                         break;
                     case "State":
-                        DL.State = pValue;
+                        donorList.State = value;
                         break;
                     case "PostCode":
-                        DL.PostCode = pValue;
+                        donorList.PostCode = value;
                         break;
                     case "PhoneNumber":
-                        DL.PhoneNumber = pValue;
+                        donorList.PhoneNumber = value;
                         break;
                     case "Email":
-                        DL.EmailAddress = pValue;
+                        donorList.EmailAddress = value;
                         break;
                 }
 
-                DL.Update();
+                //                donorList.Update();
+                donorList.Save();
 
-                DonorEventList DEL = new DonorEventList(User.Identity.Name, int.Parse(pDELID));
-                DEL.UpdatedInfo = true;
-                DEL.UpdatedInfoDateTime = DateTime.Now;
-                DEL.UpdatedInfo_User = User.Identity.Name;
-                DEL.Update();
+                var donorEventList = new DonorEventList(User.Identity.Name, int.Parse(donorEventListId))
+                {
+                    UpdatedInfo = true,
+                    UpdatedInfoDateTime = DateTime.Now,
+                    UpdatedInfo_User = User.Identity.Name
+                };
+                donorEventList.Update();
 
                 sbReturn.Append("True");
             }
@@ -153,32 +142,32 @@ namespace SPLC.Donor.Management
             return sbReturn;
         }
 
-        private StringBuilder UpdateDonorEventList(string pID, string pField, string pValue)
+        private StringBuilder UpdateDonorEventList(string id, string field, string value)
         {
-            StringBuilder sbReturn = new StringBuilder();
+            var sbReturn = new StringBuilder();
 
             try
             {
-                DonorEventList DEL = new DonorEventList(User.Identity.Name, int.Parse(pID));
-                
-                switch (pField)
+                var donorEventList = new DonorEventList(User.Identity.Name, int.Parse(id));
+
+                switch (field)
                 {
                     case "TicketsRequested":
-                        DEL.TicketsRequested = int.Parse(pValue);
+                        donorEventList.TicketsRequested = int.Parse(value);
                         break;
                     case "Attending":
-                        DEL.Attending = bool.Parse(pValue);
+                        donorEventList.Attending = bool.Parse(value);
                         break;
                     case "SPLCComments":
-                        DEL.SPLCComments = pValue;
+                        donorEventList.SPLCComments = value;
                         break;
                 }
 
-                DEL.Update();
+                donorEventList.Update();
 
                 sbReturn.Append("True");
             }
-            catch (Exception EX)
+            catch (Exception ex)
             {
                 sbReturn.Append("Error");
             }
@@ -186,92 +175,92 @@ namespace SPLC.Donor.Management
             return sbReturn;
         }
 
-        private StringBuilder UpdateEvent(string pID, string pField, string pValue)
+        private StringBuilder UpdateEvent(string id, string field, string value)
         {
-            StringBuilder sbReturn = new StringBuilder();
+            var sbReturn = new StringBuilder();
 
             try
             {
-                EventList EL = new EventList(User.Identity.Name, int.Parse(pID));
+                var eventList = new EventList(User.Identity.Name, int.Parse(id));
 
-                switch (pField)
+                switch (field)
                 {
                     case "name":
-                        if (pValue.Equals("True"))
-                            EL.Active = true;
+                        if (value.Equals("True"))
+                            eventList.Active = true;
                         else
-                            EL.Active = false;
+                            eventList.Active = false;
                         break;
                     case "EventName":
-                        EL.EventName = pValue;
+                        eventList.EventName = value;
                         break;
                     case "DisplayName":
-                        EL.DisplayName = pValue;
+                        eventList.DisplayName = value;
                         break;
                     case "Speaker":
-                        EL.Speaker = pValue;
+                        eventList.Speaker = value;
                         break;
                     case "EventDate":
-                        string strDate = pValue + " " + EL.StartDate.Hour.ToString() + ":" + EL.StartDate.Minute.ToString();
-                        EL.StartDate = DateTime.Parse(strDate);
+                        string strDate = value + " " + eventList.StartDate.Hour + ":" + eventList.StartDate.Minute;
+                        eventList.StartDate = DateTime.Parse(strDate);
                         // When the Event Date is changed allso update the Date for End Date and Doors Open Date
-                        strDate = pValue + " " + EL.EndDate.Hour.ToString() + ":" + EL.EndDate.Minute.ToString();
-                        EL.EndDate = DateTime.Parse(strDate);
-                        strDate = pValue + " " + EL.DoorsOpenDate.Hour.ToString() + ":" + EL.DoorsOpenDate.Minute.ToString();
-                        EL.DoorsOpenDate = DateTime.Parse(strDate);
+                        strDate = value + " " + eventList.EndDate.Hour + ":" + eventList.EndDate.Minute;
+                        eventList.EndDate = DateTime.Parse(strDate);
+                        strDate = value + " " + eventList.DoorsOpenDate.Hour + ":" + eventList.DoorsOpenDate.Minute;
+                        eventList.DoorsOpenDate = DateTime.Parse(strDate);
                         break;
                     case "VenueName":
-                        EL.VenueName = pValue;
+                        eventList.VenueName = value;
                         break;
                     case "VenueAddress":
-                        EL.VenueAddress = pValue;
+                        eventList.VenueAddress = value;
                         break;
                     case "VenueCity":
-                        EL.VenueCity = pValue;
+                        eventList.VenueCity = value;
                         break;
                     case "VenueState":
-                        EL.VenueState = pValue;
+                        eventList.VenueState = value;
                         break;
                     case "VenueZipCode":
-                        EL.VenueZipCode = pValue;
+                        eventList.VenueZipCode = value;
                         break;
                     case "Capacity":
-                        EL.Capacity = int.Parse(pValue);
+                        eventList.Capacity = int.Parse(value);
                         break;
                     case "ImageURL":
-                        EL.ImageURL = pValue;
+                        eventList.ImageURL = value;
                         break;
                     case "StartDate":
-                        EL.StartDate = DateTime.Parse(pValue);
+                        eventList.StartDate = DateTime.Parse(value);
                         break;
                     case "EndDate":
-                        EL.EndDate = DateTime.Parse(pValue);
+                        eventList.EndDate = DateTime.Parse(value);
                         break;
                     case "DoorsOpenDate":
-                        EL.DoorsOpenDate = DateTime.Parse(pValue);
+                        eventList.DoorsOpenDate = DateTime.Parse(value);
                         break;
                     case "OnlineCloseDate":
-                        EL.OnlineCloseDate = DateTime.Parse(pValue);
+                        eventList.OnlineCloseDate = DateTime.Parse(value);
                         break;
                     case "Active":
-                        EL.Active = bool.Parse(pValue);
-                        if(!bool.Parse(pValue))
+                        eventList.Active = bool.Parse(value);
+                        if (!bool.Parse(value))
                         {
-                            EL.InActive_Date = DateTime.Now;
-                            EL.InActive_User = User.Identity.Name;
+                            eventList.InActive_Date = DateTime.Now;
+                            eventList.InActive_User = User.Identity.Name;
                         }
                         break;
                     case "TicketsAllowed":
-                        EL.TicketsAllowed = int.Parse(pValue);
+                        eventList.TicketsAllowed = int.Parse(value);
                         break;
-                        
+
                 }
 
-                EL.Update();
-
+//                eventList.Update();
+                eventList.SaveChanges();
                 sbReturn.Append("True");
             }
-            catch(Exception EX)
+            catch (Exception ex)
             {
                 sbReturn.Append("Error");
             }
