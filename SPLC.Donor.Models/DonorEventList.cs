@@ -369,7 +369,8 @@ namespace SPLC.Donor.Models
                                 FROM DonorEventList DEL
                                 LEFT JOIN EventList EL ON DEL.fk_Event = EL.pk_Event
                                 LEFT JOIN DonorList DL ON DEL.fk_DonorList = DL.pk_DonorList
-                                WHERE WaitingList_Date IS NOT NULL";
+                                WHERE WaitingList_Date IS NOT NULL
+                                AND Attending = 1" ;
 
             if (!eventId.Equals(""))
                 sql += " AND pk_Event='" + eventId + "' ";
