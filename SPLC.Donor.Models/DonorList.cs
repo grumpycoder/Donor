@@ -2,6 +2,7 @@
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.Security.Principal;
 
 namespace SPLC.Donor.Models
 {
@@ -26,6 +27,8 @@ namespace SPLC.Donor.Models
         public string EmailAddress { get; set; }
         public string PhoneNumber { get; set; }
         public bool IsValid { get; set; }
+        public string AccountType { get; set; }
+        public string DonorType { get; set; }
 
         #endregion
 
@@ -111,14 +114,15 @@ namespace SPLC.Donor.Models
                 var cmd = new SqlCommand()
                 {
                     CommandText = "INSERT INTO DonorList " +
-                                  "(pk_DonorList, KeyName, AccountType, AddressLine1, AddressLine2, City, State, PostCode, PhoneNumber)" +
-                                  "VALUES(@pk_DonorList, @KeyName, @AccountType, @AddressLine1, @AddressLine2, @City, @State, @PostCode, @PhoneNumber)",
+                                  "(pk_DonorList, KeyName, AccountType, AddressLine1, AddressLine2, City, State, PostCode, PhoneNumber, DonorType)" +
+                                  "VALUES(@pk_DonorList, @KeyName, @AccountType, @AddressLine1, @AddressLine2, @City, @State, @PostCode, @PhoneNumber, @DonorType)",
                     Connection = cn,
                     CommandType = CommandType.Text
                 };
                 cmd.Parameters.AddWithValue("pk_DonorList", pk_DonorList);
                 cmd.Parameters.AddWithValue("KeyName", KeyName ?? "");
-                cmd.Parameters.AddWithValue("AccountType", "Individual");
+                cmd.Parameters.AddWithValue("AccountType", AccountType ?? "Individual");
+                cmd.Parameters.AddWithValue("DonorType", DonorType?? "Guest");
                 cmd.Parameters.AddWithValue("AddressLine1", AddressLine1 ?? "");
                 cmd.Parameters.AddWithValue("AddressLine2", AddressLine2 ?? "");
                 cmd.Parameters.AddWithValue("City", City ?? "");
@@ -148,7 +152,7 @@ namespace SPLC.Donor.Models
                 };
                 cmd.Parameters.AddWithValue("pk_DonorList", pk_DonorList);
 
-                cmd.Parameters.AddWithValue("AccountType", "Individual");
+                cmd.Parameters.AddWithValue("AccountType", AccountType ?? "Individual");
                 cmd.Parameters.AddWithValue("KeyName", KeyName);
                 cmd.Parameters.AddWithValue("InsideSal", AccountName);
                 cmd.Parameters.AddWithValue("OutsideSal", AccountName);

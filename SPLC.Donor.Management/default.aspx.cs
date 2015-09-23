@@ -2,14 +2,18 @@
 using System.Web;
 using System.Web.UI;
 using System.Configuration;
+using System.Diagnostics;
 using System.Net.Mail;
 using System.Text;
 using SPLC.Donor.Models;
+using System.Linq;
+using System.Web.UI.WebControls;
 
 namespace SPLC.Donor.Management
 {
     public partial class _default : Page
     {
+        private const string BaseDate = "1/1/2000";
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -38,10 +42,10 @@ namespace SPLC.Donor.Management
                 pnlIPad.Visible = true;
 
                 if (Page.IsPostBack) return;
-                
+
                 var donorEventList = new DonorEventList(User.Identity.Name);
 
-                gvDonorList.DataSource = donorEventList.GetDonorList_Search(ddlEvent2.SelectedValue,txtLName.Text,100);
+                gvDonorList.DataSource = donorEventList.GetDonorList_Search(ddlEvent2.SelectedValue, txtLName.Text, 100);
                 gvDonorList.DataBind();
             }
             else
@@ -57,8 +61,8 @@ namespace SPLC.Donor.Management
 
                 gvRegistrations.DataSource = donorEventList.GetRecentResponses(15);
                 gvRegistrations.DataBind();
-            }  
-            
+            }
+
         }
 
         protected void btnRegisterUser_Click(object sender, EventArgs e)
@@ -104,13 +108,30 @@ namespace SPLC.Donor.Management
                     }
                     else
                     {
-                        donorList = new DonorList(txtDonorID.Text.Trim());
-                        donorEventList.Load(eventList.pk_Event, txtDonorID.Text.Trim());
+
+                        var specialEventCodes = new[] { "jbond", "jsncc", "naacp", "splcj", "jbhrc", "bondj", "jhbms" };
+                        var finderNumber = txtDonorID.Text.Trim();
+
+
+                        if (specialEventCodes.Contains(finderNumber.ToLower()))
+                        {
+                            var guid = Guid.NewGuid();
+
+                            var key = finderNumber + guid.ToString().Replace("-", "").Substring(0, 5).ToUpper();
+                            var donor = new DonorList() { pk_DonorList = key.ToUpper(), IsValid = true, AccountType = "Guest", DonorType = "Guest" };
+                            donor.Create();
+
+                            var del = new DonorEventList("") { fk_Event = eventList.pk_Event, fk_DonorList = key };
+                            del.Create();
+                            finderNumber = key;
+                        }
+
+                        donorEventList.Load(eventList.pk_Event, finderNumber);
 
                         if (donorEventList.pk_DonorEventList <= 0)
                             throw new Exception("Donor ID is not registered with this Event!");
 
-                        if (donorEventList.Response_Date > DateTime.Parse("1/1/2000"))
+                        if (donorEventList.Response_Date > DateTime.Parse(BaseDate))
                             throw new Exception("Donor has already registered for this Event!");
                     }
 
@@ -158,7 +179,7 @@ namespace SPLC.Donor.Management
                         lblMessage.ForeColor = System.Drawing.Color.Green;
                     }
 
-//                    DonorEL.Update();
+                    //                    DonorEL.Update();
                     donorEventList.SaveChanges();
                     txtDonorID.Text = "";
                     txtAttending.Text = "0";
@@ -168,17 +189,18 @@ namespace SPLC.Donor.Management
 
                     var donorEmail = new DonorEmail(User.Identity.ToString(), ConfigurationManager.AppSettings["EmailTemplatesURL"], donorList, donorEventList);
                     donorEmail.SendEmail();
+                    ClearControl(Form);
                 }
 
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 lblMessage.ForeColor = System.Drawing.Color.Red;
                 lblMessage.Text = ex.Message; // "Donor ID is not registered with this Event!";
             }
 
         }
-        
+
         private bool UpdateDonorList(DonorList donorList)
         {
             var result = false;
@@ -227,14 +249,14 @@ namespace SPLC.Donor.Management
 
             if (result)
                 donorList.Save();
-//                donorList.Update();
+            //                donorList.Update();
 
             return result;
         }
 
         protected void chkGuest_CheckedChanged(object sender, EventArgs e)
         {
-            if(chkGuest.Checked)
+            if (chkGuest.Checked)
             {
                 txtDonorID.Text = "";
                 txtDonorID.Enabled = false;
@@ -262,40 +284,54 @@ namespace SPLC.Donor.Management
 
         protected void txtDonorID_TextChanged(object sender, EventArgs e)
         {
-            if(txtDonorID.Text.Length > 0)
+            if (txtDonorID.Text.Length < 5) return;
+
+            var specialEventCodes = new[] { "jbond", "jsncc", "naacp", "splcj", "jbhrc", "bondj", "jhbms" };
+            var finderNumber = txtDonorID.Text.Trim();
+
+            if (finderNumber.Length == 5)
             {
-                try
+                if (!specialEventCodes.Contains(finderNumber.ToLower())) return;
+
+                //                lblMessage.Text = $"Found promo {finderNumber}";
+                pnlDemo.Enabled = true;
+                btnRegisterUser.Visible = true;
+
+                return;
+            }
+
+
+
+            try
+            {
+                var donorEventList = new DonorEventList(User.Identity.Name);
+                donorEventList.GetDonorEventListID(txtDonorID.Text, int.Parse(ddlEvents.SelectedValue), true);
+
+                if (donorEventList.IsValid)
                 {
-                    var donorEventList = new DonorEventList(User.Identity.Name);
-                    donorEventList.GetDonorEventListID(txtDonorID.Text, int.Parse(ddlEvents.SelectedValue), true);
-
-                    if (donorEventList.IsValid)
+                    var donorList = new DonorList(donorEventList.fk_DonorList);
+                    if (donorList.IsValid)
                     {
-                        var donorList = new DonorList(donorEventList.fk_DonorList);
-                        if (donorList.IsValid)
-                        {
-                            txtName.Text = donorList.AccountName;
-                            txtAddress.Text = donorList.AddressLine1;
-                            txtCity.Text = donorList.City;
-                            ddlState.SelectedValue = donorList.State;
-                            txtZipCode.Text = donorList.PostCode;
-                            txtPhone.Text = donorList.PhoneNumber;
-                            txtEmail.Text = donorList.EmailAddress;
+                        txtName.Text = donorList.AccountName;
+                        txtAddress.Text = donorList.AddressLine1;
+                        txtCity.Text = donorList.City;
+                        ddlState.SelectedValue = donorList.State;
+                        txtZipCode.Text = donorList.PostCode;
+                        txtPhone.Text = donorList.PhoneNumber;
+                        txtEmail.Text = donorList.EmailAddress;
 
-                            pnlDemo.Enabled = true;
-                            btnRegisterUser.Visible = true;
-                        }
-                        else
-                            throw new Exception("Donor ID is not valid.");
+                        pnlDemo.Enabled = true;
+                        btnRegisterUser.Visible = true;
                     }
                     else
-                        throw new Exception("Donor ID does not exist for this event.");
+                        throw new Exception("Donor ID is not valid.");
                 }
-                catch(Exception ex)
-                {
-                    lblMessage.Text = ex.Message;
-                }
-                
+                else
+                    throw new Exception("Donor ID does not exist for this event.");
+            }
+            catch (Exception ex)
+            {
+                lblMessage.Text = ex.Message;
             }
         }
 
@@ -303,10 +339,24 @@ namespace SPLC.Donor.Management
         {
             var donorEventList = new DonorEventList(User.Identity.Name);
 
-            gvDonorList.DataSource = donorEventList.GetDonorList_Search(ddlEvent2.SelectedValue, txtLName.Text,0);
+            gvDonorList.DataSource = donorEventList.GetDonorList_Search(ddlEvent2.SelectedValue, txtLName.Text, 0);
             gvDonorList.DataBind();
         }
 
+        private void ClearControl(Control control)
+        {
+            var textbox = control as TextBox;
+            if (textbox != null)
+                textbox.Text = string.Empty;
 
+            var dropDownList = control as DropDownList;
+            if (dropDownList != null && dropDownList.ID.Contains("ddlState"))
+                dropDownList.SelectedIndex = 0;
+
+            foreach (Control childControl in control.Controls)
+            {
+                ClearControl(childControl);
+            }
+        }
     }
 }
