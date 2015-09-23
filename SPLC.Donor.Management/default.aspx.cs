@@ -1,81 +1,64 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
 using System.Configuration;
-using System.Net;
 using System.Net.Mail;
 using System.Text;
 using SPLC.Donor.Models;
 
 namespace SPLC.Donor.Management
 {
-    public partial class _default : System.Web.UI.Page
+    public partial class _default : Page
     {
-        private static string _ConnStr = ConfigurationManager.ConnectionStrings["Donor_ConnStr"].ToString();
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            lblMessage.Text = User.Identity.Name.ToString();
+            lblMessage.Text = User.Identity.Name;
 
-            HttpBrowserCapabilities browser = Request.Browser;
-            //lblMessage.Text = browser.Type.ToString();
+            var browser = Request.Browser;
 
             if (!Page.IsPostBack)
             {
-                EventList EL = new EventList(User.Identity.Name);
+                var eventList = new EventList(User.Identity.Name);
 
-                ddlEvents.DataSource = EL.GetEvents();
+                ddlEvents.DataSource = eventList.GetEvents();
                 ddlEvents.DataTextField = "EName";
                 ddlEvents.DataValueField = "pk_Event";
                 ddlEvents.DataBind();
 
-                ddlEvent2.DataSource = EL.GetEvents();
+                ddlEvent2.DataSource = eventList.GetEvents();
                 ddlEvent2.DataTextField = "EName";
                 ddlEvent2.DataValueField = "pk_Event";
                 ddlEvent2.DataBind();
             }
 
-            if (browser.Type.ToString().Contains("Safari"))
+            if (browser.Type.Contains("Safari"))
             {
                 pnlPC.Visible = false;
                 pnlIPad.Visible = true;
 
-                if (!Page.IsPostBack)
-                {
-                    //lblTest.Text = Page.User.Identity.Name.ToString();
+                if (Page.IsPostBack) return;
+                
+                var donorEventList = new DonorEventList(User.Identity.Name);
 
-                    DonorEventList DEL = new DonorEventList(User.Identity.Name);
-
-                    gvDonorList.DataSource = DEL.GetDonorList_Search(ddlEvent2.SelectedValue.ToString(),txtLName.Text.ToString(),100);
-                    gvDonorList.DataBind();
-
-                }
+                gvDonorList.DataSource = donorEventList.GetDonorList_Search(ddlEvent2.SelectedValue,txtLName.Text,100);
+                gvDonorList.DataBind();
             }
             else
             {
                 pnlPC.Visible = true;
                 pnlIPad.Visible = false;
 
-                //lblMessage.Text = "";
                 lblMessage.ForeColor = System.Drawing.Color.Red;
 
-                if (!Page.IsPostBack)
-                {
-                    //lblTest.Text = Page.User.Identity.Name.ToString();
+                if (Page.IsPostBack) return;
 
-                    DonorEventList DEL = new DonorEventList(User.Identity.Name);
+                var donorEventList = new DonorEventList(User.Identity.Name);
 
-                    gvRegistrations.DataSource = DEL.GetRecentResponses(15);
-                    gvRegistrations.DataBind();
-
-                }
+                gvRegistrations.DataSource = donorEventList.GetRecentResponses(15);
+                gvRegistrations.DataBind();
             }  
-
-
-                        
+            
         }
 
         protected void btnRegisterUser_Click(object sender, EventArgs e)
@@ -89,10 +72,7 @@ namespace SPLC.Donor.Management
                 }
                 else
                 {
-
-
-
-                    if (txtAttending.Text.ToString().Equals(""))
+                    if (txtAttending.Text.Equals(""))
                         txtAttending.Text = "0";
 
                     // Validate Data Entry
@@ -102,215 +82,154 @@ namespace SPLC.Donor.Management
                             throw new Exception("Please enter a valid Donor ID!");
                     }
 
-                    if (chkAttending.Checked && int.Parse(txtAttending.Text.ToString()) < 1)
+                    if (chkAttending.Checked && int.Parse(txtAttending.Text) < 1)
                         throw new Exception("Please enter the number of attendees!");
 
-                    if (!chkAttending.Checked && int.Parse(txtAttending.Text.ToString()) > 0)
+                    if (!chkAttending.Checked && int.Parse(txtAttending.Text) > 0)
                         throw new Exception("If not attending please remove the number of attendees!");
 
-                    EventList EL = new EventList(User.Identity.Name, int.Parse(ddlEvents.SelectedValue.ToString()));
-                    DonorEventList DonorEL = new DonorEventList(User.Identity.Name);
-                    DonorList DL;
+                    var eventList = new EventList(User.Identity.Name, int.Parse(ddlEvents.SelectedValue));
+                    var donorEventList = new DonorEventList(User.Identity.Name);
+                    DonorList donorList;
 
                     if (chkGuest.Checked)
                     {
-                        DL = new DonorList();
-                        DL.AddNewGuestToEvent(EL.pk_Event);
+                        donorList = new DonorList();
+                        donorList.AddNewGuestToEvent(eventList.pk_Event);
 
-                        DonorEL.fk_Event = EL.pk_Event;
-                        DonorEL.fk_DonorList = DL.pk_DonorList;
-                        DonorEL.AddNew();
+                        donorEventList.fk_Event = eventList.pk_Event;
+                        donorEventList.fk_DonorList = donorList.pk_DonorList;
+                        donorEventList.AddNew();
 
                     }
                     else
                     {
-                        DL = new DonorList(txtDonorID.Text.ToString().Trim());
-                        DonorEL.Load(EL.pk_Event, txtDonorID.Text.ToString().Trim());
+                        donorList = new DonorList(txtDonorID.Text.Trim());
+                        donorEventList.Load(eventList.pk_Event, txtDonorID.Text.Trim());
 
-                        if (DonorEL.pk_DonorEventList <= 0)
+                        if (donorEventList.pk_DonorEventList <= 0)
                             throw new Exception("Donor ID is not registered with this Event!");
 
-                        if (DonorEL.Response_Date > DateTime.Parse("1/1/2000"))
+                        if (donorEventList.Response_Date > DateTime.Parse("1/1/2000"))
                             throw new Exception("Donor has already registered for this Event!");
                     }
 
-                    DL = new DonorList(DonorEL.fk_DonorList);
+                    donorList = new DonorList(donorEventList.fk_DonorList);
 
                     // Update Donor Information
-                    if (UpdateDonorList(DL))
+                    if (UpdateDonorList(donorList))
                     {
-                        DonorEL.UpdatedInfo = true;
-                        DonorEL.UpdatedInfoDateTime = DateTime.Now;
-                        DonorEL.UpdatedInfo_User = DL.AccountName;
+                        donorEventList.UpdatedInfo = true;
+                        donorEventList.UpdatedInfoDateTime = DateTime.Now;
+                        donorEventList.UpdatedInfo_User = donorList.AccountName;
                     }
 
                     // Register User
-                    DonorEL.Response_Date = DateTime.Now;
-                    DonorEL.Response_Type = "SPLC Admin";
+                    donorEventList.Response_Date = DateTime.Now;
+                    donorEventList.Response_Type = "SPLC Admin";
 
                     if (chkAttending.Checked)
                     {
-                        DonorEL.Attending = true;
+                        donorEventList.Attending = true;
                         lblMessage.Text = "Donor is registered";
                     }
                     else
                     {
-                        DonorEL.Attending = false;
+                        donorEventList.Attending = false;
                         lblMessage.Text = "Donor is not attending.";
                     }
 
                     // Register User
-                    if (DonorEL.GetTicketCountForEvent() > EL.Capacity && chkAttending.Checked)
+                    if (donorEventList.GetTicketCountForEvent() > eventList.Capacity && chkAttending.Checked)
                     {
                         // Add to Waiting List
-                        DonorEL.Response_Date = DateTime.Now;
-                        DonorEL.Response_Type = "SPLC Admin";
+                        donorEventList.Response_Date = DateTime.Now;
+                        donorEventList.Response_Type = "SPLC Admin";
 
-                        DonorEL.WaitingList_Date = DateTime.Now;
-                        DonorEL.WaitingListOrder = DonorEL.GetNextWaitListNumber();
-                        DonorEL.TicketsRequested = int.Parse(txtAttending.Text.ToString());
+                        donorEventList.WaitingList_Date = DateTime.Now;
+                        donorEventList.WaitingListOrder = donorEventList.GetNextWaitListNumber();
+                        donorEventList.TicketsRequested = int.Parse(txtAttending.Text);
                         lblMessage.Text = "Donor was added to the Waiting List";
                     }
                     else
                     {
 
-                        DonorEL.TicketsRequested = int.Parse(txtAttending.Text.ToString());
+                        donorEventList.TicketsRequested = int.Parse(txtAttending.Text);
                         lblMessage.ForeColor = System.Drawing.Color.Green;
                     }
 
-                    DonorEL.Update();
+//                    DonorEL.Update();
+                    donorEventList.SaveChanges();
                     txtDonorID.Text = "";
                     txtAttending.Text = "0";
                     chkAttending.Checked = false;
 
-                    if (!DL.EmailAddress.Equals(""))
-                    {
-                        DonorEmail DMail = new DonorEmail(User.Identity.ToString(), ConfigurationManager.AppSettings["EmailTemplatesURL"].ToString(), DL, DonorEL);
-                        DMail.SendEmail();
-                    }
+                    if (donorList.EmailAddress.Equals("")) return;
+
+                    var donorEmail = new DonorEmail(User.Identity.ToString(), ConfigurationManager.AppSettings["EmailTemplatesURL"], donorList, donorEventList);
+                    donorEmail.SendEmail();
                 }
 
             }
-            catch(Exception EX)
+            catch(Exception ex)
             {
                 lblMessage.ForeColor = System.Drawing.Color.Red;
-                lblMessage.Text = EX.Message; // "Donor ID is not registered with this Event!";
+                lblMessage.Text = ex.Message; // "Donor ID is not registered with this Event!";
             }
 
         }
-
-
-        private void SendEmail(DonorList pDL, DonorEventList pDEL)
+        
+        private bool UpdateDonorList(DonorList donorList)
         {
-            try
+            var result = false;
+
+            if (!donorList.AccountName.Equals(txtName.Text))
             {
-                var sbMsg = new StringBuilder();
-
-
-                if (pDEL.WaitingList_Date > DateTime.Parse("1/1/2000"))
-                {
-                    switch (pDEL.Attending)
-                    {
-                        case true:
-                            sbMsg.Append(System.IO.File.ReadAllText(Server.MapPath("Templates/wait_yes.html")));
-                            break;
-                        case false:
-                            sbMsg.Append(System.IO.File.ReadAllText(Server.MapPath("Templates/rsvp_no.html")));
-                            break;
-                    }
-                }
-                else
-                {
-                    switch (pDEL.Attending)
-                    {
-                        case true:
-                            sbMsg.Append(System.IO.File.ReadAllText(Server.MapPath("Templates/rsvp_yes.html")));
-                            break;
-                        case false:
-                            sbMsg.Append(System.IO.File.ReadAllText(Server.MapPath("Templates/rsvp_no.html")));
-                            break;
-                    }
-                }
-
-                sbMsg = sbMsg.Replace("@{DATE}", DateTime.Today.ToString("MMMM dd, yyyy"));
-                sbMsg = sbMsg.Replace("@{SALUTATION}", pDL.AccountName);
-
-                EventList EL = new EventList(User.Identity.Name, pDEL.fk_Event);
-
-                sbMsg = sbMsg.Replace("@{DisplayName}", EL.DisplayName);
-                sbMsg = sbMsg.Replace("@{City}", EL.VenueCity);
-                sbMsg = sbMsg.Replace("@{StartDate}", EL.StartDate.ToLongDateString());
-                sbMsg = sbMsg.Replace("@{StartTime}", EL.StartDate.ToShortTimeString());
-
-                SmtpClient smtpClient = new SmtpClient();
-                smtpClient.EnableSsl = false;
-
-                MailMessage mail = new MailMessage();
-                mail.BodyEncoding = System.Text.Encoding.GetEncoding("utf-8");
-
-                mail.IsBodyHtml = true;
-                mail.Subject = "SPLC Event Confirmation";
-
-                mail.Body = sbMsg.ToString();
-                mail.To.Add(new MailAddress(pDL.EmailAddress.ToString()));
-                smtpClient.Send(mail);
-
-            }
-            catch (Exception EX)
-            { }
-        }
-
-
-        private bool UpdateDonorList(DonorList pDL)
-        {
-            bool blReturn = false;
-
-            if (!pDL.AccountName.Equals(txtName.Text.ToString()))
-            {
-                pDL.AccountName = txtName.Text.ToString();
-                blReturn = true;
+                donorList.AccountName = txtName.Text;
+                result = true;
             }
 
-            if (!pDL.AddressLine1.Equals(txtAddress.Text.ToString()))
+            if (!donorList.AddressLine1.Equals(txtAddress.Text))
             {
-                pDL.AddressLine1 = txtAddress.Text.ToString();
-                blReturn = true;
+                donorList.AddressLine1 = txtAddress.Text;
+                result = true;
             }
 
-            if (!pDL.City.Equals(txtCity.Text.ToString()))
+            if (!donorList.City.Equals(txtCity.Text))
             {
-                pDL.City = txtCity.Text.ToString();
-                blReturn = true;
+                donorList.City = txtCity.Text;
+                result = true;
             }
 
-            if (!pDL.State.Equals(ddlState.SelectedValue.ToString()))
+            if (!donorList.State.Equals(ddlState.SelectedValue))
             {
-                pDL.State = ddlState.SelectedValue.ToString();
-                blReturn = true;
+                donorList.State = ddlState.SelectedValue;
+                result = true;
             }
 
-            if (!pDL.PostCode.Equals(txtZipCode.Text.ToString()))
+            if (!donorList.PostCode.Equals(txtZipCode.Text))
             {
-                pDL.PostCode = txtZipCode.Text.ToString();
-                blReturn = true;
+                donorList.PostCode = txtZipCode.Text;
+                result = true;
             }
 
-            if (!pDL.PhoneNumber.Equals(txtPhone.Text.ToString()))
+            if (!donorList.PhoneNumber.Equals(txtPhone.Text))
             {
-                pDL.PhoneNumber = txtPhone.Text.ToString();
-                blReturn = true;
+                donorList.PhoneNumber = txtPhone.Text;
+                result = true;
             }
 
-            if (!pDL.EmailAddress.Equals(txtEmail.Text.ToString()))
+            if (!donorList.EmailAddress.Equals(txtEmail.Text))
             {
-                pDL.EmailAddress = txtEmail.Text.ToString();
-                blReturn = true;
+                donorList.EmailAddress = txtEmail.Text;
+                result = true;
             }
 
-            if (blReturn)
-                pDL.Update();
+            if (result)
+                donorList.Save();
+//                donorList.Update();
 
-            return blReturn;
+            return result;
         }
 
         protected void chkGuest_CheckedChanged(object sender, EventArgs e)
@@ -347,21 +266,21 @@ namespace SPLC.Donor.Management
             {
                 try
                 {
-                    DonorEventList DEL = new DonorEventList(User.Identity.Name);
-                    DEL.GetDonorEventListID(txtDonorID.Text.ToString(), int.Parse(ddlEvents.SelectedValue.ToString()), true);
+                    var donorEventList = new DonorEventList(User.Identity.Name);
+                    donorEventList.GetDonorEventListID(txtDonorID.Text, int.Parse(ddlEvents.SelectedValue), true);
 
-                    if (DEL.IsValid)
+                    if (donorEventList.IsValid)
                     {
-                        DonorList DL = new DonorList(DEL.fk_DonorList);
-                        if (DL.IsValid)
+                        var donorList = new DonorList(donorEventList.fk_DonorList);
+                        if (donorList.IsValid)
                         {
-                            txtName.Text = DL.AccountName;
-                            txtAddress.Text = DL.AddressLine1;
-                            txtCity.Text = DL.City;
-                            ddlState.SelectedValue = DL.State;
-                            txtZipCode.Text = DL.PostCode;
-                            txtPhone.Text = DL.PhoneNumber;
-                            txtEmail.Text = DL.EmailAddress;
+                            txtName.Text = donorList.AccountName;
+                            txtAddress.Text = donorList.AddressLine1;
+                            txtCity.Text = donorList.City;
+                            ddlState.SelectedValue = donorList.State;
+                            txtZipCode.Text = donorList.PostCode;
+                            txtPhone.Text = donorList.PhoneNumber;
+                            txtEmail.Text = donorList.EmailAddress;
 
                             pnlDemo.Enabled = true;
                             btnRegisterUser.Visible = true;
@@ -372,9 +291,9 @@ namespace SPLC.Donor.Management
                     else
                         throw new Exception("Donor ID does not exist for this event.");
                 }
-                catch(Exception EX)
+                catch(Exception ex)
                 {
-                    lblMessage.Text = EX.Message;
+                    lblMessage.Text = ex.Message;
                 }
                 
             }
@@ -382,9 +301,9 @@ namespace SPLC.Donor.Management
 
         protected void btnSearchDonor_Click(object sender, EventArgs e)
         {
-            DonorEventList DEL = new DonorEventList(User.Identity.Name);
+            var donorEventList = new DonorEventList(User.Identity.Name);
 
-            gvDonorList.DataSource = DEL.GetDonorList_Search(ddlEvent2.SelectedValue.ToString(), txtLName.Text.ToString(),0);
+            gvDonorList.DataSource = donorEventList.GetDonorList_Search(ddlEvent2.SelectedValue, txtLName.Text,0);
             gvDonorList.DataBind();
         }
 
