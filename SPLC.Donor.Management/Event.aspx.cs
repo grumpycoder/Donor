@@ -349,7 +349,8 @@ namespace SPLC.Donor.Management
         {
             var eventList = new EventList(User.Identity.Name, int.Parse(Request["eid"]));
             eventList.HTML_Header = txtHeader.Text;
-            eventList.Update();
+//            eventList.Update();
+            eventList.SaveChanges();
         }
 
         protected void btnAddNew_Click(object sender, EventArgs e)
@@ -391,13 +392,15 @@ namespace SPLC.Donor.Management
         {
             var eventList = new EventList(User.Identity.Name, int.Parse(Request["eid"]));
             eventList.HTML_FAQ = txtFAQ.Text;
-            eventList.Update();
+//            eventList.Update();
+            eventList.SaveChanges();
         }
 
         protected void btnUpdateYes_Click(object sender, EventArgs e)
         {
             var eventList = new EventList(User.Identity.Name, int.Parse(Request["eid"])) { HTML_Yes = txtYes.Text };
-            eventList.Update();
+            //            eventList.Update();
+            eventList.SaveChanges();
         }
 
         protected void btnUpdateNo_Click(object sender, EventArgs e)
@@ -406,13 +409,15 @@ namespace SPLC.Donor.Management
             {
                 HTML_No = txtNo.Text
             };
-            eventList.Update();
+            //            eventList.Update();
+            eventList.SaveChanges();
         }
 
         protected void btnUpdateWait_Click(object sender, EventArgs e)
         {
             var eventList = new EventList(User.Identity.Name, int.Parse(Request["eid"])) { HTML_Wait = txtWait.Text };
-            eventList.Update();
+            //            eventList.Update();
+            eventList.SaveChanges();
         }
 
         protected void btnImageUpload_Click(object sender, EventArgs e)
