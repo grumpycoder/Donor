@@ -64,34 +64,34 @@ namespace SPLC.Donor.RSVP
         {
             var finderNumber = txtFinderNumber.Text.ToLower();
 
-            var specialEventCodes = new[] { "jbond", "jsncc", "naacp", "splcj", "jbhrc", "bondj", "jhbms" };
+            //var specialEventCodes = new[] { "jbond", "jsncc", "naacp", "splcj", "jbhrc", "bondj", "jhbms" };
             var pkEvent = int.Parse(Request["eid"]);
 
-            if (specialEventCodes.Contains(finderNumber.ToLower()))
-            {
-                var guid = Guid.NewGuid();
+            //if (specialEventCodes.Contains(finderNumber.ToLower()))
+            //{
+            //    var guid = Guid.NewGuid();
 
-                var key = finderNumber + guid.ToString().Replace("-", "").Substring(0, 5).ToUpper();
-                var donor = new DonorList() { pk_DonorList = key.ToUpper(), IsValid = true };
-                donor.Create();
+            //    var key = finderNumber + guid.ToString().Replace("-", "").Substring(0, 5).ToUpper();
+            //    var donor = new DonorList() { pk_DonorList = key.ToUpper(), IsValid = true };
+            //    donor.Create();
 
-                var donorEventList = new DonorEventList("") { fk_Event = pkEvent, fk_DonorList = key };
-                donorEventList.Create();
+            //    var donorEventList = new DonorEventList("") { fk_Event = pkEvent, fk_DonorList = key };
+            //    donorEventList.Create();
 
-                donorEventList.GetDonorEventListID(donor.pk_DonorList, pkEvent, true);
-                Session["SPLC.Donor.RSVP.DL"] = donor;
-                Session["SPLC.Donor.RSVP.DEL"] = donorEventList;
+            //    donorEventList.GetDonorEventListID(donor.pk_DonorList, pkEvent, true);
+            //    Session["SPLC.Donor.RSVP.DL"] = donor;
+            //    Session["SPLC.Donor.RSVP.DEL"] = donorEventList;
 
-                if (finderNumber.Length >= 5)
-                {
-                    Response.Redirect("DonorEvent.aspx?eid=" + pkEvent);
-                }
-                else
-                {
-                    throw new Exception(
-                        "There appears to be a problem with the information that you have entered, please check the information and try again or call 334-956-8200 for assistance.");
-                }
-            }
+            //    if (finderNumber.Length >= 5)
+            //    {
+            //        Response.Redirect("DonorEvent.aspx?eid=" + pkEvent);
+            //    }
+            //    else
+            //    {
+            //        throw new Exception(
+            //            "There appears to be a problem with the information that you have entered, please check the information and try again or call 334-956-8200 for assistance.");
+            //    }
+            //}
 
             try
             {

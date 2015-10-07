@@ -89,21 +89,21 @@ namespace SPLC.Donor.RSVP
                 //Special case for event without normal invitation distribution
 
                 var finderNumber = donorList.pk_DonorList.ToLower();
-                var specialEventCodes = new[] { "jbond", "jsncc", "naacp", "splcj", "jbhrc", "bondj", "jhbms" };
+                //var specialEventCodes = new[] { "jbond", "jsncc", "naacp", "splcj", "jbhrc", "bondj", "jhbms" };
 
-                if (specialEventCodes.Contains(finderNumber.Substring(0, 5)))
-                {
-                    donorList.KeyName = txtName.Text;
-                    donorList.AccountName = txtName.Text;
-                    donorList.AddressLine1 = txtMailingAddress.Text;
-                    donorList.AddressLine2 = txtAddress2.Text;
-                    donorList.City = txtCity.Text;
-                    donorList.State = ddlState.Text;
-                    donorList.PostCode = txtZipCode.Text;
-                    donorList.PhoneNumber = txtPhoneNumber.Text;
-                    donorList.EmailAddress = txtEmail.Text;
-                    donorList.Save();
-                }
+                //if (specialEventCodes.Contains(finderNumber.Substring(0, 5)))
+                //{
+                //    donorList.KeyName = txtName.Text;
+                //    donorList.AccountName = txtName.Text;
+                //    donorList.AddressLine1 = txtMailingAddress.Text;
+                //    donorList.AddressLine2 = txtAddress2.Text;
+                //    donorList.City = txtCity.Text;
+                //    donorList.State = ddlState.Text;
+                //    donorList.PostCode = txtZipCode.Text;
+                //    donorList.PhoneNumber = txtPhoneNumber.Text;
+                //    donorList.EmailAddress = txtEmail.Text;
+                //    donorList.Save();
+                //}
 
 
                 // Update Donor Information

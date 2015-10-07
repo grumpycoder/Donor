@@ -126,178 +126,208 @@ namespace SPLC.Donor.Management
 
         protected void btnUpload_Click(object sender, EventArgs e)
         {
-            if (!fuDonorFile.HasFile) return;
 
-            var filePath = HttpContext.Current.Request.PhysicalApplicationPath + @"Uploads\" + Request["eid"];
 
-            if (!Directory.Exists(filePath))
-                Directory.CreateDirectory(filePath);
-
-            var fileName = Guid.NewGuid() + ".csv";
-            fuDonorFile.SaveAs(filePath + @"\" + fileName);
-
-            try
+            if (fuDonorFile.HasFile)
             {
+                string strFilePath = HttpContext.Current.Request.PhysicalApplicationPath + @"Uploads\" + Request["eid"].ToString();
+
+                if (!Directory.Exists(strFilePath))
+                    Directory.CreateDirectory(strFilePath);
+
+                string strFileName = Guid.NewGuid().ToString() + ".csv";
+                fuDonorFile.SaveAs(strFilePath + @"\" + strFileName);
+
                 try
                 {
-                    var connection = new SqlConnection(_ConnStr);
-                    connection.Open();
-                    var cmd = new SqlCommand("DELETE DonorListStage", connection);
-                    cmd.ExecuteNonQuery();
-                    cmd.Dispose();
-                    connection.Close();
-                }
-                catch (Exception ex)
-                {
-                    throw new Exception("T Error: " + ex.Message);
-                }
-
-                var conn = new SqlConnection(_ConnStr);
-                conn.Open();
-                var da = new SqlDataAdapter("SELECT * FROM DonorListStage", conn);
-
-                var cb = new SqlCommandBuilder(da);
-
-                var ds = new DataSet();
-                try { da.Fill(ds); }
-                catch (Exception ex) { throw new Exception("DA Error: " + ex.Message); }
-
-                // Read file
-                var file = new StreamReader(filePath + @"\" + fileName);
-                string line;
-
-                var intRowCount = 1;
-                while ((line = file.ReadLine()) != null)
-                {
-
-                    var intCount = line.Split((char)34).Length;
-
-                    if (intCount > 2)
-                        line = ReplaceComma(line);
-                    if (intCount > 4)
-                        line = ReplaceComma(line);
-                    if (intCount > 6)
-                        line = ReplaceComma(line);
-                    if (intCount > 8)
-                        line = ReplaceComma(line);
-                    if (intCount > 10)
-                        line = ReplaceComma(line);
-                    if (intCount > 12)
-                        line = ReplaceComma(line);
-
-                    var arrLine = line.Split(",".ToCharArray());
-                    var dr = ds.Tables[0].NewRow();
-
-                    if (arrLine.Count() != 31)
+                    try
                     {
-                        dr["pk_DonorList"] = intRowCount.ToString();
-                        dr["UploadNotes"] = "Error: Data not in the correct format.";
+                        SqlConnection ConnT = new SqlConnection(_ConnStr);
+                        ConnT.Open();
+                        SqlCommand cmd = new SqlCommand("DELETE DonorListStage", ConnT);
+                        cmd.ExecuteNonQuery();
+                        cmd.Dispose();
+                        ConnT.Close();
                     }
-                    else
+                    catch (Exception EX)
                     {
-                        try
-                        {
-                            dr["pk_DonorList"] = arrLine[28].Replace(";", ",");
-                            dr["DonorType"] = arrLine[2].Replace(";", ",");
-                            dr["AccountType"] = arrLine[3].Replace(";", ",");
-                            dr["KeyName"] = arrLine[4].Replace(";", ",");
-                            dr["AccountID"] = arrLine[5].Replace(";", ",");
-                            dr["InsideSal"] = arrLine[6].Replace(";", ",");
-                            dr["OutSideSal"] = arrLine[7].Replace(";", ",");
-                            dr["HHOutsideSal"] = arrLine[8].Replace(";", ",");
-                            dr["AccountName"] = arrLine[9].Replace(";", ",");
-                            dr["AddressLine1"] = arrLine[10].Replace(";", ",");
-                            dr["AddressLine2"] = arrLine[11].Replace(";", ",");
-                            dr["AddressLine3"] = arrLine[12].Replace(";", ",");
-                            dr["AddressLine4"] = arrLine[13].Replace(";", ",");
-                            dr["AddressLine5"] = arrLine[14].Replace(";", ",");
-                            dr["City"] = arrLine[15].Replace(";", ",");
-                            dr["State"] = arrLine[16].Replace(";", ",");
-                            dr["PostCode"] = arrLine[17].Replace(";", ",");
-                            dr["CountryIDTrans"] = arrLine[18].Replace(";", ",");
-                            dr["StateDescription"] = arrLine[19].Replace(";", ",");
-                            dr["EmailAddress"] = arrLine[20].Replace(";", ",");
-                            dr["PhoneNumber"] = arrLine[21].Replace(";", ",");
+                        throw new Exception("T Error: " + EX.Message);
+                    }
 
-                            if (!arrLine[22].Equals(""))
-                                dr["SPLCLeadCouncil"] = arrLine[22];
+                    SqlConnection Conn = new SqlConnection(_ConnStr);
+                    Conn.Open();
+                    SqlDataAdapter da = new SqlDataAdapter("SELECT * FROM DonorListStage", Conn);
 
-                            if (arrLine[23].Equals(""))
-                                dr["MembershipYear"] = 0;
-                            else
-                            {
-                                var arrMYear = arrLine[23].Split("/".ToCharArray());
-                                dr["MembershipYear"] = int.Parse(arrMYear[2]);
-                            }
+                    SqlCommandBuilder cb = new SqlCommandBuilder(da);
 
-                            if (arrLine[24].Equals(""))
-                                dr["YearsSince"] = 0;
-                            else
-                                dr["YearsSince"] = int.Parse(arrLine[24]);
 
-                            if (arrLine[25].Equals(""))
-                                dr["HPC"] = 0;
-                            else
-                                dr["HPC"] = float.Parse(arrLine[25].Replace("$", "").Replace(";", ","));
 
-                            if (!arrLine[26].Equals(""))
-                                dr["LastPaymentDate"] = DateTime.Parse(arrLine[26]);
+                    DataSet ds = new DataSet();
+                    try { da.Fill(ds); }
+                    catch (Exception EX) { throw new Exception("DA Error: " + EX.Message); }
 
-                            if (arrLine[27].Equals(""))
-                                dr["LastPaymentAmount"] = 0;
-                            else
-                                dr["LastPaymentAmount"] = float.Parse(arrLine[27].Replace("$", "").Replace(";", ","));
+                    // Read file
+                    string line = "";
+                    string[] arrLine;
 
-                            dr["SourceCode"] = arrLine[29];
 
-                        }
-                        catch (Exception ex)
+                    StreamReader file = new StreamReader(strFilePath + @"\" + strFileName);
+                    line = file.ReadLine();  // Skip the first line of column headers
+
+                    int intRowCount = 1;
+                    while ((line = file.ReadLine()) != null)
+                    {
+
+                        int intCount = line.Split((char)34).Length;
+                        string[] arrComma = line.Split((char)34);
+
+                        if (intCount > 2)
+                            line = ReplaceComma(line);
+                        if (intCount > 4)
+                            line = ReplaceComma(line);
+                        if (intCount > 6)
+                            line = ReplaceComma(line);
+                        if (intCount > 8)
+                            line = ReplaceComma(line);
+                        if (intCount > 10)
+                            line = ReplaceComma(line);
+                        if (intCount > 12)
+                            line = ReplaceComma(line);
+
+
+
+                        arrLine = line.Split(",".ToCharArray());
+                        DataRow dr = ds.Tables[0].NewRow();
+
+                        if (arrLine.Count() != 31)
                         {
                             dr["pk_DonorList"] = intRowCount.ToString();
-                            dr["UploadNotes"] = "Error: " + ex.Message;
-                            lblErrorMessage.Text += " | " + ex.Message;
+                            dr["UploadNotes"] = "Error: Data not in the correct format.";
                         }
-                    }
+                        else
+                        {
+                            try
+                            {
+                                dr["pk_DonorList"] = arrLine[28].ToString().Replace(";", ",");
+                                dr["DonorType"] = arrLine[2].ToString().Replace(";", ",");
+                                dr["AccountType"] = arrLine[3].ToString().Replace(";", ",");
+                                dr["KeyName"] = arrLine[4].ToString().Replace(";", ",");
+                                dr["AccountID"] = arrLine[5].ToString().Replace(";", ",");
+                                dr["InsideSal"] = arrLine[6].ToString().Replace(";", ",");
+                                dr["OutSideSal"] = arrLine[7].ToString().Replace(";", ",");
+                                dr["HHOutsideSal"] = arrLine[8].ToString().Replace(";", ",");
+                                dr["AccountName"] = arrLine[9].ToString().Replace(";", ",");
+                                dr["AddressLine1"] = arrLine[10].ToString().Replace(";", ",");
+                                dr["AddressLine2"] = arrLine[11].ToString().Replace(";", ",");
+                                dr["AddressLine3"] = arrLine[12].ToString().Replace(";", ",");
+                                dr["AddressLine4"] = arrLine[13].ToString().Replace(";", ",");
+                                dr["AddressLine5"] = arrLine[14].ToString().Replace(";", ",");
+                                dr["City"] = arrLine[15].ToString().Replace(";", ",");
+                                dr["State"] = arrLine[16].ToString().Replace(";", ",");
+                                dr["PostCode"] = arrLine[17].ToString().Replace(";", ",");
+                                dr["CountryIDTrans"] = arrLine[18].ToString().Replace(";", ",");
+                                dr["StateDescription"] = arrLine[19].ToString().Replace(";", ",");
+                                dr["EmailAddress"] = arrLine[20].ToString().Replace(";", ",");
+                                dr["PhoneNumber"] = arrLine[21].ToString().Replace(";", ",");
 
-                    ds.Tables[0].Rows.Add(dr);
+                                if (!arrLine[22].ToString().Equals(""))
+                                    dr["SPLCLeadCouncil"] = arrLine[22].ToString();
+
+                                if (arrLine[23].ToString().Equals(""))
+                                    dr["MembershipYear"] = 0;
+                                else
+                                {
+                                    string[] arrMYear = arrLine[23].Split("/".ToCharArray());
+                                    dr["MembershipYear"] = int.Parse(arrMYear[2].ToString());
+                                }
+
+                                if (arrLine[24].ToString().Equals(""))
+                                    dr["YearsSince"] = 0;
+                                else
+                                    dr["YearsSince"] = int.Parse(arrLine[24].ToString());
+
+                                if (arrLine[25].ToString().Equals(""))
+                                    dr["HPC"] = 0;
+                                else
+                                    dr["HPC"] = float.Parse(arrLine[25].ToString().Replace("$", "").Replace(";", ","));
+
+                                if (!arrLine[26].ToString().Equals(""))
+                                    dr["LastPaymentDate"] = DateTime.Parse(arrLine[26].ToString());
+
+                                if (arrLine[27].ToString().Equals(""))
+                                    dr["LastPaymentAmount"] = 0;
+                                else
+                                    dr["LastPaymentAmount"] = float.Parse(arrLine[27].ToString().Replace("$", "").Replace(";", ","));
+
+
+                                dr["SourceCode"] = arrLine[29].ToString();
+
+                                //dr["UploadNotes"] = intRowCount.ToString();
+                            }
+                            catch (Exception EX)
+                            {
+                                dr["pk_DonorList"] = intRowCount.ToString();
+                                dr["UploadNotes"] = "Error: " + EX.Message;
+                                lblErrorMessage.Text += " | " + EX.Message;
+                            }
+                        }
+
+                        ds.Tables[0].Rows.Add(dr);
+
+                        try
+                        {
+                            da.Update(ds);
+                        }
+                        catch (Exception EX)
+                        {
+                            throw new Exception("c:: " + arrLine[28].ToString().Replace(";", ",") + " | " + EX.Message);
+                        }
+
+                        intRowCount += 1;
+                    }
 
                     try
                     {
-                        da.Update(ds);
+                        //da.Update(ds);
                     }
-                    catch (Exception ex)
+                    catch (Exception EX)
                     {
-                        throw new Exception("c:: " + arrLine[28].Replace(";", ",") + " | " + ex.Message);
+                        throw new Exception("c:: " + EX.Message);
                     }
 
-                    intRowCount += 1;
+                    cb.Dispose();
+                    da.Dispose();
+
+                    SqlDataAdapter daSel = new SqlDataAdapter("SELECT * FROM DonorListStage WHERE UploadNotes IS NOT NULL", Conn);
+                    DataSet dsSel = new DataSet();
+                    daSel.Fill(dsSel);
+
+                    if (dsSel.Tables[0].Rows.Count > 0)
+                    {
+                        pnlGrid.Visible = true;
+                        gvErrors.DataSource = dsSel.Tables[0];
+                        gvErrors.DataBind();
+                    }
+                    else
+                    {
+                        pnlGrid.Visible = false;
+                    }
+
+                    Conn.Close();
+
+                    //pnlProcess.Visible = true;
+                    //pnlUpload.Visible = false;
+                    //pnlGrid.Visible = false;
+
+                    LoadRecords();
+
+
                 }
-
-                cb.Dispose();
-                da.Dispose();
-
-                var daSel = new SqlDataAdapter("SELECT * FROM DonorListStage WHERE UploadNotes IS NOT NULL", conn);
-                var dsSel = new DataSet();
-                daSel.Fill(dsSel);
-
-                if (dsSel.Tables[0].Rows.Count > 0)
+                catch (Exception EX)
                 {
-                    pnlGrid.Visible = true;
-                    gvErrors.DataSource = dsSel.Tables[0];
-                    gvErrors.DataBind();
+                    //lblErrorMessage.Text = EX.Message;
+                    lblErrorMessage.Text += " | a: " + EX.Message;
                 }
-                else
-                {
-                    pnlGrid.Visible = false;
-                }
-
-                conn.Close();
-                LoadRecords();
-
-            }
-            catch (Exception ex)
-            {
-                lblErrorMessage.Text += " | a: " + ex.Message;
             }
         }
 
