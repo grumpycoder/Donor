@@ -134,8 +134,8 @@ namespace SPLC.Donor.Models
                     BodyEncoding = Encoding.GetEncoding("utf-8"),
                     IsBodyHtml = true,
                     //TODO: Uncomment this after event
-//                    Subject = "SPLC Event Confirmation",
-                    Subject = "Julian Bond Memorial Service Confirmation", 
+                    Subject = "SPLC Event Confirmation",
+//                    Subject = "Julian Bond Memorial Service Confirmation", 
                     Body = msg.ToString()
                 };
 

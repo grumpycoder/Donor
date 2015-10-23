@@ -117,5 +117,31 @@ namespace SPLC.Donor.Management.Report
             gvReport.DataBind();
         }
 
+        protected void btnMailNow_OnClick(object sender, EventArgs e)
+        {
+            for (var i = 0; i < gvReport.Rows.Count; i++)
+            {
+                var chkMail = gvReport.Rows[i].FindControl("chkMail") as CheckBox;
+                if (chkMail == null || !chkMail.Checked) continue;
+                var ticketCount = gvReport.Rows[i].Cells[10].Text;
+                var dataKey = gvReport.DataKeys[i];
+                if (dataKey == null) continue;
+                var key = dataKey.Value;
+                var DEL = new DonorEventList(User.Identity.Name, int.Parse(key.ToString()))
+                {
+                    TicketsMailed_Date = DateTime.Now,
+                    TicketsMailed_User = User.Identity.Name,
+                    TicketsRequested = int.Parse(ticketCount),
+                    Response_Type = "SPLC Admin", 
+                    WaitingListOrder = 0, 
+                    UpdatedInfoDateTime = DateTime.Now
+                };
+                DEL.MailCards();
+            }
+
+            DataBind();
+
+        }
+
     }
 }
