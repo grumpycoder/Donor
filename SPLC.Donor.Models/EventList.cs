@@ -339,7 +339,7 @@ namespace SPLC.Donor.Models
             conn.Open();
 
             var da = new SqlDataAdapter("SELECT pk_Event,EventName + ' | ' + convert(varchar(10), StartDate, 120) " +
-                " AS EName FROM EventList", conn);
+                " AS EName FROM EventList ORDER BY StartDate DESC", conn);
 
             var ds = new DataSet();
             da.Fill(ds);

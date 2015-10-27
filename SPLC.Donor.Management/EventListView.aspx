@@ -7,8 +7,8 @@
 <div class="default_maindiv">
   <div class="default_hypelink_div">
 
-      <asp:Panel ID="pnlEventList" runat="server" Height="300pt" Width="650pt" ScrollBars="Auto" >
-          <asp:GridView ID="gvEventList" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" AutoGenerateColumns="false" Width="600pt">
+      <asp:Panel ID="pnlEventList" runat="server" Height="300pt" Width="650pt" ScrollBars="Auto" HorizontalAlign="Left">
+          <asp:GridView ID="gvEventList" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" AutoGenerateColumns="false" Width="600pt" HeaderStyle-HorizontalAlign="Center">
               <AlternatingRowStyle BackColor="White" />
               <FooterStyle BackColor="#990000" Font-Bold="True" ForeColor="White" />
               <HeaderStyle BackColor="#990000" Font-Bold="True" ForeColor="White" />
@@ -20,10 +20,10 @@
               <SortedDescendingCellStyle BackColor="#FCF6C0" />
               <SortedDescendingHeaderStyle BackColor="#820000" />
               <Columns>
-                  <asp:BoundField DataField="StartDate" HeaderText="Date" />
-                  <asp:BoundField DataField="EventName" HeaderText="Event Name" />
-                  <asp:BoundField DataField="RegCount" HeaderText="Registered" />
-                  <asp:BoundField DataField="WaitCount" HeaderText="Waiting" />
+                  <asp:BoundField DataField="StartDate" HeaderText="Date"  ItemStyle-HorizontalAlign="Justify" HeaderStyle-HorizontalAlign="Justify" />
+                  <asp:BoundField DataField="EventName" HeaderText="Event Name" ItemStyle-HorizontalAlign="Justify" HeaderStyle-HorizontalAlign="Justify"/>
+                  <asp:BoundField DataField="RegCount" HeaderText="Registered" ItemStyle-HorizontalAlign="Center" HeaderStyle-HorizontalAlign="Center"/>
+                  <asp:BoundField DataField="WaitCount" HeaderText="Waiting" ItemStyle-HorizontalAlign="Center" HeaderStyle-HorizontalAlign="Center"/>
                   <asp:HyperLinkField DataNavigateUrlFields="pk_Event" DataNavigateUrlFormatString="~/Event.aspx?eid={0}" Text="EDIT" />
               </Columns>
           </asp:GridView>

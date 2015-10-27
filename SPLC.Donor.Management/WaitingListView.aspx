@@ -40,13 +40,13 @@
               <SortedDescendingCellStyle BackColor="#FCF6C0" />
               <SortedDescendingHeaderStyle BackColor="#820000" />
               <Columns>
-                  <asp:BoundField DataField="pk_DonorList" HeaderText="Donor ID" />
-                  <asp:BoundField DataField="AccountName" HeaderText="Name" />
-                  <asp:BoundField DataField="DonorType" HeaderText="Donor Type" />
-                  <asp:BoundField DataField="MembershipYear" HeaderText="Membership Year" />
-                  <asp:BoundField DataField="WaitingList_Date" HeaderText="Response Date" />
-                  <asp:BoundField DataField="WaitingListOrder" HeaderText="Order" />
-                  <asp:BoundField DataField="TicketsRequested" HeaderText="Tickets" />
+                  <asp:BoundField DataField="pk_DonorList" HeaderText="Donor ID" ItemStyle-HorizontalAlign="Justify" HeaderStyle-HorizontalAlign="Justify" />
+                  <asp:BoundField DataField="AccountName" HeaderText="Name" ItemStyle-HorizontalAlign="Justify" HeaderStyle-HorizontalAlign="Justify"/>
+                  <asp:BoundField DataField="DonorType" HeaderText="Donor Type" ItemStyle-HorizontalAlign="Justify" HeaderStyle-HorizontalAlign="Justify"/>
+                  <asp:BoundField DataField="MembershipYear" HeaderText="Membership Year" ItemStyle-HorizontalAlign="Center" HeaderStyle-HorizontalAlign="Center"/>
+                  <asp:BoundField DataField="WaitingList_Date" HeaderText="Response Date" ItemStyle-HorizontalAlign="Justify" HeaderStyle-HorizontalAlign="Justify"/>
+                  <asp:BoundField DataField="WaitingListOrder" HeaderText="Order" ItemStyle-HorizontalAlign="Center" HeaderStyle-HorizontalAlign="Center"/>
+                  <asp:BoundField DataField="TicketsRequested" HeaderText="Tickets" ItemStyle-HorizontalAlign="Center" HeaderStyle-HorizontalAlign="Center"/>
                   <asp:HyperLinkField DataNavigateUrlFields="pk_DonorEventList" DataNavigateUrlFormatString="~/DonorEventListDetails.aspx?delid={0}" Text="EDIT" />
               </Columns>
           </asp:GridView>

@@ -29,7 +29,7 @@
           <ContentTemplate>
       <asp:Panel ID="pnlDonorEvents" runat="server" Height="300pt" Width="650pt" ScrollBars="Auto" >
           <asp:GridView ID="gvDonorEvents" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" AutoGenerateColumns="false" Width="600pt"
-               OnRowCommand="gvDonorEvents_RowCommand">
+               OnRowCommand="gvDonorEvents_RowCommand" HeaderStyle-HorizontalAlign="Center">
               <AlternatingRowStyle BackColor="White" />
               <FooterStyle BackColor="#990000" Font-Bold="True" ForeColor="White" />
               <HeaderStyle BackColor="#990000" Font-Bold="True" ForeColor="White" />
@@ -41,12 +41,12 @@
               <SortedDescendingCellStyle BackColor="#FCF6C0" />
               <SortedDescendingHeaderStyle BackColor="#820000" />
               <Columns>
-                  <asp:BoundField DataField="pk_DonorList" HeaderText="Donor ID" />
-                  <asp:BoundField DataField="AccountName" HeaderText="Name" />
-                  <asp:BoundField DataField="DonorType" HeaderText="Donor Type" />
-                  <asp:BoundField DataField="Response_Date" HeaderText="Response Date" />
-                  <asp:BoundField DataField="TicketsRequested" HeaderText="Tickets" />
-                  <asp:BoundField DataField="TicketsMailed_Date" HeaderText="Tickets Sent" />
+                  <asp:BoundField DataField="pk_DonorList" HeaderText="Donor ID" ItemStyle-HorizontalAlign="Justify" HeaderStyle-HorizontalAlign="Justify" />
+                  <asp:BoundField DataField="AccountName" HeaderText="Name" ItemStyle-HorizontalAlign="Justify" HeaderStyle-HorizontalAlign="Justify"/>
+                  <asp:BoundField DataField="DonorType" HeaderText="Donor Type" ItemStyle-HorizontalAlign="Justify" HeaderStyle-HorizontalAlign="Justify" ItemStyle-Wrap="True" />
+                  <asp:BoundField DataField="Response_Date" HeaderText="Response Date" ItemStyle-HorizontalAlign="Justify" HeaderStyle-HorizontalAlign="Justify" ItemStyle-Wrap="False"/>
+                  <asp:BoundField DataField="TicketsRequested" HeaderText="Tickets" ItemStyle-HorizontalAlign="Center" HeaderStyle-HorizontalAlign="Center"/>
+                  <asp:BoundField DataField="TicketsMailed_Date" HeaderText="Tickets Sent" ItemStyle-HorizontalAlign="Center" HeaderStyle-HorizontalAlign="Center"/>
                   <asp:ButtonField ButtonType="Button" Text="Send" />
                   <asp:HyperLinkField DataNavigateUrlFields="pk_DonorEventList" DataNavigateUrlFormatString="~/DonorEventListDetails.aspx?delid={0}" Text="EDIT" />
               </Columns>
