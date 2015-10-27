@@ -2,6 +2,7 @@
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.Diagnostics;
 
 namespace SPLC.Donor.Models
 {
@@ -421,6 +422,8 @@ namespace SPLC.Donor.Models
 				sql += " AND AccountName LIKE '%" + lastName + "%' ";
 
 			sql += " ORDER BY DEL.Response_Date DESC";
+
+            Debug.WriteLine(sql);
 
 			var conn = new SqlConnection(ConnectionString);
 			conn.Open();
