@@ -49,6 +49,7 @@
                     <asp:BoundField DataField="AccountName" HeaderText="Name" SortExpression="AccountName" />
                     <asp:BoundField DataField="AddressLine1" HeaderText="AddressLine1" SortExpression="AddressLine1" />
                     <asp:BoundField DataField="AddressLine2" HeaderText="AddressLine2" SortExpression="AddressLine2" />
+                    <asp:BoundField DataField="AddressLine3" HeaderText="AddressLine2" SortExpression="AddressLine3" />
                     <asp:BoundField DataField="City" HeaderText="City" SortExpression="City" />
                     <asp:BoundField DataField="PhoneNumber" HeaderText="Phone" SortExpression="PhoneNumber" />
                     <asp:BoundField DataField="TicketsRequested" HeaderText="Tickets" SortExpression="TicketsRequested" />
@@ -76,3 +77,4 @@
 
     </script>
 </asp:Content>
+
