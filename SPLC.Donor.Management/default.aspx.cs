@@ -217,6 +217,19 @@ namespace SPLC.Donor.Management
                 result = true;
             }
 
+            if (!donorList.AddressLine2.Equals(txtAddress2.Text))
+            {
+                donorList.AddressLine2 = txtAddress2.Text;
+                result = true;
+            }
+
+            if (!donorList.AddressLine3.Equals(txtAddress3.Text))
+            {
+                donorList.AddressLine3 = txtAddress3.Text;
+                result = true;
+            }
+
+
             if (!donorList.City.Equals(txtCity.Text))
             {
                 donorList.City = txtCity.Text;
@@ -263,6 +276,8 @@ namespace SPLC.Donor.Management
 
                 txtName.Text = "";
                 txtAddress.Text = "";
+                txtAddress2.Text = "";
+                txtAddress3.Text = "";
                 txtCity.Text = "";
                 ddlState.SelectedIndex = 0;
                 txtZipCode.Text = "";
@@ -314,6 +329,8 @@ namespace SPLC.Donor.Management
                     {
                         txtName.Text = donorList.AccountName;
                         txtAddress.Text = donorList.AddressLine1;
+                        txtAddress2.Text = donorList.AddressLine2;
+                        txtAddress3.Text = donorList.AddressLine3;
                         txtCity.Text = donorList.City;
                         ddlState.SelectedValue = donorList.State;
                         txtZipCode.Text = donorList.PostCode;

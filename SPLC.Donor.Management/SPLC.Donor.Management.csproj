@@ -14,7 +14,7 @@
     <RootNamespace>SPLC.Donor.Management</RootNamespace>
     <AssemblyName>SPLC.Donor.Management</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <UseIISExpress>false</UseIISExpress>
+    <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication>disabled</IISExpressAnonymousAuthentication>
     <IISExpressWindowsAuthentication>enabled</IISExpressWindowsAuthentication>
@@ -415,7 +415,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>58653</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost/dm</IISUrl>
+          <IISUrl>http://localhost:58653/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

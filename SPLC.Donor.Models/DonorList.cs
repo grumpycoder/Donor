@@ -21,6 +21,7 @@ namespace SPLC.Donor.Models
         public string AccountName { get; set; }
         public string AddressLine1 { get; set; }
         public string AddressLine2 { get; set; }
+        public string AddressLine3 { get; set; }
         public string City { get; set; }
         public string State { get; set; }
         public string PostCode { get; set; }
@@ -68,6 +69,8 @@ namespace SPLC.Donor.Models
                 KeyName = dr["KeyName"].ToString();
                 AccountName = dr["AccountName"].ToString();
                 AddressLine1 = dr["AddressLine1"].ToString();
+                AddressLine2 = dr["AddressLine2"].ToString();
+                AddressLine3 = dr["AddressLine3"].ToString();
                 City = dr["City"].ToString();
                 State = dr["State"].ToString();
                 PostCode = dr["PostCode"].ToString();
@@ -114,15 +117,15 @@ namespace SPLC.Donor.Models
                 var cmd = new SqlCommand()
                 {
                     CommandText = "INSERT INTO DonorList " +
-                                  "(pk_DonorList, KeyName, AccountType, AddressLine1, AddressLine2, City, State, PostCode, PhoneNumber, DonorType)" +
-                                  "VALUES(@pk_DonorList, @KeyName, @AccountType, @AddressLine1, @AddressLine2, @City, @State, @PostCode, @PhoneNumber, @DonorType)",
+                                  "(pk_DonorList, KeyName, AccountType, AddressLine1, AddressLine2, AddressLine3, City, State, PostCode, PhoneNumber, DonorType)" +
+                                  "VALUES(@pk_DonorList, @KeyName, @AccountType, @AddressLine1, @AddressLine2, @AddressLine3, @City, @State, @PostCode, @PhoneNumber, @DonorType)",
                     Connection = cn,
                     CommandType = CommandType.Text
                 };
                 cmd.Parameters.AddWithValue("pk_DonorList", pk_DonorList);
                 cmd.Parameters.AddWithValue("KeyName", KeyName ?? "");
                 cmd.Parameters.AddWithValue("AccountType", AccountType ?? "Individual");
-                cmd.Parameters.AddWithValue("DonorType", DonorType?? "Guest");
+                cmd.Parameters.AddWithValue("DonorType", DonorType ?? "Guest");
                 cmd.Parameters.AddWithValue("AddressLine1", AddressLine1 ?? "");
                 cmd.Parameters.AddWithValue("AddressLine2", AddressLine2 ?? "");
                 cmd.Parameters.AddWithValue("City", City ?? "");
@@ -144,7 +147,7 @@ namespace SPLC.Donor.Models
                     CommandText = "UPDATE DonorList SET " +
                                   "AccountType = @AccountType, KeyName = @KeyName, " +
                                   "InsideSal = @InsideSal, OutsideSal = @OutsideSal, " +
-                                  "AccountName = @AccountName, AddressLine1 = @AddressLine1, AddressLine2 = @AddressLine2, City = @City, " +
+                                  "AccountName = @AccountName, AddressLine1 = @AddressLine1, AddressLine2 = @AddressLine2, AddressLine3 = @AddressLine3, City = @City, " +
                                   "State = @State, PostCode = @PostCode, EmailAddress = @EmailAddress, PhoneNumber = @PhoneNumber " +
                                   "WHERE pk_DonorList = @pk_DonorList",
                     Connection = cn,
@@ -159,6 +162,7 @@ namespace SPLC.Donor.Models
                 cmd.Parameters.AddWithValue("AccountName", AccountName);
                 cmd.Parameters.AddWithValue("AddressLine1", AddressLine1);
                 cmd.Parameters.AddWithValue("AddressLine2", AddressLine2);
+                cmd.Parameters.AddWithValue("AddressLine3", AddressLine3);
                 cmd.Parameters.AddWithValue("City", City);
                 cmd.Parameters.AddWithValue("State", State);
                 cmd.Parameters.AddWithValue("PostCode", PostCode);
@@ -166,6 +170,7 @@ namespace SPLC.Donor.Models
                 cmd.Parameters.AddWithValue("PhoneNumber", PhoneNumber);
 
                 if (AddressLine2 == null) cmd.Parameters["AddressLine2"].Value = DBNull.Value;
+                if (AddressLine3 == null) cmd.Parameters["AddressLine3"].Value = DBNull.Value;
 
                 cmd.ExecuteNonQuery();
             }

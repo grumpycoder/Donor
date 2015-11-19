@@ -75,6 +75,14 @@
                          <th>Address:</th>
                            <td><asp:TextBox ID="txtAddress" runat="server" Width="300" /></td>
                        </tr>
+                                              <tr>
+                         <th>Address2:</th>
+                           <td><asp:TextBox ID="txtAddress2" runat="server" Width="300" /></td>
+                       </tr>
+                                              <tr>
+                         <th>Address3:</th>
+                           <td><asp:TextBox ID="txtAddress3" runat="server" Width="300" /></td>
+                       </tr>
                        <tr>
                          <th>City:</th>
                            <td><asp:TextBox ID="txtCity" runat="server"  />

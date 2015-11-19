@@ -61,6 +61,8 @@ namespace SPLC.Donor.Management
 
             txtName.Text = donorList.AccountName;
             txtAddress.Text = donorList.AddressLine1;
+            txtAddress2.Text = donorList.AddressLine2;
+            txtAddress3.Text = donorList.AddressLine3;
             txtCity.Text = donorList.City;
             ddlState.SelectedValue = donorList.State;
             txtZipCode.Text = donorList.PostCode;
