@@ -36,7 +36,9 @@
               <asp:BoundField DataField="AccountID" HeaderText="Account ID" SortExpression="AccountID" />    
               <asp:BoundField DataField="AccountName" HeaderText="Name" SortExpression="AccountName" />
               
-              <asp:BoundField DataField="AddressLine1" HeaderText="Address" SortExpression="AddressLine1" />
+              <asp:BoundField DataField="AddressLine1" HeaderText="Address 1" SortExpression="AddressLine1" />
+              <asp:BoundField DataField="AddressLine2" HeaderText="Address 2" SortExpression="AddressLine2" />
+              <asp:BoundField DataField="AddressLine3" HeaderText="Address 3" SortExpression="AddressLine3" />
                   <asp:BoundField DataField="City" HeaderText="City" SortExpression="City" />
               <asp:BoundField DataField="State" HeaderText="State" SortExpression="State" />
               <asp:BoundField DataField="PostCode" HeaderText="ZipCode" SortExpression="PostCode" />

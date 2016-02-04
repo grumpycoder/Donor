@@ -123,7 +123,7 @@ namespace SPLC.Donor.Management.Report
             {
                 var chkMail = gvReport.Rows[i].FindControl("chkMail") as CheckBox;
                 if (chkMail == null || !chkMail.Checked) continue;
-                var ticketCount = gvReport.Rows[i].Cells[10].Text;
+                var ticketCount = gvReport.Rows[i].Cells[8].Text;
                 var dataKey = gvReport.DataKeys[i];
                 if (dataKey == null) continue;
                 var key = dataKey.Value;
@@ -132,8 +132,8 @@ namespace SPLC.Donor.Management.Report
                     TicketsMailed_Date = DateTime.Now,
                     TicketsMailed_User = User.Identity.Name,
                     TicketsRequested = int.Parse(ticketCount),
-                    Response_Type = "SPLC Admin", 
-                    WaitingListOrder = 0, 
+                    Response_Type = "SPLC Admin",
+                    WaitingListOrder = 0,
                     UpdatedInfoDateTime = DateTime.Now
                 };
                 DEL.MailCards();

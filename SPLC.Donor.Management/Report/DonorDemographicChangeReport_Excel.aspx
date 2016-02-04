@@ -14,7 +14,9 @@
           <asp:BoundField DataField="AccountID" HeaderText="Donor ID" />
           <asp:BoundField DataField="pk_DonorList" HeaderText="Finder Number" />
           <asp:BoundField DataField="AccountName" HeaderText="Name" />
-          <asp:BoundField DataField="AddressLine1" HeaderText="Address" />
+          <asp:BoundField DataField="AddressLine1" HeaderText="Address 1" />
+          <asp:BoundField DataField="AddressLine2" HeaderText="Address 2" />
+          <asp:BoundField DataField="AddressLine3" HeaderText="Address 3" />
           <asp:BoundField DataField="City" HeaderText="City" />
           <asp:BoundField DataField="State" HeaderText="State" />
           <asp:BoundField DataField="PostCode" HeaderText="ZipCode" />
