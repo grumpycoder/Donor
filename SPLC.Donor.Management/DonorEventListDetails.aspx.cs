@@ -97,10 +97,10 @@ namespace SPLC.Donor.Management
             var donorEventList = new DonorEventList(User.Identity.Name, int.Parse(Request["delid"]))
             {
                 UpdatedInfo = false,
-                UpdatedInfo_User = null,
+                UpdatedInfo_User = User.Identity.Name,
                 UpdatedInfoDateTime = DateTime.Parse("1/1/1000")
             };
-            donorEventList.Update();
+            donorEventList.SaveChanges();
 
             Response.Redirect("DonorEventListDetails.aspx?delid=" + donorEventList.pk_DonorEventList);
         }
